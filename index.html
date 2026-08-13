@@ -72,6 +72,32 @@ tr:hover td{background:#f8fafc}
 
 .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .filter-row select{border:1.5px solid #e2e8f0;border-radius:7px;padding:6px 11px;font-size:12px;font-family:inherit;background:#fff}
+
+.scorecard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.scorecard{background:#f8fafc;border-radius:12px;padding:16px;border:1.5px solid #e2e8f0}
+.scorecard .region-name{font-size:14px;font-weight:800;color:#0f172a;margin-bottom:8px}
+.scorecard .score-row{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.scorecard .score-big{font-size:26px;font-weight:800}
+.scorecard .trend{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px}
+.trend.up{background:#dcfce7;color:#15803d}
+.trend.down{background:#fee2e2;color:#b91c1c}
+.trend.flat{background:#f1f5f9;color:#64748b}
+.scorecard .meta{font-size:11px;color:#64748b;margin-top:6px}
+.scorecard .top-issue{font-size:11.5px;color:#475569;margin-top:8px;padding-top:8px;border-top:1px solid #e2e8f0}
+
+.area-group{margin-bottom:18px}
+.area-group-title{font-size:12.5px;font-weight:800;color:#0f172a;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid #f1f5f9;display:flex;align-items:center;gap:8px}
+.area-group-title .tag{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:10px;text-transform:none;letter-spacing:0}
+.tag-core{background:#e0e7ff;color:#3730a3}
+.tag-other{background:#f1f5f9;color:#64748b}
+
+.chronic-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f1f5f9}
+.chronic-row:last-child{border-bottom:none}
+.chronic-badge{background:#fef3c7;color:#92400e;font-weight:800;font-size:12px;border-radius:8px;padding:4px 10px;flex-shrink:0;white-space:nowrap}
+.chronic-text{flex:1;font-size:12.5px;color:#334155}
+.chronic-quarters{font-size:10.5px;color:#94a3b8}
+
+.no-selection{text-align:center;padding:30px;color:#94a3b8;font-size:13px}
 </style>
 </head>
 <body>
@@ -100,6 +126,7 @@ tr:hover td{background:#f8fafc}
     <div class="filter-row">
       <select id="quarterFilter" onchange="renderDashboard()"><option value="__all__">All Quarters</option></select>
       <select id="regionFilter" onchange="renderDashboard()"><option value="__all__">All Regions</option></select>
+      <select id="locationFilter" onchange="renderDashboard()"><option value="__all__">All Locations</option></select>
     </div>
 
     <div class="kpi-row" id="kpiRow"></div>
@@ -116,6 +143,24 @@ tr:hover td{background:#f8fafc}
       <div id="regionChart"></div>
     </div>
 
+    <div class="section" id="regionScorecardSection">
+      <h2>📋 Region Scorecards</h2>
+      <div class="desc">Quarter-over-quarter movement by region — ready to use as a starting point for quarterly regional safety meetings.</div>
+      <div id="regionScorecards"></div>
+    </div>
+
+    <div class="section">
+      <h2>🏆 Recognition — Best &amp; Most Improved</h2>
+      <div class="desc">Worth calling out in the meeting — not just what needs fixing.</div>
+      <div id="recognitionGrid" class="coverage-grid"></div>
+    </div>
+
+    <div class="section">
+      <h2>🔁 Repeat &amp; Chronic Issues</h2>
+      <div class="desc">Findings that keep showing up at the same location across multiple quarters — these deserve more attention than a one-time slip.</div>
+      <div id="chronicList"></div>
+    </div>
+
     <div class="section">
       <h2>✅ Submission Completion</h2>
       <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
@@ -123,9 +168,21 @@ tr:hover td{background:#f8fafc}
     </div>
 
     <div class="section">
-      <h2>⚠️ Top Recurring Safety Issues</h2>
+      <h2>⚠️ Top Recurring Safety Issues — Overall</h2>
       <div class="desc">Most frequent findings across all submitted audits — patterns worth addressing company-wide.</div>
       <div id="issuesList"></div>
+    </div>
+
+    <div class="section">
+      <h2>🧭 Issues by Area</h2>
+      <div class="desc">The same findings, broken down by Core and Other audit sections — helps pinpoint whether problems cluster in specific areas.</div>
+      <div id="issuesByArea"></div>
+    </div>
+
+    <div class="section" id="locationDrilldownSection">
+      <h2>🔎 Location Drill-Down</h2>
+      <div class="desc">Select a single location above (in the filter bar) to see its issues broken down by area.</div>
+      <div id="locationDrilldown"></div>
     </div>
 
     <div class="section">
@@ -134,14 +191,34 @@ tr:hover td{background:#f8fafc}
       <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
       <div class="tbl-wrap"><table id="coverageTable"></table></div>
     </div>
+
+    <div class="section" id="meetingPacketSection">
+      <h2>🖨️ Regional Meeting Packet</h2>
+      <div class="desc">Generates a print-ready, one-page-per-region summary — pick a region below or leave "All Regions" for a full packet.</div>
+      <button class="btn" onclick="printMeetingPacket()" style="background:#0f172a;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer">🖨️ Print Meeting Packet</button>
+    </div>
   </div>
 </div>
 
+<div id="meetingPacket" style="display:none"></div>
+
 <div id="footbanner">TSC PROPRIETARY AND CONFIDENTIAL — LEADERSHIP VIEW ONLY</div>
+
+<style media="print">
+  #header, .filter-row, #footbanner, #meetingPacketSection, #topbanner { display:none !important; }
+  #dashContent > .section:not(#meetingPacketSection) { display:none !important; }
+  #meetingPacket { display:block !important; }
+  body{padding-bottom:0}
+  .packet-page{page-break-after:always;padding:20px}
+  .packet-page:last-child{page-break-after:auto}
+</style>
 
 <script>
 const LOCATIONS = [{"id": "4169", "name": "1 Hotel Hanalei Bay", "region": "West", "state": "HI", "rvp": "Alan Ching", "manager": "Farhad Khaledi", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1005", "name": "Ballys (El Dorado) Shreveport", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Roger Barco", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1072", "name": "Foxwoods Casino", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Kalet Garcia Torres", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4177", "name": "Garden of the Gods", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1055", "name": "Golden Nugget", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Maritzza Odom", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4173", "name": "Great Wolf Lodge", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Kalet Garcia Torres", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "999-1", "name": "Hilton LAX", "region": "West", "state": "CA", "rvp": "Alan Ching", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "999-3", "name": "Holiday Inn Sulphur", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Harrison Hutchinson", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4011", "name": "Hyatt Regency Greenwich", "region": "Mid-Atlantic", "state": "CT", "rvp": "Eva Nika", "manager": "Richard Pierre", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7022", "name": "Hyatt Regency Pinon Pointe VO", "region": "West", "state": "AZ", "rvp": "Alan Ching", "manager": "Esmeralda Medina Silva", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1012", "name": "LAuberge Casino Resort", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Maritza Odom", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4154", "name": "LegacyHotelandIMGABradenton", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Alina Pichs Martinez", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9021", "name": "Linq Promenade Las Vegas9021", "region": "West", "state": "NV", "rvp": "Alan Ching", "manager": "Andy Galan", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "997", "name": "Little Creek Casino", "region": "West", "state": "WA", "rvp": "Alan Ching", "manager": "Latoya Jackson", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1092", "name": "Live Casino & Hotel", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Caren Butterworth EVS", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1092-2", "name": "Live Casino & Hotel", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Robin Zamudio HSK", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1000", "name": "Mohegan Casino", "region": "Mid-Atlantic", "state": "PA", "rvp": "Eva Nika", "manager": "Michelle Santos", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1093", "name": "Muckleshoot Casino", "region": "West", "state": "WA", "rvp": "Alan Ching", "manager": "Latoya Jackson", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "999-2", "name": "Omni Homestead", "region": "Mid-Atlantic", "state": "VA", "rvp": "Eva Nika", "manager": "Marvin Martin", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1100", "name": "Osage Casino Downtown Tulsa", "region": "West", "state": "OK", "rvp": "Alan Ching", "manager": "Joshua Goodhue", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4014", "name": "Peabody Memphis", "region": "Central", "state": "TN", "rvp": "Harrison Hutchinson", "manager": "Harrison Hutchinson", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9028", "name": "Riverside Hospital", "region": "West", "state": "CA", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4023", "name": "Roosevelt New Orleans", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7050", "name": "SaddleBrook Resort", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Carley Wike", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1070", "name": "Sams Town Shreveport", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Zawaunyka Washington", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4171", "name": "Sea Island Resort", "region": "West", "state": "HI", "rvp": "Anibal Fernandez", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4172", "name": "Sea Island Resort GA", "region": "East", "state": "GA", "rvp": "Anibal Fernandez", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9026", "name": "Southern Hills Hospital", "region": "West", "state": "NV", "rvp": "Alan Ching", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4175", "name": "The Jacquard Hotel", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4174", "name": "The Oxford Hotel", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "7038", "name": "Tucker Century Millenia", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Tayquan Taylor", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7037", "name": "Tucker Palmer Dadeland", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Tayquan Taylor", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1091", "name": "Turfway Park Racing & Casino", "region": "Central", "state": "KY", "rvp": "Harrison Hutchinson", "manager": "Sara Abbas", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4180", "name": "Westin Fort Lauderdale", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Ariel Christopher", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1089", "name": "Wind Creek Casino", "region": "Mid-Atlantic", "state": "PA", "rvp": "Eva Nika", "manager": "Michelle Santos", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}];
 const REGIONS = [...new Set(LOCATIONS.map(l=>l.region))].sort();
+const CORE_SECTIONS = ['General Safety','Chemical Safety','Emergency Prep','Training & Docs'];
+const OTHER_SECTIONS = ['Housekeeping','EVS','Public Areas','Kitchen/Stewarding','Vehicles','Golf Carts'];
+const ALL_SECTIONS_ORDERED = [...CORE_SECTIONS, ...OTHER_SECTIONS];
 
 function xH(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -170,13 +247,17 @@ function populateFilters(){
   qSel.innerHTML = '<option value="__all__">All Quarters</option>' + quarters.map(q=>'<option value="'+xH(q)+'">'+xH(q)+'</option>').join('');
   const rSel = document.getElementById('regionFilter');
   rSel.innerHTML = '<option value="__all__">All Regions</option>' + REGIONS.map(r=>'<option value="'+xH(r)+'">'+xH(r)+'</option>').join('');
+  const lSel = document.getElementById('locationFilter');
+  const sortedLocs = [...LOCATIONS].sort((a,b)=>a.name.localeCompare(b.name));
+  lSel.innerHTML = '<option value="__all__">All Locations</option>' + sortedLocs.map(l=>'<option value="'+xH(l.id)+'">'+xH(l.name)+'</option>').join('');
 }
 
 function filteredSubmissions(){
   const q = document.getElementById('quarterFilter').value;
   const r = document.getElementById('regionFilter').value;
+  const l = document.getElementById('locationFilter').value;
   return dashData.submissions.filter(s=>
-    (q==='__all__'||s.quarter===q) && (r==='__all__'||s.region===r)
+    (q==='__all__'||s.quarter===q) && (r==='__all__'||s.region===r) && (l==='__all__'||s.unitId===l)
   );
 }
 
@@ -186,14 +267,35 @@ function scoreClass(score){
 function barClass(score){
   return score>=90?'s-good':score>=75?'s-warn':'s-bad';
 }
+function quarterSortKey(q){
+  // "Q1 2026" -> 20261, "Q3 2026" -> 20263 — sorts correctly across years and quarters
+  const m = /Q(\d)\s*(\d{4})/.exec(q||'');
+  return m ? parseInt(m[2],10)*10 + parseInt(m[1],10) : 0;
+}
+function sortedQuarters(){
+  return [...new Set(dashData.submissions.map(s=>s.quarter).filter(Boolean))].sort((a,b)=>quarterSortKey(a)-quarterSortKey(b));
+}
+function currentAndPreviousQuarter(){
+  const all = sortedQuarters();
+  const filterVal = document.getElementById('quarterFilter').value;
+  const current = filterVal!=='__all__' ? filterVal : all[all.length-1];
+  const idx = all.indexOf(current);
+  const previous = idx>0 ? all[idx-1] : null;
+  return {current, previous};
+}
 
 function renderDashboard(){
   const subs = filteredSubmissions();
   renderKPIs(subs);
   renderTrendChart();
   renderRegionChart(subs);
+  renderRegionScorecards();
+  renderRecognition();
+  renderChronicIssues();
   renderCompletionTable();
   renderIssuesList(subs);
+  renderIssuesByArea(subs);
+  renderLocationDrilldown();
   renderCoverage(subs);
 }
 
@@ -204,7 +306,7 @@ function renderKPIs(subs){
   const submittedIds = new Set(subs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
   const completionPct = relevantLocIds.size ? Math.round(submittedIds.size/relevantLocIds.size*100) : 0;
   const totalNo = subs.reduce((s,x)=>s+(x.no||0),0);
-  const vpAudits = subs.filter(s=>s.sourceTool==='VP Audit');
+  const vpAudits = subs.filter(s=>s.sourceTool==='Risk VP Audit'||s.sourceTool==='Regional VP Assessment');
   const virtualCount = vpAudits.filter(s=>s.auditType==='Virtual').length;
 
   const kpis = [
@@ -245,6 +347,100 @@ function renderRegionChart(subs){
   ).join('');
 }
 
+function renderRegionScorecards(){
+  const {current, previous} = currentAndPreviousQuarter();
+  const lFilter = document.getElementById('locationFilter').value;
+  const rFilterActive = document.getElementById('regionFilter').value;
+  const regions = rFilterActive==='__all__' ? REGIONS : [rFilterActive];
+
+  const cards = regions.map(region=>{
+    const curSubs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && (lFilter==='__all__'||s.unitId===lFilter));
+    const prevSubs = previous ? dashData.submissions.filter(s=>s.region===region && s.quarter===previous && (lFilter==='__all__'||s.unitId===lFilter)) : [];
+    if(!curSubs.length) return null;
+    const curAvg = Math.round(curSubs.reduce((a,x)=>a+x.score,0)/curSubs.length);
+    const prevAvg = prevSubs.length ? Math.round(prevSubs.reduce((a,x)=>a+x.score,0)/prevSubs.length) : null;
+    const delta = prevAvg!==null ? curAvg-prevAvg : null;
+    const trendCls = delta===null?'flat':delta>0?'up':delta<0?'down':'flat';
+    const trendTxt = delta===null?'No prior data':delta>0?('▲ +'+delta+' pts'):delta<0?('▼ '+delta+' pts'):'No change';
+
+    const locs = new Set(LOCATIONS.filter(l=>l.region===region).map(l=>l.id));
+    const submittedCount = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId)).size;
+    const completion = locs.size ? Math.round(submittedCount/locs.size*100) : 0;
+
+    const issueCounts = {};
+    curSubs.forEach(s=>(s.actions||[]).forEach(a=>{ issueCounts[a.question] = (issueCounts[a.question]||0)+1; }));
+    const topIssue = Object.entries(issueCounts).sort((a,b)=>b[1]-a[1])[0];
+
+    return '<div class="scorecard"><div class="region-name">'+xH(region)+'</div>'
+      +'<div class="score-row"><span class="score-big">'+curAvg+'%</span><span class="trend '+trendCls+'">'+trendTxt+'</span></div>'
+      +'<div class="meta">'+curSubs.length+' audits this quarter · '+completion+'% Self-Assessment completion</div>'
+      +(topIssue?'<div class="top-issue">Top issue: '+xH(topIssue[0])+' ('+topIssue[1]+'x)</div>':'<div class="top-issue">No findings this quarter</div>')
+      +'</div>';
+  }).filter(Boolean);
+
+  document.getElementById('regionScorecards').innerHTML = cards.length ? '<div class="scorecard-grid">'+cards.join('')+'</div>'
+    : '<div class="no-selection">No data for the current quarter (' + xH(current||'—') + ') to build scorecards from.</div>';
+}
+
+function renderRecognition(){
+  const {current, previous} = currentAndPreviousQuarter();
+  const rFilter = document.getElementById('regionFilter').value;
+  const curSubs = dashData.submissions.filter(s=>s.quarter===current && (rFilter==='__all__'||s.region===rFilter));
+
+  const best = [...curSubs].sort((a,b)=>b.score-a.score).slice(0,3);
+
+  let mostImproved = [];
+  if(previous){
+    const prevByLoc = {};
+    dashData.submissions.filter(s=>s.quarter===previous).forEach(s=>{ prevByLoc[s.unitId]=s.score; });
+    mostImproved = curSubs
+      .filter(s=>prevByLoc.hasOwnProperty(s.unitId))
+      .map(s=>({...s, delta:s.score-prevByLoc[s.unitId]}))
+      .filter(s=>s.delta>0)
+      .sort((a,b)=>b.delta-a.delta)
+      .slice(0,3);
+  }
+
+  let html = '';
+  if(best.length){
+    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Best Scores This Quarter</div>';
+    html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">'+xH(s.name)+'</div></div>').join('');
+    html += '</div>';
+  }
+  if(mostImproved.length){
+    html += '<div><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">📈 Most Improved</div>';
+    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">'+xH(s.name)+'</div></div>').join('');
+    html += '</div>';
+  }
+  document.getElementById('recognitionGrid').innerHTML = html || '<div class="no-selection">Not enough data yet to identify top performers.</div>';
+}
+
+function renderChronicIssues(){
+  const lFilter = document.getElementById('locationFilter').value;
+  const rFilter = document.getElementById('regionFilter').value;
+  const relevant = dashData.submissions.filter(s=>(rFilter==='__all__'||s.region===rFilter)&&(lFilter==='__all__'||s.unitId===lFilter));
+
+  const byLocRef = {};
+  relevant.forEach(s=>{
+    (s.actions||[]).forEach(a=>{
+      const key = s.unitId+'|'+a.ref;
+      if(!byLocRef[key]) byLocRef[key] = {unitId:s.unitId, name:s.name, ref:a.ref, question:a.question, quarters:new Set()};
+      byLocRef[key].quarters.add(s.quarter);
+    });
+  });
+  const chronic = Object.values(byLocRef).filter(x=>x.quarters.size>=2).sort((a,b)=>b.quarters.size-a.quarters.size);
+
+  if(!chronic.length){
+    document.getElementById('chronicList').innerHTML = '<div class="no-selection">No repeat findings detected yet — needs at least 2 quarters of data at the same location to identify a pattern.</div>';
+    return;
+  }
+  document.getElementById('chronicList').innerHTML = chronic.map(c=>
+    '<div class="chronic-row"><div class="chronic-badge">'+c.quarters.size+'x</div>'
+    +'<div class="chronic-text"><strong>'+xH(c.name)+'</strong> — ['+xH(c.ref)+'] '+xH(c.question)+'</div>'
+    +'<div class="chronic-quarters">'+[...c.quarters].sort((a,b)=>quarterSortKey(a)-quarterSortKey(b)).join(', ')+'</div></div>'
+  ).join('');
+}
+
 function renderCompletionTable(){
   const q = document.getElementById('quarterFilter').value;
   const relevantQ = q==='__all__' ? [...new Set(dashData.submissions.map(s=>s.quarter))].sort().pop() : q;
@@ -276,10 +472,69 @@ function renderIssuesList(subs){
   ).join('');
 }
 
+function renderIssuesByArea(subs){
+  const bySection = {};
+  subs.forEach(s=>{
+    (s.actions||[]).forEach(a=>{
+      const sec = a.section||'Other';
+      const key = sec+'|'+a.ref+'|'+a.question;
+      if(!bySection[sec]) bySection[sec] = {};
+      if(!bySection[sec][key]) bySection[sec][key] = {ref:a.ref, question:a.question, count:0};
+      bySection[sec][key].count++;
+    });
+  });
+
+  function renderGroup(title, sections, tagCls, tagLabel){
+    const groupHtml = sections.map(sec=>{
+      const items = bySection[sec] ? Object.values(bySection[sec]).sort((a,b)=>b.count-a.count).slice(0,5) : [];
+      if(!items.length) return '';
+      return '<div style="margin-bottom:12px"><div style="font-size:12px;font-weight:700;color:#334155;margin-bottom:6px">'+xH(sec)+'</div>'
+        +items.map(t=>'<div class="issue-row"><div class="issue-count">'+t.count+'</div><div class="issue-text">['+xH(t.ref)+'] '+xH(t.question)+'</div></div>').join('')
+        +'</div>';
+    }).filter(Boolean).join('');
+    if(!groupHtml) return '';
+    return '<div class="area-group"><div class="area-group-title">'+title+' <span class="tag '+tagCls+'">'+tagLabel+'</span></div>'+groupHtml+'</div>';
+  }
+
+  const html = renderGroup('Core Areas', CORE_SECTIONS, 'tag-core', 'CORE') + renderGroup('Other Areas', OTHER_SECTIONS, 'tag-other', 'OPTIONAL');
+  document.getElementById('issuesByArea').innerHTML = html || '<div class="no-selection">No findings recorded for the current filter — great news.</div>';
+}
+
+function renderLocationDrilldown(){
+  const lFilter = document.getElementById('locationFilter').value;
+  const container = document.getElementById('locationDrilldown');
+  if(lFilter==='__all__'){
+    container.innerHTML = '<div class="no-selection">Select a specific location in the filter bar above to see its issues broken down by area.</div>';
+    return;
+  }
+  const loc = LOCATIONS.find(l=>l.id===lFilter);
+  const subs = dashData.submissions.filter(s=>s.unitId===lFilter).sort((a,b)=>quarterSortKey(a.quarter)-quarterSortKey(b.quarter));
+  if(!subs.length){
+    container.innerHTML = '<div class="no-selection">No audits on file yet for '+xH(loc?loc.name:lFilter)+'.</div>';
+    return;
+  }
+  const scoreHistory = subs.map(s=>s.quarter+': '+s.score+'%').join('  ·  ');
+  const bySection = {};
+  subs.forEach(s=>(s.actions||[]).forEach(a=>{
+    const sec = a.section||'Other';
+    (bySection[sec]=bySection[sec]||[]).push(a.ref+' — '+a.question);
+  }));
+  const areaHtml = ALL_SECTIONS_ORDERED.filter(sec=>bySection[sec]&&bySection[sec].length).map(sec=>
+    '<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:#334155">'+xH(sec)+'</div>'
+    +[...new Set(bySection[sec])].map(x=>'<div style="font-size:12px;color:#64748b;padding:3px 0 3px 12px">• '+xH(x)+'</div>').join('')
+    +'</div>'
+  ).join('');
+  container.innerHTML = '<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:4px">'+xH(loc?loc.name:lFilter)+'</div>'
+    +'<div style="font-size:11.5px;color:#64748b;margin-bottom:14px">Score history: '+scoreHistory+'</div>'
+    +(areaHtml || '<div style="color:#15803d;font-size:12.5px">No open findings on record — clean history.</div>');
+}
+
 function renderCoverage(subs){
-  const vpAudits = subs.filter(s=>s.sourceTool==='VP Audit');
+  const vpAudits = subs.filter(s=>s.sourceTool==='Risk VP Audit'||s.sourceTool==='Regional VP Assessment');
   const virtual = vpAudits.filter(s=>s.auditType==='Virtual').length;
   const onsite = vpAudits.filter(s=>s.auditType==='On-Site').length;
+  const riskVpCount = vpAudits.filter(s=>s.sourceTool==='Risk VP Audit').length;
+  const regionalVpCount = vpAudits.filter(s=>s.sourceTool==='Regional VP Assessment').length;
   const visitedIds = new Set(vpAudits.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
@@ -287,17 +542,78 @@ function renderCoverage(subs){
 
   document.getElementById('coverageGrid').innerHTML =
     '<div class="coverage-box"><div class="n">'+vpAudits.length+'</div><div class="l">Total VP Audits</div></div>'
+    +'<div class="coverage-box"><div class="n">'+riskVpCount+'</div><div class="l">By Risk VP</div></div>'
+    +'<div class="coverage-box"><div class="n">'+regionalVpCount+'</div><div class="l">By Regional VPs</div></div>'
     +'<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div>'
     +'<div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>'
     +'<div class="coverage-box"><div class="n">'+notVisited.length+'</div><div class="l">Not Yet Visited</div></div>';
 
   const rows = vpAudits.map(s=>
     '<tr><td>'+xH(s.unitId)+'</td><td>'+xH(s.name)+'</td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
+    +'<td>'+xH(s.completedBy)+'</td>'
+    +'<td>'+(s.sourceTool==='Regional VP Assessment'?'<span class="pill" style="background:#f3e8ff;color:#7e22ce">Regional VP</span>':'<span class="pill" style="background:#dbeafe;color:#1e3a8a">Risk VP</span>')+'</td>'
     +'<td>'+(s.auditType==='Virtual'?'<span class="pill pill-virtual">🎥 Virtual</span>':'<span class="pill pill-onsite">On-Site</span>')+'</td>'
     +'<td>'+s.score+'%</td></tr>'
   ).join('');
   document.getElementById('coverageTable').innerHTML =
-    '<thead><tr><th>ID</th><th>Location</th><th>Region</th><th>Quarter</th><th>Type</th><th>Score</th></tr></thead><tbody>'+(rows||'<tr><td colspan="6" style="text-align:center;color:#94a3b8">No VP audits recorded yet</td></tr>')+'</tbody>';
+    '<thead><tr><th>ID</th><th>Location</th><th>Region</th><th>Quarter</th><th>Completed By</th><th>Auditor</th><th>Type</th><th>Score</th></tr></thead><tbody>'+(rows||'<tr><td colspan="8" style="text-align:center;color:#94a3b8">No VP audits recorded yet</td></tr>')+'</tbody>';
+}
+
+function printMeetingPacket(){
+  const rFilter = document.getElementById('regionFilter').value;
+  const regions = rFilter==='__all__' ? REGIONS : [rFilter];
+  const {current, previous} = currentAndPreviousQuarter();
+
+  const pages = regions.map(region=>{
+    const curSubs = dashData.submissions.filter(s=>s.region===region && s.quarter===current);
+    const prevSubs = previous ? dashData.submissions.filter(s=>s.region===region && s.quarter===previous) : [];
+    const curAvg = curSubs.length ? Math.round(curSubs.reduce((a,x)=>a+x.score,0)/curSubs.length) : null;
+    const prevAvg = prevSubs.length ? Math.round(prevSubs.reduce((a,x)=>a+x.score,0)/prevSubs.length) : null;
+    const delta = (curAvg!==null && prevAvg!==null) ? curAvg-prevAvg : null;
+
+    const locs = LOCATIONS.filter(l=>l.region===region);
+    const submittedIds = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
+    const completion = locs.length ? Math.round(submittedIds.size/locs.length*100) : 0;
+
+    const issueCounts = {};
+    curSubs.forEach(s=>(s.actions||[]).forEach(a=>{
+      const key=a.ref+'|'+a.question;
+      if(!issueCounts[key]) issueCounts[key]={ref:a.ref,question:a.question,count:0};
+      issueCounts[key].count++;
+    }));
+    const topIssues = Object.values(issueCounts).sort((a,b)=>b.count-a.count).slice(0,8);
+
+    const byLocRef = {};
+    dashData.submissions.filter(s=>s.region===region).forEach(s=>{
+      (s.actions||[]).forEach(a=>{
+        const key = s.unitId+'|'+a.ref;
+        if(!byLocRef[key]) byLocRef[key]={name:s.name,ref:a.ref,question:a.question,quarters:new Set()};
+        byLocRef[key].quarters.add(s.quarter);
+      });
+    });
+    const chronic = Object.values(byLocRef).filter(x=>x.quarters.size>=2).sort((a,b)=>b.quarters.size-a.quarters.size).slice(0,6);
+
+    const missing = locs.filter(l=>!submittedIds.has(l.id));
+
+    return '<div class="packet-page">'
+      +'<h1 style="font-size:20px;font-weight:800;color:#0f172a;margin-bottom:2px">'+xH(region)+' Region — Quarterly Safety Review</h1>'
+      +'<div style="font-size:12px;color:#64748b;margin-bottom:18px">Quarter: '+xH(current||'—')+' &nbsp;·&nbsp; Generated '+xH(dashData.generatedAtDisplay||'')+'</div>'
+      +'<div style="display:flex;gap:16px;margin-bottom:20px">'
+        +'<div style="flex:1;background:#f8fafc;border-radius:10px;padding:14px"><div style="font-size:24px;font-weight:800">'+(curAvg!==null?curAvg+'%':'—')+'</div><div style="font-size:11px;color:#64748b">Avg Compliance Score'+(delta!==null?' ('+(delta>=0?'+':'')+delta+' pts vs prior quarter)':'')+'</div></div>'
+        +'<div style="flex:1;background:#f8fafc;border-radius:10px;padding:14px"><div style="font-size:24px;font-weight:800">'+completion+'%</div><div style="font-size:11px;color:#64748b">Self-Assessment Completion ('+submittedIds.size+' of '+locs.length+')</div></div>'
+        +'<div style="flex:1;background:#f8fafc;border-radius:10px;padding:14px"><div style="font-size:24px;font-weight:800">'+curSubs.length+'</div><div style="font-size:11px;color:#64748b">Audits This Quarter</div></div>'
+      +'</div>'
+      +'<h2 style="font-size:14px;font-weight:800;margin-bottom:8px">Top Issues to Discuss</h2>'
+      +(topIssues.length ? topIssues.map(t=>'<div style="font-size:12px;padding:4px 0;border-bottom:1px solid #f1f5f9"><strong>'+t.count+'x</strong> — ['+xH(t.ref)+'] '+xH(t.question)+'</div>').join('') : '<div style="font-size:12px;color:#15803d">No findings this quarter.</div>')
+      +'<h2 style="font-size:14px;font-weight:800;margin:18px 0 8px">Chronic / Repeat Findings</h2>'
+      +(chronic.length ? chronic.map(c=>'<div style="font-size:12px;padding:4px 0;border-bottom:1px solid #f1f5f9"><strong>'+xH(c.name)+'</strong> — ['+xH(c.ref)+'] '+xH(c.question)+' ('+c.quarters.size+' quarters)</div>').join('') : '<div style="font-size:12px;color:#94a3b8">None identified.</div>')
+      +'<h2 style="font-size:14px;font-weight:800;margin:18px 0 8px">Locations Missing Self-Assessment</h2>'
+      +(missing.length ? missing.map(l=>'<div style="font-size:12px;padding:3px 0">• '+xH(l.name)+' ('+xH(l.id)+')</div>').join('') : '<div style="font-size:12px;color:#15803d">All locations submitted.</div>')
+      +'</div>';
+  }).join('');
+
+  document.getElementById('meetingPacket').innerHTML = pages;
+  setTimeout(()=>window.print(), 100);
 }
 
 loadDashboardData();
