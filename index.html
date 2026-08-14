@@ -192,12 +192,14 @@ th.sortable.active .arrow{color:#1e3a8a}
     <div class="dash-layout">
       <div id="sidebar">
         <button class="nav-btn active" data-view="overview" onclick="switchView('overview')">📈 Overview</button>
-        <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">📋 Scorecards &amp; Recognition</button>
-        <button class="nav-btn" data-view="chronic" onclick="switchView('chronic')">🔁 Chronic Issues</button>
+        <button class="nav-btn" data-view="coverage" onclick="switchView('coverage')">🎯 Risk VP Audit Coverage</button>
+        <button class="nav-btn" data-view="regionalvp" onclick="switchView('regionalvp')">🧭 Regional VP Assessment</button>
+        <button class="nav-btn" data-view="selfassess" onclick="switchView('selfassess')">📝 Location Manager Self Assessment</button>
         <button class="nav-btn" data-view="completion" onclick="switchView('completion')">✅ Submission Completion</button>
-        <button class="nav-btn" data-view="issues" onclick="switchView('issues')">⚠️ Top Issues</button>
         <button class="nav-btn" data-view="drilldown" onclick="switchView('drilldown')">🔎 Location Drill-Down</button>
-        <button class="nav-btn" data-view="coverage" onclick="switchView('coverage')">🎥 VP Audit Coverage</button>
+        <button class="nav-btn" data-view="issues" onclick="switchView('issues')">⚠️ Top Issues</button>
+        <button class="nav-btn" data-view="chronic" onclick="switchView('chronic')">🔁 Chronic Issues</button>
+        <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">📋 Scorecards &amp; Recognition</button>
         <button class="nav-btn" data-view="comparison" onclick="switchView('comparison')">🔍 Assessment Comparison</button>
         <button class="nav-btn" data-view="packet" onclick="switchView('packet')">🖨️ Meeting Packet</button>
       </div>
@@ -216,24 +218,30 @@ th.sortable.active .arrow{color:#1e3a8a}
           </div>
         </div>
 
-        <div class="view-panel" id="view-scorecards">
-          <div class="section" id="regionScorecardSection">
-            <h2>📋 Region Scorecards</h2>
-            <div class="desc">Quarter-over-quarter movement by region — ready to use as a starting point for quarterly regional safety meetings.</div>
-            <div id="regionScorecards"></div>
-          </div>
+        <div class="view-panel" id="view-coverage">
           <div class="section">
-            <h2>🏆 Recognition — Best &amp; Most Improved</h2>
-            <div class="desc">Worth calling out in the meeting — not just what needs fixing.</div>
-            <div id="recognitionGrid" class="coverage-grid"></div>
+            <h2>🎯 Risk VP Audit Coverage</h2>
+            <div class="desc">Audits completed by the VP of Risk &amp; Safety — in-person vs. virtual, and which locations have been covered.</div>
+            <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
+            <div class="tbl-wrap"><table id="coverageTable"></table></div>
           </div>
         </div>
 
-        <div class="view-panel" id="view-chronic">
+        <div class="view-panel" id="view-regionalvp">
           <div class="section">
-            <h2>🔁 Repeat &amp; Chronic Issues</h2>
-            <div class="desc">Findings that keep showing up at the same location across multiple quarters — these deserve more attention than a one-time slip.</div>
-            <div id="chronicList"></div>
+            <h2>🧭 Regional VP Assessment</h2>
+            <div class="desc">Audits completed by the five Regional VPs at their own properties — in-person vs. virtual, and which locations have been covered.</div>
+            <div class="coverage-grid" id="regionalVpGrid" style="margin-bottom:16px"></div>
+            <div class="tbl-wrap"><table id="regionalVpTable"></table></div>
+          </div>
+        </div>
+
+        <div class="view-panel" id="view-selfassess">
+          <div class="section">
+            <h2>📝 Location Manager Self Assessment</h2>
+            <div class="desc">Self-Assessments completed by location managers — which locations have submitted, and their scores.</div>
+            <div class="coverage-grid" id="selfAssessGrid" style="margin-bottom:16px"></div>
+            <div class="tbl-wrap"><table id="selfAssessTable"></table></div>
           </div>
         </div>
 
@@ -242,6 +250,17 @@ th.sortable.active .arrow{color:#1e3a8a}
             <h2>✅ Submission Completion</h2>
             <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
             <div class="tbl-wrap"><table id="completionTable"></table></div>
+          </div>
+        </div>
+
+        <div class="view-panel" id="view-drilldown">
+          <div class="section" id="locationDrilldownSection">
+            <h2>🔎 Location Drill-Down</h2>
+            <div class="desc">Pick a location right here to see its full history and issues by area — no need to scroll back to the top filter.</div>
+            <select id="drilldownLocalSelect" onchange="document.getElementById('locationFilter').value=this.value;renderDashboard();" style="border:1.5px solid #e2e8f0;border-radius:7px;padding:7px 12px;font-size:12.5px;font-family:inherit;background:#fff;width:100%;max-width:360px;margin-bottom:14px">
+              <option value="__all__">— Select a location —</option>
+            </select>
+            <div id="locationDrilldown"></div>
           </div>
         </div>
 
@@ -258,23 +277,24 @@ th.sortable.active .arrow{color:#1e3a8a}
           </div>
         </div>
 
-        <div class="view-panel" id="view-drilldown">
-          <div class="section" id="locationDrilldownSection">
-            <h2>🔎 Location Drill-Down</h2>
-            <div class="desc">Pick a location right here to see its full history and issues by area — no need to scroll back to the top filter.</div>
-            <select id="drilldownLocalSelect" onchange="document.getElementById('locationFilter').value=this.value;renderDashboard();" style="border:1.5px solid #e2e8f0;border-radius:7px;padding:7px 12px;font-size:12.5px;font-family:inherit;background:#fff;width:100%;max-width:360px;margin-bottom:14px">
-              <option value="__all__">— Select a location —</option>
-            </select>
-            <div id="locationDrilldown"></div>
+        <div class="view-panel" id="view-chronic">
+          <div class="section">
+            <h2>🔁 Repeat &amp; Chronic Issues</h2>
+            <div class="desc">Findings that keep showing up at the same location across multiple quarters — these deserve more attention than a one-time slip.</div>
+            <div id="chronicList"></div>
           </div>
         </div>
 
-        <div class="view-panel" id="view-coverage">
+        <div class="view-panel" id="view-scorecards">
+          <div class="section" id="regionScorecardSection">
+            <h2>📋 Region Scorecards</h2>
+            <div class="desc">Quarter-over-quarter movement by region — ready to use as a starting point for quarterly regional safety meetings.</div>
+            <div id="regionScorecards"></div>
+          </div>
           <div class="section">
-            <h2>🎥 VP Audit Coverage</h2>
-            <div class="desc">Breakdown of VP Risk Audit visits — in-person vs. virtual, and which locations have been covered.</div>
-            <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
-            <div class="tbl-wrap"><table id="coverageTable"></table></div>
+            <h2>🏆 Recognition — Best &amp; Most Improved</h2>
+            <div class="desc">Worth calling out in the meeting — not just what needs fixing.</div>
+            <div id="recognitionGrid" class="coverage-grid"></div>
           </div>
         </div>
 
@@ -352,7 +372,7 @@ function showRegionDrawer(region){
   const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current).sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
-    +'<div><div class="name">'+xH(s.name)+'</div><div class="meta">'+xH(s.sourceTool)+(s.auditType?' · '+xH(s.auditType):'')+'</div></div>'
+    +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.sourceTool)+(s.auditType?' · '+xH(s.auditType):'')+'</div></div>'
     +'<div class="drawer-score" style="background:'+(s.score>=90?'#dcfce7':s.score>=75?'#fef3c7':'#fee2e2')+';color:'+(s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c')+'">'+s.score+'%</div>'
     +'</div>'
   ).join('');
@@ -364,7 +384,7 @@ function showTrendDrawer(quarter){
   const subs = dashData.submissions.filter(s=>s.quarter===quarter).sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
-    +'<div><div class="name">'+xH(s.name)+'</div><div class="meta">'+xH(s.region)+' · '+xH(s.sourceTool)+'</div></div>'
+    +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.region)+' · '+xH(s.sourceTool)+'</div></div>'
     +'<div class="drawer-score" style="background:'+(s.score>=90?'#dcfce7':s.score>=75?'#fef3c7':'#fee2e2')+';color:'+(s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c')+'">'+s.score+'%</div>'
     +'</div>'
   ).join('');
@@ -375,8 +395,9 @@ function showTrendDrawer(quarter){
 function showLocationDetailDrawer(unitId){
   const loc = LOCATIONS.find(l=>l.id===unitId);
   const subs = dashData.submissions.filter(s=>s.unitId===unitId).sort((a,b)=>quarterSortKey(b.quarter)-quarterSortKey(a.quarter));
+  const titleText = '['+unitId+'] '+(loc?loc.name:unitId);
   if(!subs.length){
-    openDrawer(loc?loc.name:unitId, unitId, '<div class="no-selection">No audits on file for this location.</div>');
+    openDrawer(titleText, unitId, '<div class="no-selection">No audits on file for this location.</div>');
     return;
   }
   const html = subs.map(s=>{
@@ -399,14 +420,16 @@ function showLocationDetailDrawer(unitId){
       +(s.narrative?'<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin:10px 0 4px">Narrative</div><div style="font-size:12px;color:#475569;line-height:1.5;white-space:pre-wrap">'+xH(s.narrative)+'</div>':'')
       +'</div>';
   }).join('');
-  openDrawer(loc?loc.name:unitId, (loc?loc.region+' · ':'')+subs.length+' audit'+(subs.length===1?'':'s')+' on file', html);
+  openDrawer(titleText, (loc?loc.region+' · ':'')+subs.length+' audit'+(subs.length===1?'':'s')+' on file', html);
 }
 
 let dashData = null;
 const sortState = {
   completion: {col:'name', dir:'asc'},
   issues: {col:'count', dir:'desc'},
-  coverage: {col:'unitId', dir:'asc'}
+  coverage: {col:'unitId', dir:'asc'},
+  regionalvp: {col:'unitId', dir:'asc'},
+  selfassess: {col:'unitId', dir:'asc'}
 };
 function sortTable(table, col){
   const s = sortState[table];
@@ -509,6 +532,8 @@ function renderDashboard(){
   renderIssuesByArea(subs);
   renderLocationDrilldown();
   renderCoverage(subs);
+  renderRegionalVpTable(subs);
+  renderSelfAssessmentTable(subs);
   renderAssessmentComparison();
 }
 
@@ -617,12 +642,12 @@ function renderRecognition(){
   let html = '';
   if(best.length){
     html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Best Scores This Quarter</div>';
-    html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">'+xH(s.name)+'</div></div>').join('');
+    html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">['+xH(s.unitId)+'] '+xH(s.name)+'</div></div>').join('');
     html += '</div>';
   }
   if(mostImproved.length){
     html += '<div><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">📈 Most Improved</div>';
-    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">'+xH(s.name)+'</div></div>').join('');
+    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">['+xH(s.unitId)+'] '+xH(s.name)+'</div></div>').join('');
     html += '</div>';
   }
   document.getElementById('recognitionGrid').innerHTML = html || '<div class="no-selection">Not enough data yet to identify top performers.</div>';
@@ -749,36 +774,46 @@ function renderLocationDrilldown(){
     +(areaHtml || '<div style="color:#15803d;font-size:12.5px">No open findings on record — clean history.</div>');
 }
 
-function renderCoverage(subs){
-  const vpAudits = subs.filter(s=>s.sourceTool==='Risk VP Audit'||s.sourceTool==='Regional VP Assessment');
-  const virtual = vpAudits.filter(s=>s.auditType==='Virtual').length;
-  const onsite = vpAudits.filter(s=>s.auditType==='On-Site').length;
-  const riskVpCount = vpAudits.filter(s=>s.sourceTool==='Risk VP Audit').length;
-  const regionalVpCount = vpAudits.filter(s=>s.sourceTool==='Regional VP Assessment').length;
-  const visitedIds = new Set(vpAudits.map(s=>s.unitId));
+function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, totalLabel){
+  const matches = subs.filter(s=>s.sourceTool===sourceTool);
+  const virtual = matches.filter(s=>s.auditType==='Virtual').length;
+  const onsite = matches.filter(s=>s.auditType==='On-Site').length;
+  const visitedIds = new Set(matches.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
-  const notVisited = locs.filter(l=>!visitedIds.has(l.id));
+  const notCovered = locs.filter(l=>!visitedIds.has(l.id));
 
-  document.getElementById('coverageGrid').innerHTML =
-    '<div class="coverage-box"><div class="n">'+vpAudits.length+'</div><div class="l">Total VP Audits</div></div>'
-    +'<div class="coverage-box"><div class="n">'+riskVpCount+'</div><div class="l">By Risk VP</div></div>'
-    +'<div class="coverage-box"><div class="n">'+regionalVpCount+'</div><div class="l">By Regional VPs</div></div>'
-    +'<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div>'
-    +'<div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>'
-    +'<div class="coverage-box"><div class="n">'+notVisited.length+'</div><div class="l">Not Yet Visited</div></div>';
+  const gridEl = document.getElementById(gridId);
+  if(gridEl){
+    const boxes = [
+      '<div class="coverage-box"><div class="n">'+matches.length+'</div><div class="l">'+totalLabel+'</div></div>',
+      (sourceTool!=='Self-Assessment' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
+      '<div class="coverage-box"><div class="n">'+notCovered.length+'</div><div class="l">Not Yet Covered</div></div>'
+    ];
+    gridEl.innerHTML = boxes.join('');
+  }
 
-  const sorted = applySorting(vpAudits, 'coverage');
+  const sorted = applySorting(matches, sortKey);
   const rows = sorted.map(s=>
     '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span></td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
     +'<td>'+xH(s.completedBy)+'</td>'
-    +'<td>'+(s.sourceTool==='Regional VP Assessment'?'<span class="pill" style="background:#f3e8ff;color:#7e22ce">Regional VP</span>':'<span class="pill" style="background:#dbeafe;color:#1e3a8a">Risk VP</span>')+'</td>'
-    +'<td>'+(s.auditType==='Virtual'?'<span class="pill pill-virtual">🎥 Virtual</span>':'<span class="pill pill-onsite">On-Site</span>')+'</td>'
+    +(sourceTool!=='Self-Assessment'?'<td>'+(s.auditType==='Virtual'?'<span class="pill pill-virtual">🎥 Virtual</span>':'<span class="pill pill-onsite">On-Site</span>')+'</td>':'')
     +'<td>'+s.score+'%</td></tr>'
   ).join('');
-  const th=(col,label)=>'<th class="sortable'+(sortState.coverage.col===col?' active':'')+'" onclick="sortTable(\'coverage\',\''+col+'\')">'+label+sortArrow('coverage',col)+'</th>';
-  document.getElementById('coverageTable').innerHTML =
-    '<thead><tr>'+th('unitId','ID')+th('name','Location')+th('region','Region')+th('quarter','Quarter')+th('completedBy','Completed By')+th('sourceTool','Auditor')+th('auditType','Type')+th('score','Score')+'</tr></thead><tbody>'+(rows||'<tr><td colspan="8" style="text-align:center;color:#94a3b8">No VP audits recorded yet</td></tr>')+'</tbody>';
+  const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
+  const headerCols = th('unitId','ID')+th('name','Location')+th('region','Region')+th('quarter','Quarter')+th('completedBy','Completed By')+(sourceTool!=='Self-Assessment'?th('auditType','Type'):'')+th('score','Score');
+  const colCount = sourceTool!=='Self-Assessment'?7:6;
+  document.getElementById(tableId).innerHTML =
+    '<thead><tr>'+headerCols+'</tr></thead><tbody>'+(rows||'<tr><td colspan="'+colCount+'" style="text-align:center;color:#94a3b8">No audits recorded yet</td></tr>')+'</tbody>';
+}
+function renderCoverage(subs){
+  renderAssessmentTypeTable(subs,'Risk VP Audit','coverageGrid','coverageTable','coverage','Total Risk VP Audits');
+}
+function renderRegionalVpTable(subs){
+  renderAssessmentTypeTable(subs,'Regional VP Assessment','regionalVpGrid','regionalVpTable','regionalvp','Total Regional VP Assessments');
+}
+function renderSelfAssessmentTable(subs){
+  renderAssessmentTypeTable(subs,'Self-Assessment','selfAssessGrid','selfAssessTable','selfassess','Total Self-Assessments');
 }
 
 function renderAssessmentComparison(){
