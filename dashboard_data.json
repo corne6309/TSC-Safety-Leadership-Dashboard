@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-13T20:14:27.411Z",
-  "generatedAtDisplay": "8/13/2026, 1:14:27 PM",
+  "generatedAt": "2026-08-14T21:07:09.055Z",
+  "generatedAtDisplay": "8/14/2026, 2:07:09 PM",
   "locations": [
     {
       "id": "4169",
@@ -260,8 +260,59 @@
       "yes": 76,
       "no": 5,
       "na": 20,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "On-Site",
+      "narrative": "Audit completed for Muckleshoot Casino on 8/11/2026.\nCompliance Score: 94% — Passed — Excellent\n3 critical items identified requiring immediate attention (see Action Items in the export). Latoya accompanied on Safety Audit. The office well organized and great pre-shift all employees involved. Latoya pointed out the loading dock and linen chutes concern. Risk to investigate safety precautions.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 13,
+          "no": 2,
+          "na": 3,
+          "scorePct": 87
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 8,
+          "no": 1,
+          "na": 5,
+          "scorePct": 89
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 7,
+          "no": 0,
+          "na": 6,
+          "scorePct": 100
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 15,
+          "no": 0,
+          "na": 1,
+          "scorePct": 100
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 18,
+          "no": 2,
+          "na": 1,
+          "scorePct": 90
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 15,
+          "no": 0,
+          "na": 4,
+          "scorePct": 100
+        }
+      ],
       "actions": [
         {
           "ref": "GS-09",
@@ -306,8 +357,51 @@
       "yes": 36,
       "no": 35,
       "na": 11,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "The housekeeping Supervisor Grethel accompanied me on the audit. The location only has a closet shared with client storage of linen. This is not a fully fletched office and as per the audit documentation is not kept of site due to facility restrictions. Discussions with Regional VP will be held the best way up keeping safety compliance.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 8,
+          "no": 7,
+          "na": 3,
+          "scorePct": 53
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 6,
+          "no": 7,
+          "na": 1,
+          "scorePct": 46
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 2,
+          "no": 9,
+          "na": 2,
+          "scorePct": 18
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 8,
+          "no": 8,
+          "na": 0,
+          "scorePct": 50
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 12,
+          "no": 4,
+          "na": 5,
+          "scorePct": 75
+        }
+      ],
       "actions": [
         {
           "ref": "GS-02",
@@ -532,8 +626,51 @@
       "yes": 31,
       "no": 31,
       "na": 18,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "Malik and Jylissa accompanied me during the audit. Only closet space is available for equipment and chemicals. Observation of documentation and other compliance will be discussed with the regional VP moving forward in future audit.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 7,
+          "no": 7,
+          "na": 4,
+          "scorePct": 50
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 3,
+          "no": 7,
+          "na": 4,
+          "scorePct": 30
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 3,
+          "no": 7,
+          "na": 3,
+          "scorePct": 30
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 7,
+          "no": 8,
+          "na": 1,
+          "scorePct": 47
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 11,
+          "no": 2,
+          "na": 6,
+          "scorePct": 85
+        }
+      ],
       "actions": [
         {
           "ref": "GS-08",
@@ -724,154 +861,6 @@
       ]
     },
     {
-      "unitId": "1092",
-      "name": "Live Casino & Hotel",
-      "region": "Central",
-      "state": "LA",
-      "quarter": "Q3 2026",
-      "completedBy": "Corné Wolmarans",
-      "score": 71,
-      "yes": 54,
-      "no": 22,
-      "na": 6,
-      "sourceTool": "VP Audit",
-      "auditType": "",
-      "actions": [
-        {
-          "ref": "GS-06",
-          "question": "Electrical panels 36\" clearance",
-          "criticality": "🟠 HIGH — Citation Risk",
-          "section": "General Safety"
-        },
-        {
-          "ref": "GS-08",
-          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
-          "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
-        },
-        {
-          "ref": "GS-09",
-          "question": "Closed-toe non-slip footwear worn",
-          "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
-        },
-        {
-          "ref": "GS-12",
-          "question": "PPE hazard assessment documented",
-          "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
-        },
-        {
-          "ref": "GS-16",
-          "question": "Labels on shelves with contents",
-          "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
-        },
-        {
-          "ref": "GS-18",
-          "question": "Safety posters displayed and current",
-          "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
-        },
-        {
-          "ref": "CS-01",
-          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
-          "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "CS-02",
-          "question": "Chemical containers have original labels",
-          "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "CS-05",
-          "question": "Eye wash within 10 sec of chemical areas",
-          "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "CS-08",
-          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
-          "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "CS-09",
-          "question": "Written HazCom Program in place",
-          "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "CS-12",
-          "question": "Full PPE at chemical dispensing stations",
-          "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "CS-13",
-          "question": "Pigmats at chemical storage/dispensing",
-          "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
-        },
-        {
-          "ref": "EP-01",
-          "question": "Written EAP in place (TSC own, independent of client) and current",
-          "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
-        },
-        {
-          "ref": "EP-03",
-          "question": "Emergency contacts posted",
-          "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
-        },
-        {
-          "ref": "EP-07",
-          "question": "Emergency procedures communicated to employees",
-          "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
-        },
-        {
-          "ref": "EP-09",
-          "question": "Fire prevention plan documented",
-          "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
-        },
-        {
-          "ref": "EP-12",
-          "question": "Evacuation drills conducted annually",
-          "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
-        },
-        {
-          "ref": "TD-02",
-          "question": "Orientation: hazcom, PPE, emergency procedures",
-          "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
-        },
-        {
-          "ref": "TD-07",
-          "question": "OSHA poster displayed in employee area",
-          "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
-        },
-        {
-          "ref": "TD-16",
-          "question": "Safety documentation organized, all required forms available and current",
-          "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
-        },
-        {
-          "ref": "HK-21",
-          "question": "Non-slip footwear worn by all HK employees",
-          "criticality": "🔴 CRITICAL — Observable",
-          "section": "Housekeeping"
-        }
-      ]
-    },
-    {
       "unitId": "4175",
       "name": "The Jacquard Hotel",
       "region": "West",
@@ -882,8 +871,51 @@
       "yes": 40,
       "no": 30,
       "na": 16,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "Supervisor Patrick accompanied me during the audit. I also met the manager of the Hotel Nathan. He was overall satisfied with the service but had a concern with regard to behind the bar cleaning the floors being an issue. This was addressed with Patrick and recommended that they use a water and vinegar solution to stabilize the sticky floor environment. This is a location without any. Office and Storage is in a Wol way on the lower level. Alan provided a locker for them to secure product and equipment. A specific space for that need to be allocated to keep the locker. Due to Office space most of the documentation was not observed and we will discuss a strategy moving forward.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 9,
+          "no": 5,
+          "na": 4,
+          "scorePct": 64
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 6,
+          "no": 6,
+          "na": 2,
+          "scorePct": 50
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 1,
+          "no": 6,
+          "na": 6,
+          "scorePct": 14
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 10,
+          "no": 6,
+          "na": 0,
+          "scorePct": 63
+        },
+        {
+          "section": "Kitchen/Stewarding",
+          "total": 25,
+          "yes": 14,
+          "no": 7,
+          "na": 4,
+          "scorePct": 67
+        }
+      ],
       "actions": [
         {
           "ref": "GS-08",
@@ -1068,7 +1100,7 @@
       ]
     },
     {
-      "unitId": "1092-2",
+      "unitId": "1092",
       "name": "Live Casino & Hotel",
       "region": "Central",
       "state": "LA",
@@ -1078,8 +1110,51 @@
       "yes": 54,
       "no": 22,
       "na": 6,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "Supervisor Audrey accompanied during Audit. Met with GM Dimitry and discussed eyewash station and bed-making solutions. Not all documentation observed. Location do not meet compliance standards.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 10,
+          "no": 6,
+          "na": 2,
+          "scorePct": 63
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 6,
+          "no": 7,
+          "na": 1,
+          "scorePct": 46
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 6,
+          "no": 5,
+          "na": 2,
+          "scorePct": 55
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 13,
+          "no": 3,
+          "na": 0,
+          "scorePct": 81
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 19,
+          "no": 1,
+          "na": 1,
+          "scorePct": 95
+        }
+      ],
       "actions": [
         {
           "ref": "GS-06",
@@ -1226,8 +1301,51 @@
       "yes": 37,
       "no": 30,
       "na": 13,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "Jylissa and Ismael were present at the audit. Although the location has restricted area compliance with regard to some documentation, and\nPoster were observed in the closet area. A walk-through of the buildings was done and observations has been noted in the audit. I will strategize with the regional VP, how to address the documentation for compliance in future audit.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 8,
+          "no": 7,
+          "na": 3,
+          "scorePct": 53
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 6,
+          "no": 7,
+          "na": 1,
+          "scorePct": 46
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 3,
+          "no": 6,
+          "na": 4,
+          "scorePct": 33
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 8,
+          "no": 8,
+          "na": 0,
+          "scorePct": 50
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 12,
+          "no": 2,
+          "na": 5,
+          "scorePct": 86
+        }
+      ],
       "actions": [
         {
           "ref": "GS-02",
@@ -1412,19 +1530,86 @@
       ]
     },
     {
-      "unitId": "1005",
-      "name": "Ballys (El Dorado) Shreveport",
+      "unitId": "1092-2",
+      "name": "Live Casino & Hotel",
       "region": "Central",
       "state": "LA",
       "quarter": "Q3 2026",
       "completedBy": "Corné Wolmarans",
-      "score": 92,
-      "yes": 98,
-      "no": 8,
-      "na": 29,
-      "sourceTool": "VP Audit",
+      "score": 71,
+      "yes": 54,
+      "no": 22,
+      "na": 6,
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "Supervisor Audrey accompanied during Audit. Met with GM Dimitry and discussed eyewash station and bed-making solutions. Not all documentation observed. Location do not meet compliance standards.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 10,
+          "no": 6,
+          "na": 2,
+          "scorePct": 63
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 6,
+          "no": 7,
+          "na": 1,
+          "scorePct": 46
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 6,
+          "no": 5,
+          "na": 2,
+          "scorePct": 55
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 13,
+          "no": 3,
+          "na": 0,
+          "scorePct": 81
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 19,
+          "no": 1,
+          "na": 1,
+          "scorePct": 95
+        }
+      ],
       "actions": [
+        {
+          "ref": "GS-06",
+          "question": "Electrical panels 36\" clearance",
+          "criticality": "🟠 HIGH — Citation Risk",
+          "section": "General Safety"
+        },
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "criticality": "🔴 CRITICAL — Service Industry",
+          "section": "General Safety"
+        },
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "General Safety"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "General Safety"
+        },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
@@ -1432,9 +1617,39 @@
           "section": "General Safety"
         },
         {
+          "ref": "GS-18",
+          "question": "Safety posters displayed and current",
+          "criticality": "🟠 HIGH — Compliance",
+          "section": "General Safety"
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "CS-02",
+          "question": "Chemical containers have original labels",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety"
+        },
+        {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "CS-08",
+          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
+          "criticality": "🟠 HIGH — Accessibility",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "🔴 CRITICAL — #2 Cited",
           "section": "Chemical Safety"
         },
         {
@@ -1456,22 +1671,52 @@
           "section": "Emergency Prep"
         },
         {
+          "ref": "EP-03",
+          "question": "Emergency contacts posted",
+          "criticality": "🟠 HIGH — Posting",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "EP-07",
+          "question": "Emergency procedures communicated to employees",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "criticality": "🟠 HIGH — Annual Req",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "TD-02",
+          "question": "Orientation: hazcom, PPE, emergency procedures",
+          "criticality": "🔴 CRITICAL — Content",
+          "section": "Training & Docs"
+        },
+        {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
           "section": "Training & Docs"
         },
         {
-          "ref": "KS-04",
-          "question": "Floor drains clean, unclogged, maintained",
-          "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "ref": "TD-16",
+          "question": "Safety documentation organized, all required forms available and current",
+          "criticality": "🟡 MEDIUM — Organization",
+          "section": "Training & Docs"
         },
         {
-          "ref": "KS-22",
-          "question": "Hot surface warning signs posted",
-          "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "ref": "HK-21",
+          "question": "Non-slip footwear worn by all HK employees",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "Housekeeping"
         }
       ]
     },
@@ -1486,8 +1731,51 @@
       "yes": 40,
       "no": 27,
       "na": 15,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "Renée accompanied me during the safety audit. They have amble office space however it can be better organized. Observations with regard to documentation not comply to the standards. Some easy fixes and organization could bring them back to comply to standard standards.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 8,
+          "no": 7,
+          "na": 3,
+          "scorePct": 53
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 4,
+          "no": 7,
+          "na": 3,
+          "scorePct": 36
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 2,
+          "no": 5,
+          "na": 6,
+          "scorePct": 29
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 13,
+          "no": 3,
+          "na": 0,
+          "scorePct": 81
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 13,
+          "no": 5,
+          "na": 3,
+          "scorePct": 72
+        }
+      ],
       "actions": [
         {
           "ref": "GS-08",
@@ -1654,6 +1942,129 @@
       ]
     },
     {
+      "unitId": "1005",
+      "name": "Ballys (El Dorado) Shreveport",
+      "region": "Central",
+      "state": "LA",
+      "quarter": "Q3 2026",
+      "completedBy": "Corné Wolmarans",
+      "score": 92,
+      "yes": 98,
+      "no": 8,
+      "na": 29,
+      "sourceTool": "Risk VP Audit",
+      "auditType": "",
+      "narrative": "Safety audit conducted and accompanied by Roger. Overall, the office is well organized documentation and safety protocols comply with the set standards.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 15,
+          "no": 1,
+          "na": 2,
+          "scorePct": 94
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 9,
+          "no": 3,
+          "na": 2,
+          "scorePct": 75
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 6,
+          "no": 1,
+          "na": 6,
+          "scorePct": 86
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 15,
+          "no": 1,
+          "na": 0,
+          "scorePct": 94
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 12,
+          "no": 0,
+          "na": 7,
+          "scorePct": 100
+        },
+        {
+          "section": "Kitchen/Stewarding",
+          "total": 25,
+          "yes": 15,
+          "no": 2,
+          "na": 8,
+          "scorePct": 88
+        },
+        {
+          "section": "Vehicles",
+          "total": 30,
+          "yes": 26,
+          "no": 0,
+          "na": 4,
+          "scorePct": 100
+        }
+      ],
+      "actions": [
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "🟠 HIGH — Organization",
+          "section": "General Safety"
+        },
+        {
+          "ref": "CS-05",
+          "question": "Eye wash within 10 sec of chemical areas",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "🔴 CRITICAL — Full PPE",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "🟠 HIGH — Spill Prevention",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "TD-07",
+          "question": "OSHA poster displayed in employee area",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Training & Docs"
+        },
+        {
+          "ref": "KS-04",
+          "question": "Floor drains clean, unclogged, maintained",
+          "criticality": "🟠 HIGH",
+          "section": "Kitchen/Stewarding"
+        },
+        {
+          "ref": "KS-22",
+          "question": "Hot surface warning signs posted",
+          "criticality": "🟠 HIGH",
+          "section": "Kitchen/Stewarding"
+        }
+      ]
+    },
+    {
       "unitId": "4180",
       "name": "Westin Fort Lauderdale",
       "region": "Florida",
@@ -1664,8 +2075,51 @@
       "yes": 33,
       "no": 37,
       "na": 16,
-      "sourceTool": "VP Audit",
+      "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "narrative": "A safety audit was conducted with Manager Ariel company during the audit. It has been observed that there is no official workspace and a storage is used.\n\nNo observation of documentation has been done, and the strategy will be devised with the original VP going forward to ensure compliance.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 8,
+          "no": 5,
+          "na": 5,
+          "scorePct": 62
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 3,
+          "no": 7,
+          "na": 4,
+          "scorePct": 30
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 4,
+          "no": 6,
+          "na": 3,
+          "scorePct": 40
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 8,
+          "no": 7,
+          "na": 1,
+          "scorePct": 53
+        },
+        {
+          "section": "Kitchen/Stewarding",
+          "total": 25,
+          "yes": 10,
+          "no": 12,
+          "na": 3,
+          "scorePct": 45
+        }
+      ],
       "actions": [
         {
           "ref": "GS-02",
