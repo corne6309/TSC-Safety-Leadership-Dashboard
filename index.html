@@ -20,6 +20,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 #lastUpdated{font-size:12px;color:#94a3b8}
 
 .main-wrap{max-width:1200px;margin:0 auto;padding:20px 14px}
+.pinned-top{max-width:1200px;margin:0 auto;padding:20px 14px 0}
+.dash-layout{display:flex;gap:20px;max-width:1200px;margin:0 auto;padding:0 14px 20px;align-items:flex-start}
+#sidebar{width:220px;flex-shrink:0;background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.07);padding:10px;position:sticky;top:20px}
+#sidebar button{display:block;width:100%;text-align:left;background:none;border:none;padding:10px 12px;font-size:12.5px;font-weight:600;color:#475569;border-radius:8px;cursor:pointer;margin-bottom:2px;transition:background .1s}
+#sidebar button:hover{background:#f1f5f9}
+#sidebar button.active{background:#1e3a8a;color:#fff}
+#mainContent{flex:1;min-width:0}
+.view-panel{display:none}
+.view-panel.active{display:block}
+@media (max-width:820px){
+  .dash-layout{flex-direction:column}
+  #sidebar{width:100%;position:static;display:flex;flex-wrap:wrap;gap:4px}
+  #sidebar button{width:auto;flex:1;min-width:130px;text-align:center}
+}
 
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:20px}
 .kpi-card{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 1px 6px rgba(0,0,0,.07);border-left:4px solid #334155}
@@ -166,85 +180,125 @@ th.sortable.active .arrow{color:#1e3a8a}
   </div>
 
   <div id="dashContent" style="display:none">
-    <div class="filter-row">
-      <select id="quarterFilter" onchange="renderDashboard()"><option value="__all__">All Quarters</option></select>
-      <select id="regionFilter" onchange="renderDashboard()"><option value="__all__">All Regions</option></select>
-      <select id="locationFilter" onchange="renderDashboard()"><option value="__all__">All Locations</option></select>
+    <div class="pinned-top">
+      <div class="filter-row">
+        <select id="quarterFilter" onchange="renderDashboard()"><option value="__all__">All Quarters</option></select>
+        <select id="regionFilter" onchange="renderDashboard()"><option value="__all__">All Regions</option></select>
+        <select id="locationFilter" onchange="renderDashboard()"><option value="__all__">All Locations</option></select>
+      </div>
+      <div class="kpi-row" id="kpiRow"></div>
     </div>
 
-    <div class="kpi-row" id="kpiRow"></div>
+    <div class="dash-layout">
+      <div id="sidebar">
+        <button class="nav-btn active" data-view="overview" onclick="switchView('overview')">📈 Overview</button>
+        <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">📋 Scorecards &amp; Recognition</button>
+        <button class="nav-btn" data-view="chronic" onclick="switchView('chronic')">🔁 Chronic Issues</button>
+        <button class="nav-btn" data-view="completion" onclick="switchView('completion')">✅ Submission Completion</button>
+        <button class="nav-btn" data-view="issues" onclick="switchView('issues')">⚠️ Top Issues</button>
+        <button class="nav-btn" data-view="drilldown" onclick="switchView('drilldown')">🔎 Location Drill-Down</button>
+        <button class="nav-btn" data-view="coverage" onclick="switchView('coverage')">🎥 VP Audit Coverage</button>
+        <button class="nav-btn" data-view="comparison" onclick="switchView('comparison')">🔍 Assessment Comparison</button>
+        <button class="nav-btn" data-view="packet" onclick="switchView('packet')">🖨️ Meeting Packet</button>
+      </div>
 
-    <div class="section">
-      <h2>📈 Compliance Score Trend</h2>
-      <div class="desc">Average compliance score by quarter, across all submitted audits.</div>
-      <div id="trendChart"></div>
-    </div>
+      <div id="mainContent">
+        <div class="view-panel active" id="view-overview">
+          <div class="section">
+            <h2>📈 Compliance Score Trend</h2>
+            <div class="desc">Average compliance score by quarter, across all submitted audits.</div>
+            <div id="trendChart"></div>
+          </div>
+          <div class="section">
+            <h2>🗺️ Region Comparison</h2>
+            <div class="desc">Average compliance score by region, ranked highest to lowest.</div>
+            <div id="regionChart"></div>
+          </div>
+        </div>
 
-    <div class="section">
-      <h2>🗺️ Region Comparison</h2>
-      <div class="desc">Average compliance score by region, ranked highest to lowest.</div>
-      <div id="regionChart"></div>
-    </div>
+        <div class="view-panel" id="view-scorecards">
+          <div class="section" id="regionScorecardSection">
+            <h2>📋 Region Scorecards</h2>
+            <div class="desc">Quarter-over-quarter movement by region — ready to use as a starting point for quarterly regional safety meetings.</div>
+            <div id="regionScorecards"></div>
+          </div>
+          <div class="section">
+            <h2>🏆 Recognition — Best &amp; Most Improved</h2>
+            <div class="desc">Worth calling out in the meeting — not just what needs fixing.</div>
+            <div id="recognitionGrid" class="coverage-grid"></div>
+          </div>
+        </div>
 
-    <div class="section" id="regionScorecardSection">
-      <h2>📋 Region Scorecards</h2>
-      <div class="desc">Quarter-over-quarter movement by region — ready to use as a starting point for quarterly regional safety meetings.</div>
-      <div id="regionScorecards"></div>
-    </div>
+        <div class="view-panel" id="view-chronic">
+          <div class="section">
+            <h2>🔁 Repeat &amp; Chronic Issues</h2>
+            <div class="desc">Findings that keep showing up at the same location across multiple quarters — these deserve more attention than a one-time slip.</div>
+            <div id="chronicList"></div>
+          </div>
+        </div>
 
-    <div class="section">
-      <h2>🏆 Recognition — Best &amp; Most Improved</h2>
-      <div class="desc">Worth calling out in the meeting — not just what needs fixing.</div>
-      <div id="recognitionGrid" class="coverage-grid"></div>
-    </div>
+        <div class="view-panel" id="view-completion">
+          <div class="section">
+            <h2>✅ Submission Completion</h2>
+            <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
+            <div class="tbl-wrap"><table id="completionTable"></table></div>
+          </div>
+        </div>
 
-    <div class="section">
-      <h2>🔁 Repeat &amp; Chronic Issues</h2>
-      <div class="desc">Findings that keep showing up at the same location across multiple quarters — these deserve more attention than a one-time slip.</div>
-      <div id="chronicList"></div>
-    </div>
+        <div class="view-panel" id="view-issues">
+          <div class="section">
+            <h2>⚠️ Top Recurring Safety Issues — Overall</h2>
+            <div class="desc">Most frequent findings across all submitted audits — patterns worth addressing company-wide.</div>
+            <div class="tbl-wrap"><table id="issuesList"></table></div>
+          </div>
+          <div class="section">
+            <h2>🧭 Issues by Area</h2>
+            <div class="desc">The same findings, broken down by Core and Other audit sections — helps pinpoint whether problems cluster in specific areas.</div>
+            <div id="issuesByArea"></div>
+          </div>
+        </div>
 
-    <div class="section">
-      <h2>✅ Submission Completion</h2>
-      <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
-      <div class="tbl-wrap"><table id="completionTable"></table></div>
-    </div>
+        <div class="view-panel" id="view-drilldown">
+          <div class="section" id="locationDrilldownSection">
+            <h2>🔎 Location Drill-Down</h2>
+            <div class="desc">Pick a location right here to see its full history and issues by area — no need to scroll back to the top filter.</div>
+            <select id="drilldownLocalSelect" onchange="document.getElementById('locationFilter').value=this.value;renderDashboard();" style="border:1.5px solid #e2e8f0;border-radius:7px;padding:7px 12px;font-size:12.5px;font-family:inherit;background:#fff;width:100%;max-width:360px;margin-bottom:14px">
+              <option value="__all__">— Select a location —</option>
+            </select>
+            <div id="locationDrilldown"></div>
+          </div>
+        </div>
 
-    <div class="section">
-      <h2>⚠️ Top Recurring Safety Issues — Overall</h2>
-      <div class="desc">Most frequent findings across all submitted audits — patterns worth addressing company-wide.</div>
-      <div class="tbl-wrap"><table id="issuesList"></table></div>
-    </div>
+        <div class="view-panel" id="view-coverage">
+          <div class="section">
+            <h2>🎥 VP Audit Coverage</h2>
+            <div class="desc">Breakdown of VP Risk Audit visits — in-person vs. virtual, and which locations have been covered.</div>
+            <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
+            <div class="tbl-wrap"><table id="coverageTable"></table></div>
+          </div>
+        </div>
 
-    <div class="section">
-      <h2>🧭 Issues by Area</h2>
-      <div class="desc">The same findings, broken down by Core and Other audit sections — helps pinpoint whether problems cluster in specific areas.</div>
-      <div id="issuesByArea"></div>
-    </div>
+        <div class="view-panel" id="view-comparison">
+          <div class="section">
+            <h2>🔍 Assessment Comparison — Self vs. Regional VP vs. Risk VP</h2>
+            <div class="desc">Compares each location's most recent score from each assessment type. A large gap between a manager's Self-Assessment and an actual VP visit is worth discussing directly — it may point to over-optimistic self-reporting, or a genuine change in conditions since.</div>
+            <div id="comparisonList"></div>
+          </div>
+        </div>
 
-    <div class="section" id="locationDrilldownSection">
-      <h2>🔎 Location Drill-Down</h2>
-      <div class="desc">Select a single location above (in the filter bar) to see its issues broken down by area.</div>
-      <div id="locationDrilldown"></div>
-    </div>
-
-    <div class="section">
-      <h2>🎥 VP Audit Coverage</h2>
-      <div class="desc">Breakdown of VP Risk Audit visits — in-person vs. virtual, and which locations have been covered.</div>
-      <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
-      <div class="tbl-wrap"><table id="coverageTable"></table></div>
-    </div>
-
-    <div class="section">
-      <h2>🔍 Assessment Comparison — Self vs. Regional VP vs. Risk VP</h2>
-      <div class="desc">Compares each location's most recent score from each assessment type. A large gap between a manager's Self-Assessment and an actual VP visit is worth discussing directly — it may point to over-optimistic self-reporting, or a genuine change in conditions since.</div>
-      <div id="comparisonList"></div>
-    </div>
-
-    <div class="section" id="meetingPacketSection">
-      <h2>🖨️ Regional Meeting Packet</h2>
-      <div class="desc">Generates a print-ready, one-page-per-region summary — pick a region below or leave "All Regions" for a full packet.</div>
-      <button class="btn" onclick="printMeetingPacket()" style="background:#0f172a;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer">🖨️ Print Meeting Packet</button>
+        <div class="view-panel" id="view-packet">
+          <div class="section" id="meetingPacketSection">
+            <h2>🖨️ Regional Meeting Packet</h2>
+            <div class="desc">Generates a print-ready, one-page-per-region summary. Choose a specific region to keep it short — printing "All Regions" produces one page per region.</div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <select id="packetRegionSelect" style="border:1.5px solid #e2e8f0;border-radius:7px;padding:6px 11px;font-size:12px;font-family:inherit;background:#fff">
+                <option value="__all__">All Regions (one page each)</option>
+              </select>
+              <button class="btn" onclick="printMeetingPacket()" style="background:#0f172a;color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:700;cursor:pointer">🖨️ Print Meeting Packet</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -254,8 +308,7 @@ th.sortable.active .arrow{color:#1e3a8a}
 <div id="footbanner">TSC PROPRIETARY AND CONFIDENTIAL — LEADERSHIP VIEW ONLY</div>
 
 <style media="print">
-  #header, .filter-row, #footbanner, #meetingPacketSection, #topbanner { display:none !important; }
-  #dashContent > .section:not(#meetingPacketSection) { display:none !important; }
+  #header, #footbanner, #topbanner, #dashContent { display:none !important; }
   #meetingPacket { display:block !important; }
   body{padding-bottom:0}
   .packet-page{page-break-after:always;padding:20px}
@@ -272,6 +325,16 @@ const ALL_SECTIONS_ORDERED = [...CORE_SECTIONS, ...OTHER_SECTIONS];
 function xH(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ── DRAWER ──
+// ── SIDEBAR NAVIGATION ──
+function switchView(viewName){
+  document.querySelectorAll('.view-panel').forEach(el=>el.classList.remove('active'));
+  const panel = document.getElementById('view-'+viewName);
+  if(panel) panel.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.getAttribute('data-view')===viewName);
+  });
+}
+
 function openDrawer(title, sub, bodyHtml){
   document.getElementById('drawerTitle').textContent = title;
   document.getElementById('drawerSub').textContent = sub||'';
@@ -395,6 +458,10 @@ function populateFilters(){
   const lSel = document.getElementById('locationFilter');
   const sortedLocs = [...LOCATIONS].sort((a,b)=>a.name.localeCompare(b.name));
   lSel.innerHTML = '<option value="__all__">All Locations</option>' + sortedLocs.map(l=>'<option value="'+xH(l.id)+'">'+xH(l.name)+'</option>').join('');
+  const pSel = document.getElementById('packetRegionSelect');
+  pSel.innerHTML = '<option value="__all__">All Regions (one page each)</option>' + REGIONS.map(r=>'<option value="'+xH(r)+'">'+xH(r)+' only</option>').join('');
+  const dSel = document.getElementById('drilldownLocalSelect');
+  dSel.innerHTML = '<option value="__all__">— Select a location —</option>' + sortedLocs.map(l=>'<option value="'+xH(l.id)+'">'+xH(l.name)+'</option>').join('');
 }
 
 function filteredSubmissions(){
@@ -550,12 +617,12 @@ function renderRecognition(){
   let html = '';
   if(best.length){
     html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Best Scores This Quarter</div>';
-    html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">'+xH(s.name)+'</div></div>').join('');
+    html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">'+xH(s.name)+'</div></div>').join('');
     html += '</div>';
   }
   if(mostImproved.length){
     html += '<div><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">📈 Most Improved</div>';
-    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">'+xH(s.name)+'</div></div>').join('');
+    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">'+xH(s.name)+'</div></div>').join('');
     html += '</div>';
   }
   document.getElementById('recognitionGrid').innerHTML = html || '<div class="no-selection">Not enough data yet to identify top performers.</div>';
@@ -654,9 +721,10 @@ function renderIssuesByArea(subs){
 
 function renderLocationDrilldown(){
   const lFilter = document.getElementById('locationFilter').value;
+  document.getElementById('drilldownLocalSelect').value = lFilter;
   const container = document.getElementById('locationDrilldown');
   if(lFilter==='__all__'){
-    container.innerHTML = '<div class="no-selection">Select a specific location in the filter bar above to see its issues broken down by area.</div>';
+    container.innerHTML = '<div class="no-selection">Select a location above to see its full history and issues broken down by area.</div>';
     return;
   }
   const loc = LOCATIONS.find(l=>l.id===lFilter);
@@ -764,7 +832,7 @@ function renderAssessmentComparison(){
 }
 
 function printMeetingPacket(){
-  const rFilter = document.getElementById('regionFilter').value;
+  const rFilter = document.getElementById('packetRegionSelect').value;
   const regions = rFilter==='__all__' ? REGIONS : [rFilter];
   const {current, previous} = currentAndPreviousQuarter();
 
