@@ -1,0 +1,386 @@
+{
+  "generatedAt": "2026-08-20T20:06:55.945Z",
+  "generatedAtDisplay": "8/20/2026, 1:06:55 PM",
+  "locations": {
+    "4172": {
+      "name": "Sea Island Resort GA",
+      "lastAuditQuarter": "Q3 2026",
+      "priorFindings": [
+        {
+          "ref": "GS-02",
+          "question": "Wet floor signs available and used",
+          "criticality": "🔴 CRITICAL — #1 Citation",
+          "section": "General Safety",
+          "notes": "Need more focus and signs in some areas. The sign in place were used correctly."
+        },
+        {
+          "ref": "GS-05",
+          "question": "No frayed/damaged electrical cords; damaged cords have replacement ordered and logged in Redbook",
+          "criticality": "🔴 CRITICAL — Fire/Shock",
+          "section": "General Safety",
+          "notes": "Redbook not used by previous manager"
+        },
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "criticality": "🔴 CRITICAL — Service Industry",
+          "section": "General Safety",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "General Safety",
+          "notes": "Need more employees to comply"
+        },
+        {
+          "ref": "GS-10",
+          "question": "Storage organized, heavy items low",
+          "criticality": "🟠 HIGH — Walk-Through",
+          "section": "General Safety",
+          "notes": "Employees have black shoes not all non slip shoes"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "General Safety",
+          "notes": "To be implemented"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "🟠 HIGH — Organization",
+          "section": "General Safety",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "notes": "To be updated with current chemicals used"
+        },
+        {
+          "ref": "CS-05",
+          "question": "Eye wash within 10 sec of chemical areas",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Chemical Safety",
+          "notes": "No eye wash stations implement 5 stations in respective areas"
+        },
+        {
+          "ref": "CS-08",
+          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
+          "criticality": "🟠 HIGH — Accessibility",
+          "section": "Chemical Safety",
+          "notes": "To be implemented"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "CS-11",
+          "question": "Chemical safety training",
+          "criticality": "🟠 HIGH — Training",
+          "section": "Chemical Safety",
+          "notes": "Not recorded"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "🔴 CRITICAL — Full PPE",
+          "section": "Chemical Safety",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "🟠 HIGH — Spill Prevention",
+          "section": "Chemical Safety",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "CS-14",
+          "question": "Eye wash weekly inspection checklist",
+          "criticality": "🔴 CRITICAL — Maintenance",
+          "section": "Chemical Safety",
+          "notes": "No eye wash available to inspect"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "EP-02",
+          "question": "EAP includes evac routes/assembly points",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Emergency Prep",
+          "notes": "To be implemented"
+        },
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "Emergency Prep",
+          "notes": "To be recorded, VP in process to do report roll out"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep",
+          "notes": "To be implemented also follow resort guidelines"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "criticality": "🟠 HIGH — Annual Req",
+          "section": "Emergency Prep",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "TD-02",
+          "question": "Orientation: hazcom, PPE, emergency procedures",
+          "criticality": "🔴 CRITICAL — Content",
+          "section": "Training & Docs",
+          "notes": "Orientation not completed need to be implemented and recorded "
+        },
+        {
+          "ref": "TD-03",
+          "question": "Orientation records signed and filed",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "Training & Docs",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "TD-04",
+          "question": "HazCom training annually",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Training & Docs",
+          "notes": "To be implemented"
+        },
+        {
+          "ref": "TD-05",
+          "question": "BBP training annually",
+          "criticality": "🔴 CRITICAL — Annual",
+          "section": "Training & Docs",
+          "notes": "To be implemented and recorded"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "🔴 CRITICAL — Recordkeeping",
+          "section": "Training & Docs",
+          "notes": "Redbook to be implemented "
+        },
+        {
+          "ref": "TD-12",
+          "question": "Handbook acknowledgment on file",
+          "criticality": "🟡 MEDIUM — Admin",
+          "section": "Training & Docs",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "TD-13",
+          "question": "Annual safety refresher conducted",
+          "criticality": "🟠 HIGH — Annual",
+          "section": "Training & Docs",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "TD-14",
+          "question": "Training records retained per OSHA",
+          "criticality": "🟠 HIGH — Retention",
+          "section": "Training & Docs",
+          "notes": "To be recorded"
+        },
+        {
+          "ref": "TD-16",
+          "question": "Safety documentation organized, all required forms available and current",
+          "criticality": "🟡 MEDIUM — Organization",
+          "section": "Training & Docs",
+          "notes": "To be implemented "
+        },
+        {
+          "ref": "KS-03",
+          "question": "Wet floor signs during/after floor cleaning",
+          "criticality": "🔴 CRITICAL — #1 Citation",
+          "section": "Kitchen/Stewarding",
+          "notes": "Some kitchen need more wet floor signs"
+        },
+        {
+          "ref": "KS-05",
+          "question": "Non-slip closed-toe footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "Kitchen/Stewarding",
+          "notes": "More employees need to comply with non slip shoe policy"
+        },
+        {
+          "ref": "KS-18",
+          "question": "Kitchen chemicals labeled",
+          "criticality": "🔴 CRITICAL — HazCom",
+          "section": "Kitchen/Stewarding",
+          "notes": "Some bottles need labels"
+        },
+        {
+          "ref": "KS-19",
+          "question": "SDS accessible for all kitchen chemicals",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Kitchen/Stewarding",
+          "notes": "SDS to be updated"
+        },
+        {
+          "ref": "KS-22",
+          "question": "Hot surface warning signs posted",
+          "criticality": "🟠 HIGH",
+          "section": "Kitchen/Stewarding",
+          "notes": "No signs "
+        }
+      ],
+      "priorNAItems": [
+        {
+          "ref": "GS-11",
+          "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "GS-13",
+          "question": "Proper signage displayed (safety signs, no smoking)",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "GS-14",
+          "question": "Cart doorway security positioning",
+          "section": "General Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "GS-17",
+          "question": "Level floor hazards identified and marked",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "section": "Chemical Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-04",
+          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-05",
+          "question": "Exit doors unlocked from inside",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-10",
+          "question": "Fire extinguishers properly mounted, unobstructed, with current monthly inspection tags",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-04",
+          "question": "Furniture stable and in good repair (Report defective )",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-06",
+          "question": "Emergency exit signs illuminated and visible",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-07",
+          "question": "Stairwell handrails secure and in good condition",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-14",
+          "question": "Pool chemical storage secure/labeled",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-15",
+          "question": "Sidewalks/walkways clear",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-16",
+          "question": "Loading dock organized, clean, safe",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "KS-09",
+          "question": "Broken glass/china handling procedures followed",
+          "section": "Kitchen/Stewarding",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "KS-13",
+          "question": "Fire suppression in hood inspected (current tag)",
+          "section": "Kitchen/Stewarding",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "KS-17",
+          "question": "Dumpster/compactor area safe, accessible",
+          "section": "Kitchen/Stewarding",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "KS-23",
+          "question": "Cut-resistant gloves for knives/sharps",
+          "section": "Kitchen/Stewarding",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "KS-24",
+          "question": "First aid kit accessible in kitchen",
+          "section": "Kitchen/Stewarding",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "KS-25",
+          "question": "Burns treatment supplies available",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        }
+      ],
+      "sectionNonComplianceRates": {
+        "General Safety": 0.5,
+        "Chemical Safety": 0.62,
+        "Emergency Prep": 0.56,
+        "Training & Docs": 0.56,
+        "Public Areas": 0,
+        "Kitchen/Stewarding": 0.26
+      }
+    }
+  }
+}
