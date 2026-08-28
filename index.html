@@ -197,15 +197,16 @@ th.sortable.active .arrow{color:#1e3a8a}
     <div class="dash-layout">
       <div id="sidebar">
         <button class="nav-btn active" data-view="overview" onclick="switchView('overview')">📈 Overview</button>
-        <button class="nav-btn" data-view="coverage" onclick="switchView('coverage')">🎯 Risk VP Audit Coverage</button>
+        <button class="nav-btn" data-view="coverage" onclick="switchView('coverage')">🎯 Risk VP Audit</button>
         <button class="nav-btn" data-view="regionalvp" onclick="switchView('regionalvp')">🧭 Regional VP Assessment</button>
-        <button class="nav-btn" data-view="selfassess" onclick="switchView('selfassess')">📝 Location Manager Self Assessment</button>
+        <button class="nav-btn" data-view="selfassess" onclick="switchView('selfassess')">📝 Self Assessment</button>
         <button class="nav-btn" data-view="completion" onclick="switchView('completion')">✅ Submission Completion</button>
         <button class="nav-btn" data-view="drilldown" onclick="switchView('drilldown')">🔎 Location Drill-Down</button>
         <button class="nav-btn" data-view="issues" onclick="switchView('issues')">⚠️ Top Issues</button>
         <button class="nav-btn" data-view="chronic" onclick="switchView('chronic')">🔁 Chronic Issues</button>
         <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">📋 Scorecards &amp; Recognition</button>
         <button class="nav-btn" data-view="comparison" onclick="switchView('comparison')">🔍 Assessment Comparison</button>
+        <button class="nav-btn" data-view="lagtime" onclick="switchView('lagtime')">⏱️ Action Item Lag &amp; Overdue</button>
         <button class="nav-btn" data-view="packet" onclick="switchView('packet')">🖨️ Meeting Packet</button>
       </div>
 
@@ -225,7 +226,7 @@ th.sortable.active .arrow{color:#1e3a8a}
 
         <div class="view-panel" id="view-coverage">
           <div class="section">
-            <h2>🎯 Risk VP Audit Coverage</h2>
+            <h2>🎯 Risk VP Audit</h2>
             <div class="desc">Audits completed by the VP of Risk &amp; Safety — in-person vs. virtual, and which locations have been covered.</div>
             <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="coverageTable"></table></div>
@@ -235,7 +236,7 @@ th.sortable.active .arrow{color:#1e3a8a}
         <div class="view-panel" id="view-regionalvp">
           <div class="section">
             <h2>🧭 Regional VP Assessment</h2>
-            <div class="desc">Audits completed by the five Regional VPs at their own properties — in-person vs. virtual, and which locations have been covered.</div>
+            <div class="desc">Full audits and quick Spot-Checks completed by the five Regional VPs. For Spot-Checks, "Score" means % of the Risk VP's prior findings resolved — a different metric from a full audit's compliance score, shown alongside Resolved/Open counts and the baseline % used.</div>
             <div class="coverage-grid" id="regionalVpGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="regionalVpTable"></table></div>
           </div>
@@ -243,7 +244,7 @@ th.sortable.active .arrow{color:#1e3a8a}
 
         <div class="view-panel" id="view-selfassess">
           <div class="section">
-            <h2>📝 Location Manager Self Assessment</h2>
+            <h2>📝 Self Assessment</h2>
             <div class="desc">Self-Assessments completed by location managers — which locations have submitted, and their scores.</div>
             <div class="coverage-grid" id="selfAssessGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="selfAssessTable"></table></div>
@@ -311,6 +312,20 @@ th.sortable.active .arrow{color:#1e3a8a}
             <h2>🔍 Assessment Comparison — Self vs. Regional VP vs. Risk VP</h2>
             <div class="desc">Compares each location's most recent score from each assessment type. A large gap between a manager's Self-Assessment and an actual VP visit is worth discussing directly — it may point to over-optimistic self-reporting, or a genuine change in conditions since.</div>
             <div id="comparisonList"></div>
+          </div>
+        </div>
+
+        <div class="view-panel" id="view-lagtime">
+          <div class="section">
+            <h2>⏱️ Action Item Lag &amp; Overdue</h2>
+            <div class="desc">Target timeframes: Critical 2 weeks, High 3 weeks, Medium 4 weeks from the date each finding was flagged. This updates whenever data is republished — not live — so treat it as a snapshot from the last publish, not this exact moment.</div>
+            <div class="kpi-row" id="lagKpiRow" style="margin-bottom:16px"></div>
+            <div id="overdueList"></div>
+          </div>
+          <div class="section">
+            <h2>✅ Recently Resolved — Lag to Closure</h2>
+            <div class="desc">How long each item actually took to resolve, most recent first.</div>
+            <div id="resolvedLagList"></div>
           </div>
         </div>
 
@@ -542,6 +557,7 @@ function renderDashboard(){
   renderRegionalVpTable(subs);
   renderSelfAssessmentTable(subs);
   renderAssessmentComparison();
+  renderLagTimeView();
 }
 
 function renderKPIs(subs){
@@ -786,8 +802,10 @@ function renderLocationDrilldown(){
 function renderDrilldownSearchResults(query){
   const box = document.getElementById('drilldownSearchResults');
   const q = (query||'').trim().toLowerCase();
-  if(!q){ box.style.display='none'; box.innerHTML=''; return; }
-  const matches = LOCATIONS.filter(l=>l.name.toLowerCase().includes(q) || l.id.toLowerCase().includes(q)).slice(0,10);
+  const sorted = [...LOCATIONS].sort((a,b)=>a.name.localeCompare(b.name));
+  const matches = q
+    ? sorted.filter(l=>l.name.toLowerCase().includes(q) || l.id.toLowerCase().includes(q))
+    : sorted; // empty query — browse the full list, like a real LOV
   if(!matches.length){
     box.innerHTML = '<div class="drilldown-result" style="cursor:default;color:#94a3b8">No matching locations</div>';
     box.style.display='';
@@ -813,31 +831,48 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const matches = subs.filter(s=>s.sourceTool===sourceTool);
   const virtual = matches.filter(s=>s.auditType==='Virtual').length;
   const onsite = matches.filter(s=>s.auditType==='On-Site').length;
+  const spotChecks = matches.filter(s=>s.auditFormat==='spot-check').length;
   const visitedIds = new Set(matches.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
   const notCovered = locs.filter(l=>!visitedIds.has(l.id));
+  const showSpotCheckCols = sourceTool==='Regional VP Assessment';
 
   const gridEl = document.getElementById(gridId);
   if(gridEl){
     const boxes = [
       '<div class="coverage-box"><div class="n">'+matches.length+'</div><div class="l">'+totalLabel+'</div></div>',
       (sourceTool!=='Self-Assessment' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
+      (showSpotCheckCols ? '<div class="coverage-box"><div class="n">'+spotChecks+'</div><div class="l">Spot-Checks</div></div>' : ''),
       '<div class="coverage-box"><div class="n">'+notCovered.length+'</div><div class="l">Not Yet Covered</div></div>'
     ];
     gridEl.innerHTML = boxes.join('');
   }
 
+  function typePill(s){
+    if(s.auditType==='Virtual') return '<span class="pill pill-virtual">🎥 Virtual</span>';
+    if(s.auditType==='Spot-Check') return '<span class="pill" style="background:#f3e8ff;color:#7e22ce">🔍 Spot-Check</span>';
+    return '<span class="pill pill-onsite">On-Site</span>';
+  }
+
   const sorted = applySorting(matches, sortKey);
-  const rows = sorted.map(s=>
-    '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span></td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
+  const scoreColor=s=>s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c';
+  const rows = sorted.map(s=>{
+    const isSpot=s.auditFormat==='spot-check';
+    const resolvedOpenCell=isSpot?(s.yes+' resolved / '+s.no+' open'):'—';
+    const baselineCell=isSpot?(s.baselinePct!=null?s.baselinePct+'%':'—'):'—';
+    return '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span></td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
     +'<td>'+xH(s.completedBy)+'</td>'
-    +(sourceTool!=='Self-Assessment'?'<td>'+(s.auditType==='Virtual'?'<span class="pill pill-virtual">🎥 Virtual</span>':'<span class="pill pill-onsite">On-Site</span>')+'</td>':'')
-    +'<td>'+s.score+'%</td></tr>'
-  ).join('');
+    +(sourceTool!=='Self-Assessment'?'<td>'+typePill(s)+'</td>':'')
+    +(showSpotCheckCols?'<td style="font-size:11.5px">'+resolvedOpenCell+'</td><td>'+baselineCell+'</td>':'')
+    +'<td style="color:'+scoreColor(s)+';font-weight:700">'+(s.score==null?'—':s.score+'%')+'</td></tr>';
+  }).join('');
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
-  const headerCols = th('unitId','ID')+th('name','Location')+th('region','Region')+th('quarter','Quarter')+th('completedBy','Completed By')+(sourceTool!=='Self-Assessment'?th('auditType','Type'):'')+th('score','Score');
-  const colCount = sourceTool!=='Self-Assessment'?7:6;
+  const headerCols = th('unitId','ID')+th('name','Location')+th('region','Region')+th('quarter','Quarter')+th('completedBy','Completed By')
+    +(sourceTool!=='Self-Assessment'?th('auditType','Type'):'')
+    +(showSpotCheckCols?'<th>Resolved/Open</th><th>Baseline</th>':'')
+    +th('score','Score');
+  const colCount = (sourceTool!=='Self-Assessment'?7:6)+(showSpotCheckCols?2:0);
   document.getElementById(tableId).innerHTML =
     '<thead><tr>'+headerCols+'</tr></thead><tbody>'+(rows||'<tr><td colspan="'+colCount+'" style="text-align:center;color:#94a3b8">No audits recorded yet</td></tr>')+'</tbody>';
 }
@@ -899,6 +934,57 @@ function renderAssessmentComparison(){
     '<div class="gap-row"><div class="gap-badge '+r.cls+'">'+(r.cls==='gap-big'?'⚠️ '+r.gap+' pt gap':r.cls==='gap-small'?r.gap+' pt gap':'✓ Aligned')+'</div>'
     +'<div class="gap-text"><strong>'+xH(r.name)+'</strong> — '+r.text+'</div></div>'
   ).join('') : '<div class="no-selection">Not enough data yet — need at least two of the three assessment types on file for the same location to compare.</div>';
+}
+
+function daysBetween(d1,d2){
+  return Math.round((new Date(d2+'T00:00:00') - new Date(d1+'T00:00:00'))/(24*60*60*1000));
+}
+function renderLagTimeView(){
+  const subs = filteredSubmissions();
+
+  // Currently outstanding items with a computed due date
+  const overdueItems = [];
+  subs.forEach(s=>(s.actions||[]).forEach(a=>{
+    if(!a.dueDate)return;
+    overdueItems.push({...a, locName:s.name, locId:s.unitId, region:s.region, sourceTool:s.sourceTool});
+  }));
+
+  // Resolved items with both dates present — the actual lag-to-closure data
+  const resolvedItems = [];
+  subs.forEach(s=>(s.resolvedActions||[]).forEach(a=>{
+    if(!a.resolvedDate || !a.flaggedDate)return;
+    resolvedItems.push({...a, locName:s.name, locId:s.unitId, region:s.region, sourceTool:s.sourceTool, lagDays:daysBetween(a.flaggedDate,a.resolvedDate)});
+  }));
+
+  const today = new Date().toISOString().slice(0,10);
+  const overdueNow = overdueItems.filter(a=>a.dueDate < today);
+  const dueSoon = overdueItems.filter(a=>a.dueDate >= today && daysBetween(today,a.dueDate) <= 3);
+
+  const avgLag = resolvedItems.length ? Math.round(resolvedItems.reduce((s,a)=>s+a.lagDays,0)/resolvedItems.length) : null;
+  const withinSLA = resolvedItems.filter(a=>a.resolvedDate <= a.dueDate).length;
+  const pctWithinSLA = resolvedItems.length ? Math.round(withinSLA/resolvedItems.length*100) : null;
+
+  document.getElementById('lagKpiRow').innerHTML =
+    '<div class="kpi-card '+(overdueNow.length>0?'bad':'good')+'"><div class="v">'+overdueNow.length+'</div><div class="l">Currently Overdue</div><div class="sub">as of last publish</div></div>'
+    +'<div class="kpi-card '+(dueSoon.length>0?'warn':'good')+'"><div class="v">'+dueSoon.length+'</div><div class="l">Due Within 3 Days</div></div>'
+    +'<div class="kpi-card"><div class="v">'+(avgLag==null?'—':avgLag+'d')+'</div><div class="l">Avg. Days to Closure</div><div class="sub">'+resolvedItems.length+' resolved item'+(resolvedItems.length===1?'':'s')+'</div></div>'
+    +'<div class="kpi-card '+(pctWithinSLA==null?'':pctWithinSLA>=80?'good':pctWithinSLA>=50?'warn':'bad')+'"><div class="v">'+(pctWithinSLA==null?'—':pctWithinSLA+'%')+'</div><div class="l">Resolved Within SLA</div></div>';
+
+  overdueNow.sort((a,b)=>a.dueDate.localeCompare(b.dueDate));
+  document.getElementById('overdueList').innerHTML = overdueNow.length ? overdueNow.map(a=>{
+    const daysOver=daysBetween(a.dueDate,today);
+    return '<div class="chronic-row"><div class="chronic-badge" style="background:#fee2e2;color:#b91c1c">'+daysOver+'d overdue</div>'
+      +'<div class="chronic-text"><strong>'+xH(a.locName)+'</strong> — ['+xH(a.ref)+'] '+xH(a.question)+' <span style="color:#94a3b8">('+xH(a.sourceTool)+')</span></div>'
+      +'<div class="chronic-quarters">Was due '+xH(a.dueDate)+'</div></div>';
+  }).join('') : '<div class="no-selection">✅ Nothing currently overdue for the selected filter.</div>';
+
+  resolvedItems.sort((a,b)=>b.resolvedDate.localeCompare(a.resolvedDate));
+  document.getElementById('resolvedLagList').innerHTML = resolvedItems.length ? resolvedItems.slice(0,25).map(a=>{
+    const withinSLAThis = a.resolvedDate <= a.dueDate;
+    return '<div class="chronic-row"><div class="chronic-badge" style="background:'+(withinSLAThis?'#dcfce7':'#fef3c7')+';color:'+(withinSLAThis?'#15803d':'#92400e')+'">'+a.lagDays+'d</div>'
+      +'<div class="chronic-text"><strong>'+xH(a.locName)+'</strong> — ['+xH(a.ref)+'] '+xH(a.question)+' <span style="color:#94a3b8">('+xH(a.sourceTool)+')</span></div>'
+      +'<div class="chronic-quarters">Resolved '+xH(a.resolvedDate)+(withinSLAThis?' · within SLA':' · past SLA')+'</div></div>';
+  }).join('') : '<div class="no-selection">No resolved items with tracked dates yet for the selected filter.</div>';
 }
 
 function printMeetingPacket(){
