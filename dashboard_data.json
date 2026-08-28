@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-28T17:09:17.492Z",
-  "generatedAtDisplay": "8/28/2026, 10:09:17 AM",
+  "generatedAt": "2026-08-28T17:19:04.977Z",
+  "generatedAtDisplay": "8/28/2026, 10:19:04 AM",
   "locations": [
     {
       "id": "4169",
@@ -3660,6 +3660,247 @@
           "ref": "KS-17",
           "question": "Dumpster/compactor area safe, accessible",
           "section": "Kitchen/Stewarding",
+          "reason": "Resort responsibility, not brand standard"
+        }
+      ]
+    },
+    {
+      "unitId": "9021",
+      "name": "Linq Promenade Las Vegas9021",
+      "region": "West",
+      "state": "NV",
+      "quarter": "Q3 2026",
+      "completedBy": "Corné Wolmarans",
+      "score": 79,
+      "yes": 50,
+      "no": 13,
+      "na": 17,
+      "sourceTool": "Risk VP Audit",
+      "auditType": "On-Site",
+      "narrative": "Audit completed for Linq Promenade Las Vegas9021 on 8/25/2026.\nCompliance Score: 79% — Did Not Pass — Immediate Attention Required\n6 critical items identified requiring immediate attention (see Action Items in the export). Andy accompanied me through the safety audit. The office area is well organized and as further report a couple of things to be updated for full compliance. Daily videos and pictures is being sent to Andy showing the use of weight floor signs in the areas where they block off in the public area during cleaning. This is also been done during the night. Services surrendered. From my TSC perspective, a loading dock and compactor guide need to be developed by Risk and safety to be rolled out. There are two pressure washer vehicles that’s been used which is not for public road use. One was in the workshop for repairs to be returned on the day of the audit. The other vehicle was inspected and in good condition. It was recommended that safety first aid kit be placed in each vehicle.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 8,
+          "no": 4,
+          "na": 6,
+          "scorePct": 67
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 12,
+          "no": 2,
+          "na": 0,
+          "scorePct": 86
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 7,
+          "no": 2,
+          "na": 4,
+          "scorePct": 78
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 11,
+          "no": 5,
+          "na": 0,
+          "scorePct": 69
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 12,
+          "no": 0,
+          "na": 7,
+          "scorePct": 100
+        }
+      ],
+      "actions": [
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "criticality": "🔴 CRITICAL — Service Industry",
+          "section": "General Safety"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "General Safety"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "🟠 HIGH — Organization",
+          "section": "General Safety"
+        },
+        {
+          "ref": "GS-18",
+          "question": "Safety posters displayed and current",
+          "criticality": "🟠 HIGH — Compliance",
+          "section": "General Safety"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "🟠 HIGH — Spill Prevention",
+          "section": "Chemical Safety"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "Emergency Prep"
+        },
+        {
+          "ref": "TD-04",
+          "question": "HazCom training annually",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Training & Docs"
+        },
+        {
+          "ref": "TD-05",
+          "question": "BBP training annually",
+          "criticality": "🔴 CRITICAL — Annual",
+          "section": "Training & Docs"
+        },
+        {
+          "ref": "TD-07",
+          "question": "OSHA poster displayed in employee area",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Training & Docs"
+        },
+        {
+          "ref": "TD-12",
+          "question": "Handbook acknowledgment on file",
+          "criticality": "🟡 MEDIUM — Admin",
+          "section": "Training & Docs"
+        },
+        {
+          "ref": "TD-13",
+          "question": "Annual safety refresher conducted",
+          "criticality": "🟠 HIGH — Annual",
+          "section": "Training & Docs"
+        }
+      ],
+      "naItems": [
+        {
+          "ref": "GS-06",
+          "question": "Electrical panels 36\" clearance",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "GS-11",
+          "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "GS-13",
+          "question": "Proper signage displayed (safety signs, no smoking)",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "GS-14",
+          "question": "Cart doorway security positioning",
+          "section": "General Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "GS-15",
+          "question": "Back safety/lifting techniques observed (ergonomics)",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-17",
+          "question": "Level floor hazards identified and marked",
+          "section": "General Safety",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-10",
+          "question": "Fire extinguishers properly mounted, unobstructed, with current monthly inspection tags",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-04",
+          "question": "Furniture stable and in good repair (Report defective )",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-06",
+          "question": "Emergency exit signs illuminated and visible",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-07",
+          "question": "Stairwell handrails secure and in good condition",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-12",
+          "question": "Pool area wet floor signage, non-slip surfaces",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-13",
+          "question": "Fitness area clean and hazard-free",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-14",
+          "question": "Pool chemical storage secure/labeled",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-18",
+          "question": "Emergency communication in elevators functional",
+          "section": "Public Areas",
           "reason": "Resort responsibility, not brand standard"
         }
       ]
