@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-28T17:19:04.977Z",
-  "generatedAtDisplay": "8/28/2026, 10:19:04 AM",
+  "generatedAt": "2026-09-03T17:42:14.979Z",
+  "generatedAtDisplay": "9/3/2026, 10:42:14 AM",
   "locations": [
     {
       "id": "4169",
@@ -262,6 +262,10 @@
       "na": 21,
       "sourceTool": "Risk VP Audit",
       "auditType": "On-Site",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Safety Audit completed for Sea Island Resort GA on 8/17/2026, accompanied by Anibal Fernandez.\nCompliance Score: 60% — Did Not Pass — Immediate Attention Required\n20 critical items identified requiring immediate attention (see Action Items in the export). The location has no Manager and Senior Leadership is taking care of the location while in process to appoint a dedicated manager. Unfortunately the previous manager did not comply to SOP and standards. Baseline for trading new manager in place with Actions from this report.",
       "sectionBreakdown": [
         {
@@ -318,207 +322,344 @@
           "ref": "GS-02",
           "question": "Wet floor signs available and used",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-05",
           "question": "No frayed/damaged electrical cords; damaged cords have replacement ordered and logged in Redbook",
           "criticality": "🔴 CRITICAL — Fire/Shock",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-10",
           "question": "Storage organized, heavy items low",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-11",
           "question": "Chemical safety training",
           "criticality": "🟠 HIGH — Training",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-14",
           "question": "Eye wash weekly inspection checklist",
           "criticality": "🔴 CRITICAL — Maintenance",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-08",
           "question": "Client coordination docs on file",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-12",
           "question": "Evacuation drills conducted annually",
           "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-03",
           "question": "Orientation records signed and filed",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-04",
           "question": "HazCom training annually",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-05",
           "question": "BBP training annually",
           "criticality": "🔴 CRITICAL — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-08",
           "question": "Incident reporting procedures documented (Redbook)",
           "criticality": "🔴 CRITICAL — Recordkeeping",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-12",
           "question": "Handbook acknowledgment on file",
           "criticality": "🟡 MEDIUM — Admin",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-13",
           "question": "Annual safety refresher conducted",
           "criticality": "🟠 HIGH — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-14",
           "question": "Training records retained per OSHA",
           "criticality": "🟠 HIGH — Retention",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-03",
           "question": "Wet floor signs during/after floor cleaning",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-05",
           "question": "Non-slip closed-toe footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-18",
           "question": "Kitchen chemicals labeled",
           "criticality": "🔴 CRITICAL — HazCom",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-19",
           "question": "SDS accessible for all kitchen chemicals",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-22",
           "question": "Hot surface warning signs posted",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-11",
@@ -661,6 +802,10 @@
       "na": 20,
       "sourceTool": "Risk VP Audit",
       "auditType": "On-Site",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Audit completed for Muckleshoot Casino on 8/11/2026.\nCompliance Score: 94% — Passed — Excellent\n3 critical items identified requiring immediate attention (see Action Items in the export). Latoya accompanied on Safety Audit. The office well organized and great pre-shift all employees involved. Latoya pointed out the loading dock and linen chutes concern. Risk to investigate safety precautions.",
       "sectionBreakdown": [
         {
@@ -717,33 +862,54 @@
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-14",
           "question": "Linen chute areas clean and unobstructed",
           "criticality": "🟠 HIGH",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-21",
           "question": "Non-slip footwear worn by all HK employees",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-11",
@@ -880,6 +1046,10 @@
       "na": 11,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "The housekeeping Supervisor Grethel accompanied me on the audit. The location only has a closet shared with client storage of linen. This is not a fully fletched office and as per the audit documentation is not kept of site due to facility restrictions. Discussions with Regional VP will be held the best way up keeping safety compliance.",
       "sectionBreakdown": [
         {
@@ -928,213 +1098,354 @@
           "ref": "GS-02",
           "question": "Wet floor signs available and used",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-11",
           "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
           "criticality": "🔴 CRITICAL — BBP Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-14",
           "question": "Eye wash weekly inspection checklist",
           "criticality": "🔴 CRITICAL — Maintenance",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-06",
           "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-08",
           "question": "Client coordination docs on file",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-12",
           "question": "Evacuation drills conducted annually",
           "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-13",
           "question": "Employees know how to report emergencies",
           "criticality": "🟠 HIGH — Knowledge",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-01",
           "question": "Pre Shift Safety orientation",
           "criticality": "🔴 CRITICAL — Day 1",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-08",
           "question": "Incident reporting procedures documented (Redbook)",
           "criticality": "🔴 CRITICAL — Recordkeeping",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-11",
           "question": "Pre-shift safety briefings documented with consistent, rotating topics",
           "criticality": "🟠 HIGH — Observable",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-13",
           "question": "Annual safety refresher conducted",
           "criticality": "🟠 HIGH — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-14",
           "question": "Training records retained per OSHA",
           "criticality": "🟠 HIGH — Retention",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-11",
           "question": "Wet floor signs placed immediately",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-15",
           "question": "Soiled linen handled with gloves (needlestick prevention)",
           "criticality": "🔴 CRITICAL — BBP",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-16",
           "question": "Found sharps/biohazards reported/handled correctly",
           "criticality": "🔴 CRITICAL — BBP",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-21",
           "question": "Non-slip footwear worn by all HK employees",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-06",
@@ -1217,6 +1528,10 @@
       "na": 18,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Malik and Jylissa accompanied me during the audit. Only closet space is available for equipment and chemicals. Observation of documentation and other compliance will be discussed with the regional VP moving forward in future audit.",
       "sectionBreakdown": [
         {
@@ -1265,189 +1580,314 @@
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-11",
           "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
           "criticality": "🔴 CRITICAL — BBP Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-15",
           "question": "Back safety/lifting techniques observed (ergonomics)",
           "criticality": "🟠 HIGH — Injury Prevention",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-11",
           "question": "Chemical safety training",
           "criticality": "🟠 HIGH — Training",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-14",
           "question": "Eye wash weekly inspection checklist",
           "criticality": "🔴 CRITICAL — Maintenance",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-06",
           "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-12",
           "question": "Evacuation drills conducted annually",
           "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-04",
           "question": "HazCom training annually",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-06",
           "question": "Training records with dates/signatures",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-08",
           "question": "Incident reporting procedures documented (Redbook)",
           "criticality": "🔴 CRITICAL — Recordkeeping",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-12",
           "question": "Handbook acknowledgment on file",
           "criticality": "🟡 MEDIUM — Admin",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-13",
           "question": "Annual safety refresher conducted",
           "criticality": "🟠 HIGH — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-14",
           "question": "Training records retained per OSHA",
           "criticality": "🟠 HIGH — Retention",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "PA-03",
           "question": "Wet floor signs during/after lobby cleaning",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Public Areas"
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "PA-11",
           "question": "Wet floor signs during restroom cleaning",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Public Areas"
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-06",
@@ -1572,6 +2012,10 @@
       "na": 29,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Safety audit conducted and accompanied by Roger. Overall, the office is well organized documentation and safety protocols comply with the set standards.",
       "sectionBreakdown": [
         {
@@ -1636,51 +2080,84 @@
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-04",
           "question": "Floor drains clean, unclogged, maintained",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-22",
           "question": "Hot surface warning signs posted",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-14",
@@ -1871,6 +2348,10 @@
       "na": 6,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Supervisor Audrey accompanied during Audit. Met with GM Dimitry and discussed eyewash station and bed-making solutions. Not all documentation observed. Location do not meet compliance standards.",
       "sectionBreakdown": [
         {
@@ -1919,135 +2400,224 @@
           "ref": "GS-06",
           "question": "Electrical panels 36\" clearance",
           "criticality": "🟠 HIGH — Citation Risk",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-02",
           "question": "Chemical containers have original labels",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-12",
           "question": "Evacuation drills conducted annually",
           "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-21",
           "question": "Non-slip footwear worn by all HK employees",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-11",
@@ -2100,6 +2670,10 @@
       "na": 16,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Supervisor Patrick accompanied me during the audit. I also met the manager of the Hotel Nathan. He was overall satisfied with the service but had a concern with regard to behind the bar cleaning the floors being an issue. This was addressed with Patrick and recommended that they use a water and vinegar solution to stabilize the sticky floor environment. This is a location without any. Office and Storage is in a Wol way on the lower level. Alan provided a locker for them to secure product and equipment. A specific space for that need to be allocated to keep the locker. Due to Office space most of the documentation was not observed and we will discuss a strategy moving forward.",
       "sectionBreakdown": [
         {
@@ -2148,183 +2722,304 @@
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-06",
           "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-08",
           "question": "Client coordination docs on file",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-01",
           "question": "Pre Shift Safety orientation",
           "criticality": "🔴 CRITICAL — Day 1",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-05",
           "question": "BBP training annually",
           "criticality": "🔴 CRITICAL — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-08",
           "question": "Incident reporting procedures documented (Redbook)",
           "criticality": "🔴 CRITICAL — Recordkeeping",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-01",
           "question": "Kitchen floors clean, dry, grease-free",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-05",
           "question": "Non-slip closed-toe footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-07",
           "question": "Chemical dispensers properly functioning",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-19",
           "question": "SDS accessible for all kitchen chemicals",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-22",
           "question": "Hot surface warning signs posted",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-24",
           "question": "First aid kit accessible in kitchen",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-25",
           "question": "Burns treatment supplies available",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-06",
@@ -2437,6 +3132,10 @@
       "na": 13,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Jylissa and Ismael were present at the audit. Although the location has restricted area compliance with regard to some documentation, and\nPoster were observed in the closet area. A walk-through of the buildings was done and observations has been noted in the audit. I will strategize with the regional VP, how to address the documentation for compliance in future audit.",
       "sectionBreakdown": [
         {
@@ -2485,183 +3184,304 @@
           "ref": "GS-02",
           "question": "Wet floor signs available and used",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-15",
           "question": "Back safety/lifting techniques observed (ergonomics)",
           "criticality": "🟠 HIGH — Injury Prevention",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-03",
           "question": "Secondary containers labeled with GHS",
           "criticality": "🔴 CRITICAL — Common Violation",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-14",
           "question": "Eye wash weekly inspection checklist",
           "criticality": "🔴 CRITICAL — Maintenance",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-06",
           "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-04",
           "question": "HazCom training annually",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-05",
           "question": "BBP training annually",
           "criticality": "🔴 CRITICAL — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-08",
           "question": "Incident reporting procedures documented (Redbook)",
           "criticality": "🔴 CRITICAL — Recordkeeping",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-13",
           "question": "Annual safety refresher conducted",
           "criticality": "🟠 HIGH — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-14",
           "question": "Training records retained per OSHA",
           "criticality": "🟠 HIGH — Retention",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "PA-03",
           "question": "Wet floor signs during/after lobby cleaning",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Public Areas"
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "PA-11",
           "question": "Wet floor signs during restroom cleaning",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Public Areas"
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-11",
@@ -2756,6 +3576,10 @@
       "na": 6,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Supervisor Audrey accompanied during Audit. Met with GM Dimitry and discussed eyewash station and bed-making solutions. Not all documentation observed. Location do not meet compliance standards.",
       "sectionBreakdown": [
         {
@@ -2804,135 +3628,224 @@
           "ref": "GS-06",
           "question": "Electrical panels 36\" clearance",
           "criticality": "🟠 HIGH — Citation Risk",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-02",
           "question": "Chemical containers have original labels",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-12",
           "question": "Evacuation drills conducted annually",
           "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-21",
           "question": "Non-slip footwear worn by all HK employees",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-11",
@@ -2985,6 +3898,10 @@
       "na": 15,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Renée accompanied me during the safety audit. They have amble office space however it can be better organized. Observations with regard to documentation not comply to the standards. Some easy fixes and organization could bring them back to comply to standard standards.",
       "sectionBreakdown": [
         {
@@ -3033,165 +3950,274 @@
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-11",
           "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
           "criticality": "🔴 CRITICAL — BBP Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-15",
           "question": "Back safety/lifting techniques observed (ergonomics)",
           "criticality": "🟠 HIGH — Injury Prevention",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-08",
           "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
           "criticality": "🟠 HIGH — Accessibility",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-14",
           "question": "Eye wash weekly inspection checklist",
           "criticality": "🔴 CRITICAL — Maintenance",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-06",
           "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-04",
           "question": "HazCom training annually",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-10",
           "question": "Vacuum cords managed (trip prevention)",
           "criticality": "🟠 HIGH",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-11",
           "question": "Wet floor signs placed immediately",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-13",
           "question": "Proper lifting techniques for linen bags",
           "criticality": "🟠 HIGH — Ergonomics",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-15",
           "question": "Soiled linen handled with gloves (needlestick prevention)",
           "criticality": "🔴 CRITICAL — BBP",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "HK-21",
           "question": "Non-slip footwear worn by all HK employees",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Housekeeping"
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-02",
@@ -3298,6 +4324,10 @@
       "na": 16,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "A safety audit was conducted with Manager Ariel company during the audit. It has been observed that there is no official workspace and a storage is used.\n\nNo observation of documentation has been done, and the strategy will be devised with the original VP going forward to ensure compliance.",
       "sectionBreakdown": [
         {
@@ -3346,225 +4376,374 @@
           "ref": "GS-02",
           "question": "Wet floor signs available and used",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-09",
           "question": "Closed-toe non-slip footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-01",
           "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-05",
           "question": "Eye wash within 10 sec of chemical areas",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-11",
           "question": "Chemical safety training",
           "criticality": "🟠 HIGH — Training",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-12",
           "question": "Full PPE at chemical dispensing stations",
           "criticality": "🔴 CRITICAL — Full PPE",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-14",
           "question": "Eye wash weekly inspection checklist",
           "criticality": "🔴 CRITICAL — Maintenance",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-02",
           "question": "EAP includes evac routes/assembly points",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-03",
           "question": "Emergency contacts posted",
           "criticality": "🟠 HIGH — Posting",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-06",
           "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
           "criticality": "🟠 HIGH — Walk-Through",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-07",
           "question": "Emergency procedures communicated to employees",
           "criticality": "🔴 CRITICAL — Life Safety",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-09",
           "question": "Fire prevention plan documented",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-12",
           "question": "Evacuation drills conducted annually",
           "criticality": "🟠 HIGH — Annual Req",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-01",
           "question": "Pre Shift Safety orientation",
           "criticality": "🔴 CRITICAL — Day 1",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-02",
           "question": "Orientation: hazcom, PPE, emergency procedures",
           "criticality": "🔴 CRITICAL — Content",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-04",
           "question": "HazCom training annually",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-08",
           "question": "Incident reporting procedures documented (Redbook)",
           "criticality": "🔴 CRITICAL — Recordkeeping",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-11",
           "question": "Pre-shift safety briefings documented with consistent, rotating topics",
           "criticality": "🟠 HIGH — Observable",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-13",
           "question": "Annual safety refresher conducted",
           "criticality": "🟠 HIGH — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-16",
           "question": "Safety documentation organized, all required forms available and current",
           "criticality": "🟡 MEDIUM — Organization",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-01",
           "question": "Kitchen floors clean, dry, grease-free",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-03",
           "question": "Wet floor signs during/after floor cleaning",
           "criticality": "🔴 CRITICAL — #1 Citation",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-04",
           "question": "Floor drains clean, unclogged, maintained",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-05",
           "question": "Non-slip closed-toe footwear worn",
           "criticality": "🔴 CRITICAL — Observable",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-10",
           "question": "Proper drainage, no standing water in dishwash",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-14",
           "question": "Grease trap area clean, (Report clogged)",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-15",
           "question": "Waste/garbage areas clean, pest-free",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-19",
           "question": "SDS accessible for all kitchen chemicals",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-22",
           "question": "Hot surface warning signs posted",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-23",
           "question": "Cut-resistant gloves for knives/sharps",
           "criticality": "🟠 HIGH — PPE",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-24",
           "question": "First aid kit accessible in kitchen",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "KS-25",
           "question": "Burns treatment supplies available",
           "criticality": "🟠 HIGH",
-          "section": "Kitchen/Stewarding"
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-08",
@@ -3677,6 +4856,10 @@
       "na": 17,
       "sourceTool": "Risk VP Audit",
       "auditType": "On-Site",
+      "auditDate": "",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
       "narrative": "Audit completed for Linq Promenade Las Vegas9021 on 8/25/2026.\nCompliance Score: 79% — Did Not Pass — Immediate Attention Required\n6 critical items identified requiring immediate attention (see Action Items in the export). Andy accompanied me through the safety audit. The office area is well organized and as further report a couple of things to be updated for full compliance. Daily videos and pictures is being sent to Andy showing the use of weight floor signs in the areas where they block off in the public area during cleaning. This is also been done during the night. Services surrendered. From my TSC perspective, a loading dock and compactor guide need to be developed by Risk and safety to be rolled out. There are two pressure washer vehicles that’s been used which is not for public road use. One was in the workshop for repairs to be returned on the day of the audit. The other vehicle was inspected and in good condition. It was recommended that safety first aid kit be placed in each vehicle.",
       "sectionBreakdown": [
         {
@@ -3725,81 +4908,134 @@
           "ref": "GS-08",
           "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
           "criticality": "🔴 CRITICAL — Service Industry",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-12",
           "question": "PPE hazard assessment documented",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-16",
           "question": "Labels on shelves with contents",
           "criticality": "🟠 HIGH — Organization",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "GS-18",
           "question": "Safety posters displayed and current",
           "criticality": "🟠 HIGH — Compliance",
-          "section": "General Safety"
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-09",
           "question": "Written HazCom Program in place",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "CS-13",
           "question": "Pigmats at chemical storage/dispensing",
           "criticality": "🟠 HIGH — Spill Prevention",
-          "section": "Chemical Safety"
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-01",
           "question": "Written EAP in place (TSC own, independent of client) and current",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "EP-08",
           "question": "Client coordination docs on file",
           "criticality": "🟠 HIGH — Documentation",
-          "section": "Emergency Prep"
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-04",
           "question": "HazCom training annually",
           "criticality": "🔴 CRITICAL — #2 Cited",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-05",
           "question": "BBP training annually",
           "criticality": "🔴 CRITICAL — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-07",
           "question": "OSHA poster displayed in employee area",
           "criticality": "🔴 CRITICAL — Required",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-12",
           "question": "Handbook acknowledgment on file",
           "criticality": "🟡 MEDIUM — Admin",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         },
         {
           "ref": "TD-13",
           "question": "Annual safety refresher conducted",
           "criticality": "🟠 HIGH — Annual",
-          "section": "Training & Docs"
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": ""
         }
       ],
+      "resolvedActions": [],
       "naItems": [
         {
           "ref": "GS-06",
@@ -3904,6 +5140,580 @@
           "reason": "Resort responsibility, not brand standard"
         }
       ]
+    },
+    {
+      "unitId": "4177",
+      "name": "Garden of the Gods",
+      "region": "West",
+      "state": "CO",
+      "quarter": "Q3 2026",
+      "completedBy": "Alan Ching",
+      "score": 51,
+      "yes": 58,
+      "no": 55,
+      "na": 0,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-07-25",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "sectionBreakdown": [],
+      "actions": [
+        {
+          "ref": "GS-02",
+          "question": "Wet floor signs available and used",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-04",
+          "question": "PPE available, accessible, AND being worn by employees for assigned tasks",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-11",
+          "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-13",
+          "question": "Proper signage displayed (safety signs, no smoking)",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-15",
+          "question": "Back safety/lifting techniques observed (ergonomics)",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "GS-18",
+          "question": "Safety posters displayed and current",
+          "criticality": "",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-03",
+          "question": "Secondary containers labeled with GHS",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-05",
+          "question": "Eye wash within 10 sec of chemical areas",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-08",
+          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-10",
+          "question": "Chemical-resistant gloves available",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-11",
+          "question": "Chemical safety training",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "CS-14",
+          "question": " Eye wash weekly inspection checklist",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-02",
+          "question": "EAP includes evac routes/assembly points",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-03",
+          "question": "Emergency contacts posted",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-04",
+          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-06",
+          "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-07",
+          "question": "Emergency procedures communicated to employees",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-10",
+          "question": "Fire extinguishers properly mounted, unobstructed, with current monthly inspection tags",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EP-13",
+          "question": "Employees know how to report emergencies",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-01",
+          "question": "Pre Shift Safety orientation ",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-02",
+          "question": "Orientation: hazcom, PPE, emergency procedures",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-03",
+          "question": "Orientation records signed and filed",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-04",
+          "question": "HazCom training annually",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-05",
+          "question": "BBP training annually",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-06",
+          "question": "Training records with dates/signatures",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-07",
+          "question": "OSHA poster displayed in employee area",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-10",
+          "question": "OSHA 300 log maintained (>10 employees)",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-13",
+          "question": "Annual safety refresher conducted",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-14",
+          "question": "Training records retained per OSHA",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-15",
+          "question": "Discuss Claims GB: Review claims with team",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "TD-16",
+          "question": "Safety documentation organized, all required forms available and current",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "KS-08",
+          "question": "PPE worn for hot water/chemicals (gloves, aprons)",
+          "criticality": "",
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "KS-09",
+          "question": "Broken glass/china handling procedures followed",
+          "criticality": "",
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "KS-19",
+          "question": "SDS accessible for all kitchen chemicals",
+          "criticality": "",
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-10",
+          "question": "Lockout/tagout for equipment maintenance",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-16",
+          "question": "Soiled linen sorted with gloves (biohazard)",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-18",
+          "question": "Proper containers for different waste streams",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-19",
+          "question": "Waste segregation training completed",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-20",
+          "question": "Hazardous waste disposed per regulations",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-21",
+          "question": "Equipment inspected, maintenance logged",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        },
+        {
+          "ref": "EV-23",
+          "question": "SDS binder accessible in EVS storage",
+          "criticality": "",
+          "section": "EVS",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-07-25"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": []
     }
   ]
 }
