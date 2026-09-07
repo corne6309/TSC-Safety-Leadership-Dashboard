@@ -177,6 +177,7 @@ th.sortable.active .arrow{color:#1e3a8a}
       </div>
     </div>
     <span id="netStatusBadge" style="font-size:10px;font-weight:800;padding:3px 8px;border-radius:10px;white-space:nowrap;margin-right:10px"></span>
+    <button onclick="forceRefresh()" style="background:#334155;color:#fff;border:none;border-radius:10px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;margin-right:10px">🔄 Refresh</button>
     <div id="lastUpdated"></div>
   </div>
 </div>
@@ -450,10 +451,12 @@ function showLocationDetailDrawer(unitId){
       // the open ones (like a full audit's findings) would hide the resolved half of the
       // picture entirely, which is the whole point of a verification visit.
       const resolvedRows = (s.resolvedActions||[]).map(a=>
-        '<div style="font-size:12px;color:#15803d;padding:4px 0;border-bottom:1px solid #f8fafc">✅ ['+xH(a.ref)+'] '+xH(a.question)+'</div>'
+        '<div style="font-size:12px;color:#15803d;padding:4px 0;border-bottom:1px solid #f8fafc">✅ ['+xH(a.ref)+'] '+xH(a.question)
+        +(a.resolutionNote?'<div style="font-size:11px;color:#64748b;font-style:italic;margin-top:1px">'+xH(a.resolutionNote)+'</div>':'')+'</div>'
       ).join('');
       const openRows = (s.actions||[]).map(a=>
-        '<div style="font-size:12px;color:#b91c1c;padding:4px 0;border-bottom:1px solid #f8fafc">⚠️ ['+xH(a.ref)+'] '+xH(a.question)+'</div>'
+        '<div style="font-size:12px;color:#b91c1c;padding:4px 0;border-bottom:1px solid #f8fafc">⚠️ ['+xH(a.ref)+'] '+xH(a.question)
+        +(a.resolutionNote?'<div style="font-size:11px;color:#64748b;font-style:italic;margin-top:1px">'+xH(a.resolutionNote)+'</div>':'')+'</div>'
       ).join('');
       const resolvedCount=(s.resolvedActions||[]).length, openCount=(s.actions||[]).length;
       findingsHtml = '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin:10px 0 4px">Resolved ('+resolvedCount+') · Still Open ('+openCount+')</div>'
@@ -1114,6 +1117,13 @@ function printMeetingPacket(){
   setTimeout(()=>window.print(), 100);
 }
 
+function forceRefresh(){
+  // Cache-busting reload — this dashboard is read-only (no state to save first), so this
+  // just forces the browser to fetch the latest HTML/JS instead of a stale cached copy.
+  // dashboard_data.json itself already loads with {cache:'no-store'}, so this specifically
+  // targets the page file itself, which is what tends to get stuck cached.
+  location.href=location.pathname+'?refresh='+Date.now();
+}
 function updateNetStatusBadge(){
   const el=document.getElementById('netStatusBadge');
   if(!el)return;
