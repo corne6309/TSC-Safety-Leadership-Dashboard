@@ -10,6 +10,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 #topbanner{width:100%;display:block;line-height:0}
 #topbanner img{width:100%;height:auto;display:block}
 #footbanner{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;color:#d4af37;text-align:center;padding:8px 10px;font-size:11px;font-weight:600;letter-spacing:.04em;z-index:300;border-top:2px solid #d4af37}
+#scrollNavControl{position:fixed;left:14px;bottom:44px;z-index:500;display:flex;flex-direction:column;gap:6px}
+#scrollNavControl button{width:40px;height:40px;border-radius:50%;border:1.5px solid #334155;background:#0f172a;
+  color:#94a3b8;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35);line-height:1}
+#scrollNavControl button:active{background:#3b82f6;color:#fff}
 
 #header{background:#0f172a;color:#fff;padding:16px 14px;box-shadow:0 2px 12px rgba(0,0,0,.4)}
 #header-inner{display:flex;align-items:center;gap:12px;max-width:1200px;margin:0 auto;flex-wrap:wrap}
@@ -204,7 +208,7 @@ th.sortable.active .arrow{color:#1e3a8a}
         <button class="nav-btn" data-view="drilldown" onclick="switchView('drilldown')">🔎 Location Drill-Down</button>
         <button class="nav-btn" data-view="issues" onclick="switchView('issues')">⚠️ Top Issues</button>
         <button class="nav-btn" data-view="chronic" onclick="switchView('chronic')">🔁 Chronic Issues</button>
-        <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">📋 Scorecards &amp; Recognition</button>
+        <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">🏆 Recognition</button>
         <button class="nav-btn" data-view="comparison" onclick="switchView('comparison')">🔍 Assessment Comparison</button>
         <button class="nav-btn" data-view="lagtime" onclick="switchView('lagtime')">⏱️ Action Item Lag &amp; Overdue</button>
         <button class="nav-btn" data-view="packet" onclick="switchView('packet')">🖨️ Meeting Packet</button>
@@ -214,8 +218,13 @@ th.sortable.active .arrow{color:#1e3a8a}
         <div class="view-panel active" id="view-overview">
           <div class="section">
             <h2>📈 Compliance Score Trend</h2>
-            <div class="desc">Average compliance score by quarter, across all submitted audits.</div>
+            <div class="desc">Average compliance score by quarter, across full audits and Self-Assessments. Spot-Checks use a different metric (below) and aren't blended in here, since "% of prior findings resolved" isn't comparable to a compliance score.</div>
             <div id="trendChart"></div>
+          </div>
+          <div class="section">
+            <h2>🔍 Spot-Check Resolution Rate</h2>
+            <div class="desc">Average % of the Risk VP's prior findings marked Resolved by Regional VPs, by quarter.</div>
+            <div id="spotCheckResolutionRate"></div>
           </div>
           <div class="section">
             <h2>🗺️ Region Comparison</h2>
@@ -236,7 +245,7 @@ th.sortable.active .arrow{color:#1e3a8a}
         <div class="view-panel" id="view-regionalvp">
           <div class="section">
             <h2>🧭 Regional VP Assessment</h2>
-            <div class="desc">Full audits and quick Spot-Checks completed by the five Regional VPs. For Spot-Checks, "Score" means % of the Risk VP's prior findings resolved — a different metric from a full audit's compliance score, shown alongside Resolved/Open counts and the baseline % used.</div>
+            <div class="desc">Full audits and quick Spot-Checks completed by the five Regional VPs. For Spot-Checks, "Score" means % of the Risk VP's prior findings resolved — a different metric from a full audit's compliance score, shown alongside Resolved/Open counts.</div>
             <div class="coverage-grid" id="regionalVpGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="regionalVpTable"></table></div>
           </div>
@@ -348,6 +357,11 @@ th.sortable.active .arrow{color:#1e3a8a}
 
 <div id="meetingPacket" style="display:none"></div>
 
+<div id="scrollNavControl" style="display:none">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">↑</button>
+  <button onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" aria-label="Scroll to bottom">↓</button>
+</div>
+
 <div id="footbanner">TSC PROPRIETARY AND CONFIDENTIAL — LEADERSHIP VIEW ONLY</div>
 
 <style media="print">
@@ -392,7 +406,7 @@ function closeDrawer(){
 
 function showRegionDrawer(region){
   const {current} = currentAndPreviousQuarter();
-  const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current).sort((a,b)=>b.score-a.score);
+  const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && s.auditFormat!=='spot-check').sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.sourceTool)+(s.auditType?' · '+xH(s.auditType):'')+'</div></div>'
@@ -404,7 +418,7 @@ function showRegionDrawer(region){
 }
 
 function showTrendDrawer(quarter){
-  const subs = dashData.submissions.filter(s=>s.quarter===quarter).sort((a,b)=>b.score-a.score);
+  const subs = dashData.submissions.filter(s=>s.quarter===quarter && s.auditFormat!=='spot-check').sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.region)+' · '+xH(s.sourceTool)+'</div></div>'
@@ -429,9 +443,28 @@ function showLocationDetailDrawer(unitId){
       '<div class="drawer-row" style="cursor:default"><div class="name" style="font-weight:600;font-size:12px">'+xH(sb.section)+'</div>'
       +'<div style="font-size:12px;font-weight:700;color:'+(sb.scorePct==null?'#94a3b8':sb.scorePct>=90?'#15803d':sb.scorePct>=75?'#92400e':'#b91c1c')+'">'+(sb.scorePct==null?'N/A':sb.scorePct+'%')+'</div></div>'
     ).join('');
-    const findingsRows = (s.actions||[]).map(a=>
-      '<div style="font-size:12px;color:#334155;padding:4px 0;border-bottom:1px solid #f8fafc">['+xH(a.ref)+'] '+xH(a.question)+'</div>'
-    ).join('');
+    const isSpotCheck = s.auditFormat==='spot-check';
+    let findingsHtml;
+    if(isSpotCheck){
+      // Spot-Check tracks Resolved and Still Open as two separate lists — showing only
+      // the open ones (like a full audit's findings) would hide the resolved half of the
+      // picture entirely, which is the whole point of a verification visit.
+      const resolvedRows = (s.resolvedActions||[]).map(a=>
+        '<div style="font-size:12px;color:#15803d;padding:4px 0;border-bottom:1px solid #f8fafc">✅ ['+xH(a.ref)+'] '+xH(a.question)+'</div>'
+      ).join('');
+      const openRows = (s.actions||[]).map(a=>
+        '<div style="font-size:12px;color:#b91c1c;padding:4px 0;border-bottom:1px solid #f8fafc">⚠️ ['+xH(a.ref)+'] '+xH(a.question)+'</div>'
+      ).join('');
+      const resolvedCount=(s.resolvedActions||[]).length, openCount=(s.actions||[]).length;
+      findingsHtml = '<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin:10px 0 4px">Resolved ('+resolvedCount+') · Still Open ('+openCount+')</div>'
+        + (resolvedRows || '<div style="font-size:12px;color:#94a3b8">None resolved yet.</div>')
+        + (openRows ? '<div style="margin-top:8px">'+openRows+'</div>' : '<div style="font-size:12px;color:#15803d;margin-top:8px">Nothing still open — fully resolved.</div>');
+    } else {
+      const findingsRows = (s.actions||[]).map(a=>
+        '<div style="font-size:12px;color:#334155;padding:4px 0;border-bottom:1px solid #f8fafc">['+xH(a.ref)+'] '+xH(a.question)+'</div>'
+      ).join('');
+      findingsHtml = findingsRows?'<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin:10px 0 4px">Findings ('+s.actions.length+')</div>'+findingsRows:'<div style="font-size:12px;color:#15803d;margin-top:8px">No findings.</div>';
+    }
     return '<div style="margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f1f5f9">'
       +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
       +'<div style="font-size:13px;font-weight:800;color:#0f172a">'+xH(s.quarter)+' · '+xH(s.sourceTool)+(s.auditType?' ('+xH(s.auditType)+')':'')+'</div>'
@@ -439,7 +472,7 @@ function showLocationDetailDrawer(unitId){
       +'</div>'
       +'<div style="font-size:11px;color:#94a3b8;margin-bottom:10px">Completed by '+xH(s.completedBy)+'</div>'
       +(secRows?'<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin-bottom:4px">By Area</div>'+secRows:'')
-      +(findingsRows?'<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin:10px 0 4px">Findings ('+s.actions.length+')</div>'+findingsRows:'<div style="font-size:12px;color:#15803d;margin-top:8px">No findings.</div>')
+      +findingsHtml
       +(s.narrative?'<div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;margin:10px 0 4px">Narrative</div><div style="font-size:12px;color:#475569;line-height:1.5;white-space:pre-wrap">'+xH(s.narrative)+'</div>':'')
       +'</div>';
   }).join('');
@@ -485,6 +518,7 @@ async function loadDashboardData(){
     dashData = await res.json();
     document.getElementById('emptyState').style.display='none';
     document.getElementById('dashContent').style.display='';
+    document.getElementById('scrollNavControl').style.display='flex';
     document.getElementById('lastUpdated').textContent = 'Last updated: ' + (dashData.generatedAtDisplay || 'unknown');
     populateFilters();
     renderDashboard();
@@ -544,7 +578,8 @@ function currentAndPreviousQuarter(){
 function renderDashboard(){
   const subs = filteredSubmissions();
   renderKPIs(subs);
-  renderTrendChart();
+  renderTrendChart(subs);
+  renderSpotCheckResolutionRate(subs);
   renderRegionChart(subs);
   renderRegionScorecards();
   renderRecognition();
@@ -561,7 +596,10 @@ function renderDashboard(){
 }
 
 function renderKPIs(subs){
-  const avgScore = subs.length ? Math.round(subs.reduce((s,x)=>s+x.score,0)/subs.length) : 0;
+  // Same reasoning as the trend/region charts — Spot-Check's resolution-rate score isn't
+  // comparable to a compliance %, so it's excluded from this headline KPI too.
+  const complianceSubs = subs.filter(s=>s.auditFormat!=='spot-check');
+  const avgScore = complianceSubs.length ? Math.round(complianceSubs.reduce((s,x)=>s+x.score,0)/complianceSubs.length) : 0;
   const selQuarter = document.getElementById('quarterFilter').value;
   const relevantLocIds = new Set(LOCATIONS.map(l=>l.id));
   const submittedIds = new Set(subs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
@@ -571,7 +609,7 @@ function renderKPIs(subs){
   const virtualCount = vpAudits.filter(s=>s.auditType==='Virtual').length;
 
   const kpis = [
-    {v:avgScore+'%', l:'Avg Compliance Score', cls:scoreClass(avgScore), sub:subs.length+' audit'+(subs.length===1?'':'s')},
+    {v:avgScore+'%', l:'Avg Compliance Score', cls:scoreClass(avgScore), sub:complianceSubs.length+' audit'+(complianceSubs.length===1?'':'s')},
     {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations'},
     {v:totalNo, l:'Open Findings', cls:totalNo===0?'good':totalNo<10?'warn':'bad', sub:'across all submitted audits'},
     {v:vpAudits.length, l:'VP Audits Completed', cls:'', sub:virtualCount+' virtual, '+(vpAudits.length-virtualCount)+' in-person'}
@@ -581,9 +619,12 @@ function renderKPIs(subs){
   ).join('');
 }
 
-function renderTrendChart(){
+function renderTrendChart(subs){
   const byQuarter = {};
-  dashData.submissions.forEach(s=>{
+  // Spot-Check's "score" means % of prior findings resolved — a fundamentally different
+  // metric from a full audit's compliance %. Blending them here would produce a number
+  // that doesn't coherently mean anything. Spot-Check gets its own metric instead, below.
+  subs.filter(s=>s.auditFormat!=='spot-check').forEach(s=>{
     if(!s.quarter) return;
     (byQuarter[s.quarter]=byQuarter[s.quarter]||[]).push(s.score);
   });
@@ -595,10 +636,32 @@ function renderTrendChart(){
     return '<div class="bar-row" style="cursor:pointer" onclick="showTrendDrawer(\''+xH(q)+'\')"><div class="bar-label">'+xH(q)+'</div><div class="bar-track"><div class="bar-fill '+barClass(avg)+'" style="width:'+avg+'%"><span>'+avg+'% ('+scores.length+' audits)</span></div></div></div>';
   }).join('');
 }
+function renderSpotCheckResolutionRate(subs){
+  const el=document.getElementById('spotCheckResolutionRate');
+  if(!el)return;
+  const spotChecks=subs.filter(s=>s.auditFormat==='spot-check');
+  if(!spotChecks.length){
+    el.innerHTML='<div style="color:#94a3b8;font-size:12px">No Spot-Checks in the current filter yet.</div>';
+    return;
+  }
+  const byQuarter={};
+  spotChecks.forEach(s=>{
+    if(!s.quarter)return;
+    (byQuarter[s.quarter]=byQuarter[s.quarter]||[]).push(s.score);
+  });
+  const quarters=Object.keys(byQuarter).sort((a,b)=>quarterSortKey(a)-quarterSortKey(b));
+  el.innerHTML=quarters.map(q=>{
+    const scores=byQuarter[q];
+    const avg=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+    return '<div class="bar-row"><div class="bar-label">'+xH(q)+'</div><div class="bar-track"><div class="bar-fill '+barClass(avg)+'" style="width:'+avg+'%"><span>'+avg+'% ('+scores.length+' spot-check'+(scores.length===1?'':'s')+')</span></div></div></div>';
+  }).join('');
+}
 
 function renderRegionChart(subs){
   const byRegion = {};
-  subs.forEach(s=>{ (byRegion[s.region]=byRegion[s.region]||[]).push(s.score); });
+  // Same reasoning as the trend chart — Spot-Check's resolution-rate score isn't
+  // comparable to a compliance %, so it's excluded from this blended regional average too.
+  subs.filter(s=>s.auditFormat!=='spot-check').forEach(s=>{ (byRegion[s.region]=byRegion[s.region]||[]).push(s.score); });
   const rows = Object.keys(byRegion).map(r=>({
     region:r, avg:Math.round(byRegion[r].reduce((a,b)=>a+b,0)/byRegion[r].length), count:byRegion[r].length
   })).sort((a,b)=>b.avg-a.avg);
@@ -648,7 +711,11 @@ function renderRecognition(){
   const rFilter = document.getElementById('regionFilter').value;
   const curSubs = dashData.submissions.filter(s=>s.quarter===current && (rFilter==='__all__'||s.region===rFilter));
 
-  const best = [...curSubs].sort((a,b)=>b.score-a.score).slice(0,3);
+  // Only genuinely full compliance earns a shout-out here — a location merely having the
+  // highest score among a mediocre field (e.g. 79%) isn't something to publicly celebrate.
+  // "Most Improved" stays separate and uncapped, since real improvement (50%→79%) is worth
+  // recognizing on its own terms even without hitting 100%.
+  const best = curSubs.filter(s=>s.score===100).sort((a,b)=>b.score-a.score).slice(0,3);
 
   let mostImproved = [];
   if(previous){
@@ -664,9 +731,12 @@ function renderRecognition(){
 
   let html = '';
   if(best.length){
-    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Best Scores This Quarter</div>';
+    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Full Compliance This Quarter (100%)</div>';
     html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">['+xH(s.unitId)+'] '+xH(s.name)+'</div></div>').join('');
     html += '</div>';
+  } else if(curSubs.length){
+    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Full Compliance This Quarter (100%)</div>'
+      +'<div class="no-selection" style="padding:10px 0">No location has reached 100% yet this quarter.</div></div>';
   }
   if(mostImproved.length){
     html += '<div><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">📈 Most Improved</div>';
@@ -830,7 +900,7 @@ document.addEventListener('click', e=>{
 function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, totalLabel){
   const matches = subs.filter(s=>s.sourceTool===sourceTool);
   const virtual = matches.filter(s=>s.auditType==='Virtual').length;
-  const onsite = matches.filter(s=>s.auditType==='On-Site').length;
+  const onsite = matches.filter(s=>s.auditType==='On-Site'||s.auditType==='Continuity Check').length;
   const spotChecks = matches.filter(s=>s.auditFormat==='spot-check').length;
   const visitedIds = new Set(matches.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
@@ -851,7 +921,8 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
 
   function typePill(s){
     if(s.auditType==='Virtual') return '<span class="pill pill-virtual">🎥 Virtual</span>';
-    if(s.auditType==='Spot-Check') return '<span class="pill" style="background:#f3e8ff;color:#7e22ce">🔍 Spot-Check</span>';
+    if(s.auditFormat==='spot-check') return '<span class="pill" style="background:#f3e8ff;color:#7e22ce">🔍 Spot-Check</span>';
+    if(s.auditType==='Continuity Check') return '<span class="pill" style="background:#e0e7ff;color:#3730a3">🔗 Continuity Check</span>';
     return '<span class="pill pill-onsite">On-Site</span>';
   }
 
@@ -860,19 +931,18 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const rows = sorted.map(s=>{
     const isSpot=s.auditFormat==='spot-check';
     const resolvedOpenCell=isSpot?(s.yes+' resolved / '+s.no+' open'):'—';
-    const baselineCell=isSpot?(s.baselinePct!=null?s.baselinePct+'%':'—'):'—';
     return '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span></td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
     +'<td>'+xH(s.completedBy)+'</td>'
     +(sourceTool!=='Self-Assessment'?'<td>'+typePill(s)+'</td>':'')
-    +(showSpotCheckCols?'<td style="font-size:11.5px">'+resolvedOpenCell+'</td><td>'+baselineCell+'</td>':'')
+    +(showSpotCheckCols?'<td style="font-size:11.5px">'+resolvedOpenCell+'</td>':'')
     +'<td style="color:'+scoreColor(s)+';font-weight:700">'+(s.score==null?'—':s.score+'%')+'</td></tr>';
   }).join('');
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
   const headerCols = th('unitId','ID')+th('name','Location')+th('region','Region')+th('quarter','Quarter')+th('completedBy','Completed By')
     +(sourceTool!=='Self-Assessment'?th('auditType','Type'):'')
-    +(showSpotCheckCols?'<th>Resolved/Open</th><th>Baseline</th>':'')
+    +(showSpotCheckCols?'<th>Resolved/Open</th>':'')
     +th('score','Score');
-  const colCount = (sourceTool!=='Self-Assessment'?7:6)+(showSpotCheckCols?2:0);
+  const colCount = (sourceTool!=='Self-Assessment'?7:6)+(showSpotCheckCols?1:0);
   document.getElementById(tableId).innerHTML =
     '<thead><tr>'+headerCols+'</tr></thead><tbody>'+(rows||'<tr><td colspan="'+colCount+'" style="text-align:center;color:#94a3b8">No audits recorded yet</td></tr>')+'</tbody>';
 }
