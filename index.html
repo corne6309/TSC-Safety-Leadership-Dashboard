@@ -579,6 +579,49 @@ function scoreClass(score){
 function barClass(score){
   return score>=90?'s-good':score>=75?'s-warn':'s-bad';
 }
+// ── Lightweight self-contained SVG line chart — no external library, matching the project's
+// pattern of fully offline, single-file tools. Renders a trend line with gridlines, clickable
+// points (reusing whatever drill-down the caller wants), and value labels above each point.
+function renderLineChart(elId, points, opts){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(!points.length){
+    el.innerHTML = '<div style="color:#94a3b8;font-size:12px">'+(opts.emptyMessage||'Not enough data yet.')+'</div>';
+    return;
+  }
+  const color = opts.color || '#1e3a8a';
+  const W=600, H=210, ML=36, MR=34, MT=22, MB=34;
+  const chartW = W-ML-MR, chartH = H-MT-MB;
+  const n = points.length;
+  const xFor = i => n===1 ? ML+chartW/2 : ML + (i/(n-1))*chartW;
+  const yFor = v => MT + (1-v/100)*chartH;
+
+  const gridLines = [0,25,50,75,100].map(g=>
+    '<line x1="'+ML+'" y1="'+yFor(g)+'" x2="'+(W-MR)+'" y2="'+yFor(g)+'" stroke="#f1f5f9" stroke-width="1"/>'
+    +'<text x="'+(ML-8)+'" y="'+(yFor(g)+4)+'" font-size="10" fill="#94a3b8" text-anchor="end">'+g+'%</text>'
+  ).join('');
+
+  const linePath = points.map((p,i)=>(i===0?'M':'L')+xFor(i)+' '+yFor(p.value)).join(' ');
+
+  const dots = points.map((p,i)=>{
+    const x=xFor(i), y=yFor(p.value);
+    const clickAttr = p.onclick ? ' style="cursor:pointer" onclick="'+xesc(p.onclick)+'"' : '';
+    return '<g'+clickAttr+'>'
+      +'<circle cx="'+x+'" cy="'+y+'" r="14" fill="transparent"/>' // larger invisible hit area
+      +'<circle cx="'+x+'" cy="'+y+'" r="4.5" fill="'+color+'" stroke="#fff" stroke-width="2"/>'
+      +'<text x="'+x+'" y="'+(y-12)+'" font-size="11" font-weight="700" fill="'+color+'" text-anchor="middle">'+p.value+'%</text>'
+      +'<text x="'+x+'" y="'+(H-MB+18)+'" font-size="10.5" fill="#475569" text-anchor="middle">'+xesc(p.label)+'</text>'
+      +(p.count!=null?'<text x="'+x+'" y="'+(H-MB+31)+'" font-size="9" fill="#94a3b8" text-anchor="middle">('+p.count+')</text>':'')
+      +'</g>';
+  }).join('');
+
+  el.innerHTML = '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block" preserveAspectRatio="xMidYMid meet">'
+    +gridLines
+    +'<path d="'+linePath+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    +dots
+    +'</svg>';
+}
+function xesc(s){ return String(s).replace(/"/g,'&quot;'); }
 function quarterSortKey(q){
   // "Q1 2026" -> 20261, "Q3 2026" -> 20263 — sorts correctly across years and quarters
   const m = /Q(\d)\s*(\d{4})/.exec(q||'');
@@ -653,34 +696,28 @@ function renderTrendChart(subs, elId, unitLabel){
     (byQuarter[s.quarter]=byQuarter[s.quarter]||[]).push(s.score);
   });
   const quarters = Object.keys(byQuarter).sort((a,b)=>quarterSortKey(a)-quarterSortKey(b));
-  const el = document.getElementById(elId);
-  if(!el) return;
-  if(!quarters.length){ el.innerHTML = '<div style="color:#94a3b8;font-size:12px">Not enough data yet — need audits from at least one quarter.</div>'; return; }
-  el.innerHTML = quarters.map(q=>{
+  const sourceToolForDrawer = unitLabel==='self-assessment' ? 'Self-Assessment' : 'Risk VP Audit';
+  const points = quarters.map(q=>{
     const scores = byQuarter[q];
     const avg = Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
-    return '<div class="bar-row" style="cursor:pointer" onclick="showTrendDrawer(\''+xH(q)+'\',\''+(unitLabel==='self-assessment'?'Self-Assessment':'Risk VP Audit')+'\')"><div class="bar-label">'+xH(q)+'</div><div class="bar-track"><div class="bar-fill '+barClass(avg)+'" style="width:'+avg+'%"><span>'+avg+'% ('+scores.length+' '+(scores.length===1?unitLabel:unitLabel+'s')+')</span></div></div></div>';
-  }).join('');
+    return {label:q, value:avg, count:scores.length, onclick:"showTrendDrawer('"+q+"','"+sourceToolForDrawer+"')"};
+  });
+  renderLineChart(elId, points, {color:unitLabel==='self-assessment'?'#94a3b8':'#1e3a8a', emptyMessage:'Not enough data yet — need audits from at least one quarter.'});
 }
 function renderSpotCheckResolutionRate(subs){
-  const el=document.getElementById('spotCheckResolutionRate');
-  if(!el)return;
   const spotChecks=subs.filter(s=>s.auditFormat==='spot-check');
-  if(!spotChecks.length){
-    el.innerHTML='<div style="color:#94a3b8;font-size:12px">No Spot-Checks in the current filter yet.</div>';
-    return;
-  }
   const byQuarter={};
   spotChecks.forEach(s=>{
     if(!s.quarter)return;
     (byQuarter[s.quarter]=byQuarter[s.quarter]||[]).push(s.score);
   });
   const quarters=Object.keys(byQuarter).sort((a,b)=>quarterSortKey(a)-quarterSortKey(b));
-  el.innerHTML=quarters.map(q=>{
+  const points = quarters.map(q=>{
     const scores=byQuarter[q];
     const avg=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
-    return '<div class="bar-row"><div class="bar-label">'+xH(q)+'</div><div class="bar-track"><div class="bar-fill '+barClass(avg)+'" style="width:'+avg+'%"><span>'+avg+'% ('+scores.length+' spot-check'+(scores.length===1?'':'s')+')</span></div></div></div>';
-  }).join('');
+    return {label:q, value:avg, count:scores.length};
+  });
+  renderLineChart('spotCheckResolutionRate', points, {color:'#0e7490', emptyMessage:'No Spot-Checks in the current filter yet.'});
 }
 
 function renderRegionChart(subs, elId){
