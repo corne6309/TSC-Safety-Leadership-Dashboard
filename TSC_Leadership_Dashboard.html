@@ -269,9 +269,19 @@ th.sortable.active .arrow{color:#1e3a8a}
 
         <div class="view-panel" id="view-completion">
           <div class="section">
-            <h2>✅ Submission Completion</h2>
+            <h2>🎯 Risk VP Audit Completion</h2>
+            <div class="desc">Which locations have a Risk VP audit on file for the selected quarter.</div>
+            <div class="tbl-wrap"><table id="completionTableRiskVp"></table></div>
+          </div>
+          <div class="section">
+            <h2>🧭 Regional VP Assessment Completion</h2>
+            <div class="desc">Which locations have a Regional VP submission (full audit or Spot-Check) on file for the selected quarter.</div>
+            <div class="tbl-wrap"><table id="completionTableRegionalVp"></table></div>
+          </div>
+          <div class="section">
+            <h2>📝 Self-Assessment Completion</h2>
             <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
-            <div class="tbl-wrap"><table id="completionTable"></table></div>
+            <div class="tbl-wrap"><table id="completionTableSelfAssess"></table></div>
           </div>
         </div>
 
@@ -292,12 +302,12 @@ th.sortable.active .arrow{color:#1e3a8a}
         <div class="view-panel" id="view-issues">
           <div class="section">
             <h2>⚠️ Top Recurring Safety Issues — Overall</h2>
-            <div class="desc">Most frequent findings across all submitted audits — patterns worth addressing company-wide.</div>
+            <div class="desc">Most frequent findings from Risk VP audits specifically — patterns worth addressing company-wide. Self-Assessment and Regional VP findings aren't included here, since this is meant to reflect independently verified issues, not self-reported or follow-up ones.</div>
             <div class="tbl-wrap"><table id="issuesList"></table></div>
           </div>
           <div class="section">
             <h2>🧭 Issues by Area</h2>
-            <div class="desc">The same findings, broken down by Core and Other audit sections — helps pinpoint whether problems cluster in specific areas.</div>
+            <div class="desc">The same Risk VP findings, broken down by Core and Other audit sections — helps pinpoint whether problems cluster in specific areas.</div>
             <div id="issuesByArea"></div>
           </div>
         </div>
@@ -490,7 +500,9 @@ function showLocationDetailDrawer(unitId){
 
 let dashData = null;
 const sortState = {
-  completion: {col:'name', dir:'asc'},
+  completionRiskVp: {col:'name', dir:'asc'},
+  completionRegionalVp: {col:'name', dir:'asc'},
+  completionSelfAssess: {col:'name', dir:'asc'},
   issues: {col:'count', dir:'desc'},
   coverage: {col:'unitId', dir:'asc'},
   regionalvp: {col:'unitId', dir:'asc'},
@@ -547,7 +559,7 @@ function populateFilters(){
   rSel.innerHTML = '<option value="__all__">All Regions</option>' + REGIONS.map(r=>'<option value="'+xH(r)+'">'+xH(r)+'</option>').join('');
   const lSel = document.getElementById('locationFilter');
   const sortedLocs = [...LOCATIONS].sort((a,b)=>a.name.localeCompare(b.name));
-  lSel.innerHTML = '<option value="__all__">All Locations</option>' + sortedLocs.map(l=>'<option value="'+xH(l.id)+'">'+xH(l.name)+'</option>').join('');
+  lSel.innerHTML = '<option value="__all__">All Locations</option>' + sortedLocs.map(l=>'<option value="'+xH(l.id)+'">['+xH(l.id)+'] '+xH(l.name)+'</option>').join('');
   const pSel = document.getElementById('packetRegionSelect');
   pSel.innerHTML = '<option value="__all__">All Regions (one page each)</option>' + REGIONS.map(r=>'<option value="'+xH(r)+'">'+xH(r)+' only</option>').join('');
 }
@@ -595,9 +607,11 @@ function renderDashboard(){
   renderRegionScorecards();
   renderRecognition();
   renderChronicIssues();
-  renderCompletionTable();
-  renderIssuesList(subs);
-  renderIssuesByArea(subs);
+  renderCompletionTable('Risk VP Audit', 'completionRiskVp', 'completionTableRiskVp');
+  renderCompletionTable('Regional VP Assessment', 'completionRegionalVp', 'completionTableRegionalVp');
+  renderCompletionTable('Self-Assessment', 'completionSelfAssess', 'completionTableSelfAssess');
+  renderIssuesList(subs.filter(s=>s.sourceTool==='Risk VP Audit'));
+  renderIssuesByArea(subs.filter(s=>s.sourceTool==='Risk VP Audit'));
   renderLocationDrilldown();
   renderCoverage(subs);
   renderRegionalVpTable(subs);
@@ -710,8 +724,12 @@ function renderRegionScorecards(){
   const regions = rFilterActive==='__all__' ? REGIONS : [rFilterActive];
 
   const cards = regions.map(region=>{
-    const curSubs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && (lFilter==='__all__'||s.unitId===lFilter));
-    const prevSubs = previous ? dashData.submissions.filter(s=>s.region===region && s.quarter===previous && (lFilter==='__all__'||s.unitId===lFilter)) : [];
+    // Same principle as the Overview redesign — a scorecard's headline score should reflect
+    // Risk VP's independently verified compliance, not a blend with self-reported or
+    // resolution-rate numbers that measure something different entirely.
+    const allCurSubs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && (lFilter==='__all__'||s.unitId===lFilter));
+    const curSubs = allCurSubs.filter(s=>s.sourceTool==='Risk VP Audit');
+    const prevSubs = previous ? dashData.submissions.filter(s=>s.region===region && s.quarter===previous && (lFilter==='__all__'||s.unitId===lFilter) && s.sourceTool==='Risk VP Audit') : [];
     if(!curSubs.length) return null;
     const curAvg = Math.round(curSubs.reduce((a,x)=>a+x.score,0)/curSubs.length);
     const prevAvg = prevSubs.length ? Math.round(prevSubs.reduce((a,x)=>a+x.score,0)/prevSubs.length) : null;
@@ -720,8 +738,10 @@ function renderRegionScorecards(){
     const trendTxt = delta===null?'No prior data':delta>0?('▲ +'+delta+' pts'):delta<0?('▼ '+delta+' pts'):'No change';
 
     const locs = new Set(LOCATIONS.filter(l=>l.region===region).map(l=>l.id));
-    const submittedCount = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId)).size;
+    const submittedCount = new Set(allCurSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId)).size;
     const completion = locs.size ? Math.round(submittedCount/locs.size*100) : 0;
+    const spotCheckCount = new Set(allCurSubs.filter(s=>s.auditFormat==='spot-check').map(s=>s.unitId)).size;
+    const spotCheckCompletion = locs.size ? Math.round(spotCheckCount/locs.size*100) : 0;
 
     const issueCounts = {};
     curSubs.forEach(s=>(s.actions||[]).forEach(a=>{ issueCounts[a.question] = (issueCounts[a.question]||0)+1; }));
@@ -729,7 +749,7 @@ function renderRegionScorecards(){
 
     return '<div class="scorecard"><div class="region-name">'+xH(region)+'</div>'
       +'<div class="score-row"><span class="score-big">'+curAvg+'%</span><span class="trend '+trendCls+'">'+trendTxt+'</span></div>'
-      +'<div class="meta">'+curSubs.length+' audits this quarter · '+completion+'% Self-Assessment completion</div>'
+      +'<div class="meta">'+curSubs.length+' Risk VP audit'+(curSubs.length===1?'':'s')+' this quarter · '+completion+'% Self-Assessment completion · '+spotCheckCompletion+'% Spot-Check completion</div>'
       +(topIssue?'<div class="top-issue">Top issue: '+xH(topIssue[0])+' ('+topIssue[1]+'x)</div>':'<div class="top-issue">No findings this quarter</div>')
       +'</div>';
   }).filter(Boolean);
@@ -741,38 +761,43 @@ function renderRegionScorecards(){
 function renderRecognition(){
   const {current, previous} = currentAndPreviousQuarter();
   const rFilter = document.getElementById('regionFilter').value;
-  const curSubs = dashData.submissions.filter(s=>s.quarter===current && (rFilter==='__all__'||s.region===rFilter));
+  // Recognition reflects independently verified performance — same principle as the rest of
+  // the dashboard redesign. A self-reported score shouldn't earn a compliance shout-out any
+  // more than it should blend into a compliance average.
+  const curSubs = dashData.submissions.filter(s=>s.quarter===current && s.sourceTool==='Risk VP Audit' && (rFilter==='__all__'||s.region===rFilter));
 
-  // Only genuinely full compliance earns a shout-out here — a location merely having the
-  // highest score among a mediocre field (e.g. 79%) isn't something to publicly celebrate.
-  // "Most Improved" stays separate and uncapped, since real improvement (50%→79%) is worth
-  // recognizing on its own terms even without hitting 100%.
-  const best = curSubs.filter(s=>s.score===100).sort((a,b)=>b.score-a.score).slice(0,3);
+  // "Full Compliance" now means a genuine pass (90%+), not only a perfect 100% — a location
+  // scoring 91% is still a real compliance success worth calling out, not just the rare 100%.
+  const best = curSubs.filter(s=>s.score>=90).sort((a,b)=>b.score-a.score).slice(0,3);
 
   let mostImproved = [];
   if(previous){
     const prevByLoc = {};
-    dashData.submissions.filter(s=>s.quarter===previous).forEach(s=>{ prevByLoc[s.unitId]=s.score; });
+    dashData.submissions.filter(s=>s.quarter===previous && s.sourceTool==='Risk VP Audit').forEach(s=>{ prevByLoc[s.unitId]=s.score; });
     mostImproved = curSubs
       .filter(s=>prevByLoc.hasOwnProperty(s.unitId))
       .map(s=>({...s, delta:s.score-prevByLoc[s.unitId]}))
-      .filter(s=>s.delta>0)
+      // Tier 2 specifically tracks climbing toward the 90% bar, not any improvement anywhere
+      // on the scale — a location already at 90%+ belongs in Tier 1, not here, and a small
+      // gain from a very low base (e.g. 10%→25%) isn't the same story as genuinely closing
+      // in on compliance.
+      .filter(s=>s.delta>0 && s.score<90 && s.score>=60)
       .sort((a,b)=>b.delta-a.delta)
       .slice(0,3);
   }
 
   let html = '';
   if(best.length){
-    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Full Compliance This Quarter (100%)</div>';
+    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Full Compliance This Quarter (90%+)</div>';
     html += best.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#15803d">'+s.score+'%</div><div class="l">['+xH(s.unitId)+'] '+xH(s.name)+'</div></div>').join('');
     html += '</div>';
   } else if(curSubs.length){
-    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Full Compliance This Quarter (100%)</div>'
-      +'<div class="no-selection" style="padding:10px 0">No location has reached 100% yet this quarter.</div></div>';
+    html += '<div style="margin-bottom:14px"><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">🥇 Full Compliance This Quarter (90%+)</div>'
+      +'<div class="no-selection" style="padding:10px 0">No location has reached 90% yet this quarter.</div></div>';
   }
   if(mostImproved.length){
-    html += '<div><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">📈 Most Improved</div>';
-    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">['+xH(s.unitId)+'] '+xH(s.name)+'</div></div>').join('');
+    html += '<div><div style="font-size:12.5px;font-weight:700;color:#0f172a;margin-bottom:8px">📈 Most Improved <span style="font-weight:400;color:#64748b">(climbing toward 90%+)</span></div>';
+    html += mostImproved.map(s=>'<div class="coverage-box" style="display:inline-block;min-width:150px;margin:0 8px 8px 0;cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')"><div class="n" style="color:#1e3a8a">+'+s.delta+' pts</div><div class="l">['+xH(s.unitId)+'] '+xH(s.name)+' — now '+s.score+'%</div></div>').join('');
     html += '</div>';
   }
   document.getElementById('recognitionGrid').innerHTML = html || '<div class="no-selection">Not enough data yet to identify top performers.</div>';
@@ -804,20 +829,20 @@ function renderChronicIssues(){
   ).join('');
 }
 
-function renderCompletionTable(){
+function renderCompletionTable(sourceTool, sortKey, elId){
   const q = document.getElementById('quarterFilter').value;
   const relevantQ = q==='__all__' ? sortedQuarters().pop() : q;
-  const submittedIds = new Set(dashData.submissions.filter(s=>s.sourceTool==='Self-Assessment' && s.quarter===relevantQ).map(s=>s.unitId));
+  const submittedIds = new Set(dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ).map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
   const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', status:submittedIds.has(l.id)?'Submitted':'Missing'}));
-  const sorted = applySorting(rowData, 'completion');
+  const sorted = applySorting(rowData, sortKey);
   const rows = sorted.map(l=>
     '<tr><td>'+xH(l.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(l.unitId)+'\')">'+xH(l.name)+'</span></td><td>'+xH(l.region)+'</td><td>'+xH(l.rvp)+'</td>'
     +'<td>'+(l.status==='Submitted'?'<span class="pill pill-submitted">✓ Submitted</span>':'<span class="pill pill-missing">Missing</span>')+'</td></tr>'
   ).join('');
-  const th=(col,label)=>'<th class="sortable'+(sortState.completion.col===col?' active':'')+'" onclick="sortTable(\'completion\',\''+col+'\')">'+label+sortArrow('completion',col)+'</th>';
-  document.getElementById('completionTable').innerHTML =
+  const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
+  document.getElementById(elId).innerHTML =
     '<thead><tr>'+th('unitId','ID')+th('name','Location')+th('region','Region')+th('rvp','Regional VP')+th('status','Status ('+xH(relevantQ||'—')+')')+'</tr></thead><tbody>'+rows+'</tbody>';
 }
 
