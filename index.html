@@ -271,16 +271,28 @@ th.sortable.active .arrow{color:#1e3a8a}
           <div class="section">
             <h2>🎯 Risk VP Audit Completion</h2>
             <div class="desc">Which locations have a Risk VP audit on file for the selected quarter.</div>
+            <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
+              <div id="completionDonutRiskVp"></div>
+              <div style="flex:1;min-width:220px;padding-top:6px" id="completionBarsRiskVp"></div>
+            </div>
             <div class="tbl-wrap"><table id="completionTableRiskVp"></table></div>
           </div>
           <div class="section">
             <h2>🧭 Regional VP Assessment Completion</h2>
             <div class="desc">Which locations have a Regional VP submission (full audit or Spot-Check) on file for the selected quarter.</div>
+            <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
+              <div id="completionDonutRegionalVp"></div>
+              <div style="flex:1;min-width:220px;padding-top:6px" id="completionBarsRegionalVp"></div>
+            </div>
             <div class="tbl-wrap"><table id="completionTableRegionalVp"></table></div>
           </div>
           <div class="section">
             <h2>📝 Self-Assessment Completion</h2>
             <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
+            <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
+              <div id="completionDonutSelfAssess"></div>
+              <div style="flex:1;min-width:220px;padding-top:6px" id="completionBarsSelfAssess"></div>
+            </div>
             <div class="tbl-wrap"><table id="completionTableSelfAssess"></table></div>
           </div>
         </div>
@@ -427,7 +439,7 @@ function showRegionDrawer(region){
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.sourceTool)+(s.auditType?' · '+xH(s.auditType):'')+'</div></div>'
-    +'<div class="drawer-score" style="background:'+(s.score>=90?'#dcfce7':s.score>=75?'#fef3c7':'#fee2e2')+';color:'+(s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c')+'">'+s.score+'%</div>'
+    +'<div class="drawer-score" style="background:'+(s.score>=90?'#dcfce7':s.score>=85?'#fef3c7':'#fee2e2')+';color:'+(s.score>=90?'#15803d':s.score>=85?'#92400e':'#b91c1c')+'">'+s.score+'%</div>'
     +'</div>'
   ).join('');
   openDrawer(region+' Region', current+' · '+subs.length+' audit'+(subs.length===1?'':'s')+' · tap a location for details',
@@ -439,7 +451,7 @@ function showTrendDrawer(quarter, sourceTool){
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.region)+' · '+xH(s.sourceTool)+'</div></div>'
-    +'<div class="drawer-score" style="background:'+(s.score>=90?'#dcfce7':s.score>=75?'#fef3c7':'#fee2e2')+';color:'+(s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c')+'">'+s.score+'%</div>'
+    +'<div class="drawer-score" style="background:'+(s.score>=90?'#dcfce7':s.score>=85?'#fef3c7':'#fee2e2')+';color:'+(s.score>=90?'#15803d':s.score>=85?'#92400e':'#b91c1c')+'">'+s.score+'%</div>'
     +'</div>'
   ).join('');
   openDrawer(quarter, subs.length+' audit'+(subs.length===1?'':'s')+' · tap a location for details',
@@ -455,10 +467,10 @@ function showLocationDetailDrawer(unitId){
     return;
   }
   const html = subs.map(s=>{
-    const scoreColor = s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c';
+    const scoreColor = s.score>=90?'#15803d':s.score>=85?'#92400e':'#b91c1c';
     const secRows = (s.sectionBreakdown||[]).map(sb=>
       '<div class="drawer-row" style="cursor:default"><div class="name" style="font-weight:600;font-size:12px">'+xH(sb.section)+'</div>'
-      +'<div style="font-size:12px;font-weight:700;color:'+(sb.scorePct==null?'#94a3b8':sb.scorePct>=90?'#15803d':sb.scorePct>=75?'#92400e':'#b91c1c')+'">'+(sb.scorePct==null?'N/A':sb.scorePct+'%')+'</div></div>'
+      +'<div style="font-size:12px;font-weight:700;color:'+(sb.scorePct==null?'#94a3b8':sb.scorePct>=90?'#15803d':sb.scorePct>=85?'#92400e':'#b91c1c')+'">'+(sb.scorePct==null?'N/A':sb.scorePct+'%')+'</div></div>'
     ).join('');
     const isSpotCheck = s.auditFormat==='spot-check';
     let findingsHtml;
@@ -574,14 +586,53 @@ function filteredSubmissions(){
 }
 
 function scoreClass(score){
-  return score>=90?'good':score>=75?'warn':'bad';
+  return score>=90?'good':score>=85?'warn':'bad';
 }
 function barClass(score){
-  return score>=90?'s-good':score>=75?'s-warn':'s-bad';
+  return score>=90?'s-good':score>=85?'s-warn':'s-bad';
 }
 // ── Lightweight self-contained SVG line chart — no external library, matching the project's
 // pattern of fully offline, single-file tools. Renders a trend line with gridlines, clickable
 // points (reusing whatever drill-down the caller wants), and value labels above each point.
+// ── Small SVG donut for an at-a-glance completion % — same no-external-dependency
+// pattern as the line chart above.
+function renderDonut(elId, pct, color){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  const size=100, stroke=10, r=(size-stroke)/2, cx=size/2, cy=size/2;
+  const circumference = 2*Math.PI*r;
+  const offset = circumference * (1 - pct/100);
+  el.innerHTML = '<svg viewBox="0 0 '+size+' '+size+'" style="width:100px;height:100px;display:block">'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#e2e8f0" stroke-width="'+stroke+'"/>'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="'+stroke+'" '
+    +'stroke-dasharray="'+circumference+'" stroke-dashoffset="'+offset+'" stroke-linecap="round" '
+    +'transform="rotate(-90 '+cx+' '+cy+')"/>'
+    +'<text x="'+cx+'" y="'+(cy-3)+'" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">'+pct+'%</text>'
+    +'<text x="'+cx+'" y="'+(cy+13)+'" text-anchor="middle" font-size="10" fill="#64748b">complete</text>'
+    +'</svg>';
+}
+// ── Per-region completion breakdown bars, shown under each donut.
+function renderRegionCompletionBars(elId, matches){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  const submittedByRegion = {};
+  matches.forEach(s=>{ (submittedByRegion[s.region]=submittedByRegion[s.region]||new Set()).add(s.unitId); });
+  const rows = REGIONS.map(region=>{
+    const total = LOCATIONS.filter(l=>l.region===region).length;
+    const submitted = submittedByRegion[region] ? submittedByRegion[region].size : 0;
+    return {region, submitted, total, pct: total>0?Math.round(submitted/total*100):0};
+  }).filter(r=>r.total>0);
+  // Always red/amber/green by the actual completion % — never the section's own theme
+  // color, which would make a fully-complete region look bad just because the section
+  // as a whole happens to be color-coded red or amber that quarter.
+  el.innerHTML = rows.map(r=>
+    '<div style="display:grid;grid-template-columns:90px 1fr 50px;align-items:center;gap:8px;font-size:12px;margin-bottom:6px">'
+    +'<span>'+xH(r.region)+'</span>'
+    +'<div style="background:#f1f5f9;border-radius:4px;height:8px;overflow:hidden"><div style="background:'+(r.pct>=80?'#15803d':r.pct>=50?'#d97706':'#dc2626')+';width:'+r.pct+'%;height:100%"></div></div>'
+    +'<span style="text-align:right;color:#64748b">'+r.submitted+'/'+r.total+'</span>'
+    +'</div>'
+  ).join('');
+}
 function renderLineChart(elId, points, opts){
   const el = document.getElementById(elId);
   if(!el) return;
@@ -869,7 +920,8 @@ function renderChronicIssues(){
 function renderCompletionTable(sourceTool, sortKey, elId){
   const q = document.getElementById('quarterFilter').value;
   const relevantQ = q==='__all__' ? sortedQuarters().pop() : q;
-  const submittedIds = new Set(dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ).map(s=>s.unitId));
+  const matchingSubs = dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ);
+  const submittedIds = new Set(matchingSubs.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
   const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', status:submittedIds.has(l.id)?'Submitted':'Missing'}));
@@ -881,6 +933,14 @@ function renderCompletionTable(sourceTool, sortKey, elId){
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
   document.getElementById(elId).innerHTML =
     '<thead><tr>'+th('unitId','ID')+th('name','Location')+th('region','Region')+th('rvp','Regional VP')+th('status','Status ('+xH(relevantQ||'—')+')')+'</tr></thead><tbody>'+rows+'</tbody>';
+
+  // Donut + per-region breakdown — same color as this source's section elsewhere in
+  // Overview, so the visual language stays consistent across the whole dashboard.
+  const suffix = sortKey.replace('completion','');
+  const color = sourceTool==='Risk VP Audit' ? '#1e3a8a' : sourceTool==='Regional VP Assessment' ? '#0e7490' : '#94a3b8';
+  const overallPct = locs.length ? Math.round(submittedIds.size/locs.length*100) : 0;
+  renderDonut('completionDonut'+suffix, overallPct, color);
+  renderRegionCompletionBars('completionBars'+suffix, matchingSubs);
 }
 
 function renderIssuesList(subs){
@@ -1021,7 +1081,7 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   }
 
   const sorted = applySorting(matches, sortKey);
-  const scoreColor=s=>s.score>=90?'#15803d':s.score>=75?'#92400e':'#b91c1c';
+  const scoreColor=s=>s.score>=90?'#15803d':s.score>=85?'#92400e':'#b91c1c';
   const rows = sorted.map(s=>{
     const isSpot=s.auditFormat==='spot-check';
     const resolvedOpenCell=isSpot?(s.yes+' resolved / '+s.no+' open'):'—';
