@@ -217,20 +217,26 @@ th.sortable.active .arrow{color:#1e3a8a}
 
       <div id="mainContent">
         <div class="view-panel active" id="view-overview">
-          <div class="section">
-            <h2>📈 Compliance Score Trend</h2>
-            <div class="desc">Average compliance score by quarter, across full audits and Self-Assessments. Spot-Checks use a different metric (below) and aren't blended in here, since "% of prior findings resolved" isn't comparable to a compliance score.</div>
-            <div id="trendChart"></div>
+          <div class="section" style="border-left:4px solid #1e3a8a">
+            <h2>🎯 Risk VP Compliance <span style="font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle">INDEPENDENTLY VERIFIED</span></h2>
+            <div class="desc">The VP of Risk &amp; Safety's own in-person and virtual audits — the highest-confidence compliance measure, since it's independently conducted, not self-reported.</div>
+            <div id="riskVpTrendChart" style="margin-bottom:14px"></div>
+            <div id="riskVpRegionChart"></div>
           </div>
-          <div class="section">
-            <h2>🔍 Spot-Check Resolution Rate</h2>
-            <div class="desc">Average % of the Risk VP's prior findings marked Resolved by Regional VPs, by quarter.</div>
+          <div class="section" style="border-left:4px solid #0e7490">
+            <h2>🧭 Regional VP Verification</h2>
+            <div class="desc">Spot-Check follow-ups on the Risk VP's prior findings — this measures how well findings get resolved, a different signal from a compliance score.</div>
             <div id="spotCheckResolutionRate"></div>
           </div>
+          <div class="section" style="border-left:4px solid #94a3b8;opacity:.85">
+            <h2>📝 Self-Assessment <span style="font-size:10px;font-weight:700;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle">SELF-REPORTED, NOT INDEPENDENTLY VERIFIED</span></h2>
+            <div class="desc">Manager self-reported scores. Shown on its own — never blended with Risk VP's independently verified score, since the two aren't measuring compliance the same way.</div>
+            <div id="selfAssessTrendChart"></div>
+          </div>
           <div class="section">
-            <h2>🗺️ Region Comparison</h2>
-            <div class="desc">Average compliance score by region, ranked highest to lowest.</div>
-            <div id="regionChart"></div>
+            <h2>🔍 Where Sources Disagree</h2>
+            <div class="desc">Locations where a Self-Assessment and an independent VP audit tell noticeably different stories — this gap is itself the signal worth reviewing, not something to average away.</div>
+            <div id="discrepancyCallout"></div>
           </div>
         </div>
 
@@ -407,7 +413,7 @@ function closeDrawer(){
 
 function showRegionDrawer(region){
   const {current} = currentAndPreviousQuarter();
-  const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && s.auditFormat!=='spot-check').sort((a,b)=>b.score-a.score);
+  const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && s.sourceTool==='Risk VP Audit').sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.sourceTool)+(s.auditType?' · '+xH(s.auditType):'')+'</div></div>'
@@ -418,8 +424,8 @@ function showRegionDrawer(region){
     rows || '<div class="no-selection">No audits for this region in '+xH(current)+'.</div>');
 }
 
-function showTrendDrawer(quarter){
-  const subs = dashData.submissions.filter(s=>s.quarter===quarter && s.auditFormat!=='spot-check').sort((a,b)=>b.score-a.score);
+function showTrendDrawer(quarter, sourceTool){
+  const subs = dashData.submissions.filter(s=>s.quarter===quarter && s.sourceTool===sourceTool).sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.region)+' · '+xH(s.sourceTool)+'</div></div>'
@@ -581,9 +587,11 @@ function currentAndPreviousQuarter(){
 function renderDashboard(){
   const subs = filteredSubmissions();
   renderKPIs(subs);
-  renderTrendChart(subs);
+  renderTrendChart(subs.filter(s=>s.sourceTool==='Risk VP Audit'), 'riskVpTrendChart', 'audit');
   renderSpotCheckResolutionRate(subs);
-  renderRegionChart(subs);
+  renderRegionChart(subs.filter(s=>s.sourceTool==='Risk VP Audit'), 'riskVpRegionChart');
+  renderTrendChart(subs.filter(s=>s.sourceTool==='Self-Assessment'), 'selfAssessTrendChart', 'self-assessment');
+  renderDiscrepancyCallout();
   renderRegionScorecards();
   renderRecognition();
   renderChronicIssues();
@@ -599,10 +607,12 @@ function renderDashboard(){
 }
 
 function renderKPIs(subs){
-  // Same reasoning as the trend/region charts — Spot-Check's resolution-rate score isn't
-  // comparable to a compliance %, so it's excluded from this headline KPI too.
-  const complianceSubs = subs.filter(s=>s.auditFormat!=='spot-check');
-  const avgScore = complianceSubs.length ? Math.round(complianceSubs.reduce((s,x)=>s+x.score,0)/complianceSubs.length) : 0;
+  // The headline KPI now specifically reflects Risk VP's own score — the independently
+  // verified measure — rather than a blend of that with self-reported or resolution-rate
+  // numbers. A location with no Risk VP audit yet should never look "compliant" purely on
+  // the strength of an unverified self-assessment.
+  const riskVpSubs = subs.filter(s=>s.sourceTool==='Risk VP Audit');
+  const avgScore = riskVpSubs.length ? Math.round(riskVpSubs.reduce((s,x)=>s+x.score,0)/riskVpSubs.length) : 0;
   const selQuarter = document.getElementById('quarterFilter').value;
   const relevantLocIds = new Set(LOCATIONS.map(l=>l.id));
   const submittedIds = new Set(subs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
@@ -612,7 +622,7 @@ function renderKPIs(subs){
   const virtualCount = vpAudits.filter(s=>s.auditType==='Virtual').length;
 
   const kpis = [
-    {v:avgScore+'%', l:'Avg Compliance Score', cls:scoreClass(avgScore), sub:complianceSubs.length+' audit'+(complianceSubs.length===1?'':'s')},
+    {v:riskVpSubs.length?avgScore+'%':'—', l:'Risk VP Avg Compliance', cls:riskVpSubs.length?scoreClass(avgScore):'', sub:riskVpSubs.length?riskVpSubs.length+' audit'+(riskVpSubs.length===1?'':'s'):'No Risk VP audits yet'},
     {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations'},
     {v:totalNo, l:'Open Findings', cls:totalNo===0?'good':totalNo<10?'warn':'bad', sub:'across all submitted audits'},
     {v:vpAudits.length, l:'VP Audits Completed', cls:'', sub:virtualCount+' virtual, '+(vpAudits.length-virtualCount)+' in-person'}
@@ -622,21 +632,20 @@ function renderKPIs(subs){
   ).join('');
 }
 
-function renderTrendChart(subs){
+function renderTrendChart(subs, elId, unitLabel){
   const byQuarter = {};
-  // Spot-Check's "score" means % of prior findings resolved — a fundamentally different
-  // metric from a full audit's compliance %. Blending them here would produce a number
-  // that doesn't coherently mean anything. Spot-Check gets its own metric instead, below.
-  subs.filter(s=>s.auditFormat!=='spot-check').forEach(s=>{
+  subs.forEach(s=>{
     if(!s.quarter) return;
     (byQuarter[s.quarter]=byQuarter[s.quarter]||[]).push(s.score);
   });
   const quarters = Object.keys(byQuarter).sort((a,b)=>quarterSortKey(a)-quarterSortKey(b));
-  if(!quarters.length){ document.getElementById('trendChart').innerHTML = '<div style="color:#94a3b8;font-size:12px">Not enough data yet — need audits from at least one quarter.</div>'; return; }
-  document.getElementById('trendChart').innerHTML = quarters.map(q=>{
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(!quarters.length){ el.innerHTML = '<div style="color:#94a3b8;font-size:12px">Not enough data yet — need audits from at least one quarter.</div>'; return; }
+  el.innerHTML = quarters.map(q=>{
     const scores = byQuarter[q];
     const avg = Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
-    return '<div class="bar-row" style="cursor:pointer" onclick="showTrendDrawer(\''+xH(q)+'\')"><div class="bar-label">'+xH(q)+'</div><div class="bar-track"><div class="bar-fill '+barClass(avg)+'" style="width:'+avg+'%"><span>'+avg+'% ('+scores.length+' audits)</span></div></div></div>';
+    return '<div class="bar-row" style="cursor:pointer" onclick="showTrendDrawer(\''+xH(q)+'\',\''+(unitLabel==='self-assessment'?'Self-Assessment':'Risk VP Audit')+'\')"><div class="bar-label">'+xH(q)+'</div><div class="bar-track"><div class="bar-fill '+barClass(avg)+'" style="width:'+avg+'%"><span>'+avg+'% ('+scores.length+' '+(scores.length===1?unitLabel:unitLabel+'s')+')</span></div></div></div>';
   }).join('');
 }
 function renderSpotCheckResolutionRate(subs){
@@ -660,18 +669,38 @@ function renderSpotCheckResolutionRate(subs){
   }).join('');
 }
 
-function renderRegionChart(subs){
+function renderRegionChart(subs, elId){
   const byRegion = {};
-  // Same reasoning as the trend chart — Spot-Check's resolution-rate score isn't
-  // comparable to a compliance %, so it's excluded from this blended regional average too.
-  subs.filter(s=>s.auditFormat!=='spot-check').forEach(s=>{ (byRegion[s.region]=byRegion[s.region]||[]).push(s.score); });
+  subs.forEach(s=>{ (byRegion[s.region]=byRegion[s.region]||[]).push(s.score); });
   const rows = Object.keys(byRegion).map(r=>({
     region:r, avg:Math.round(byRegion[r].reduce((a,b)=>a+b,0)/byRegion[r].length), count:byRegion[r].length
   })).sort((a,b)=>b.avg-a.avg);
-  if(!rows.length){ document.getElementById('regionChart').innerHTML = '<div style="color:#94a3b8;font-size:12px">No audits match the current filter.</div>'; return; }
-  document.getElementById('regionChart').innerHTML = rows.map(r=>
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(!rows.length){ el.innerHTML = '<div style="color:#94a3b8;font-size:12px">No audits match the current filter.</div>'; return; }
+  el.innerHTML = rows.map(r=>
     '<div class="bar-row" style="cursor:pointer" onclick="showRegionDrawer(\''+xH(r.region)+'\')"><div class="bar-label">'+xH(r.region)+'</div><div class="bar-track"><div class="bar-fill '+barClass(r.avg)+'" style="width:'+r.avg+'%"><span>'+r.avg+'% ('+r.count+')</span></div></div></div>'
   ).join('');
+}
+
+function renderDiscrepancyCallout(){
+  const el = document.getElementById('discrepancyCallout');
+  if(!el) return;
+  const rows = computeAssessmentGaps(LOCATIONS);
+  const bigGaps = rows.filter(r=>r.cls==='gap-big');
+  if(!rows.length){
+    el.innerHTML = '<div class="no-selection">Not enough data yet — need at least two of the three assessment types on file for the same location to compare.</div>';
+    return;
+  }
+  if(!bigGaps.length){
+    el.innerHTML = '<div style="color:#15803d;font-size:13px;font-weight:600">✓ No significant gaps right now — Self-Assessments and independent audits are broadly aligned.</div>'
+      +'<button class="btn btn-slate" style="margin-top:10px;font-size:12px;padding:6px 12px" onclick="switchView(\'comparison\')">View Full Comparison →</button>';
+    return;
+  }
+  el.innerHTML = '<div style="color:#b91c1c;font-size:13px;font-weight:700;margin-bottom:8px">⚠️ '+bigGaps.length+' location'+(bigGaps.length===1?'':'s')+' with a significant gap (15+ points) between self-reported and independently verified scores</div>'
+    + bigGaps.slice(0,3).map(r=>'<div style="font-size:12px;color:#475569;padding:3px 0">• <strong>'+xH(r.name)+'</strong> — '+r.text+'</div>').join('')
+    + (bigGaps.length>3?'<div style="font-size:11px;color:#94a3b8;margin-top:4px">+'+(bigGaps.length-3)+' more</div>':'')
+    + '<button class="btn btn-slate" style="margin-top:10px;font-size:12px;padding:6px 12px" onclick="switchView(\'comparison\')">View Full Comparison →</button>';
 }
 
 function renderRegionScorecards(){
@@ -959,11 +988,7 @@ function renderSelfAssessmentTable(subs){
   renderAssessmentTypeTable(subs,'Self-Assessment','selfAssessGrid','selfAssessTable','selfassess','Total Self-Assessments');
 }
 
-function renderAssessmentComparison(){
-  const lFilter = document.getElementById('locationFilter').value;
-  const rFilter = document.getElementById('regionFilter').value;
-  const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter)&&(lFilter==='__all__'||l.id===lFilter));
-
+function computeAssessmentGaps(locs){
   function mostRecent(unitId, tool){
     const matches = dashData.submissions.filter(s=>s.unitId===unitId && s.sourceTool===tool);
     if(!matches.length) return null;
@@ -1003,6 +1028,13 @@ function renderAssessmentComparison(){
   });
 
   rows.sort((a,b)=>b.gap-a.gap);
+  return rows;
+}
+function renderAssessmentComparison(){
+  const lFilter = document.getElementById('locationFilter').value;
+  const rFilter = document.getElementById('regionFilter').value;
+  const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter)&&(lFilter==='__all__'||l.id===lFilter));
+  const rows = computeAssessmentGaps(locs);
   document.getElementById('comparisonList').innerHTML = rows.length ? rows.map(r=>
     '<div class="gap-row"><div class="gap-badge '+r.cls+'">'+(r.cls==='gap-big'?'⚠️ '+r.gap+' pt gap':r.cls==='gap-small'?r.gap+' pt gap':'✓ Aligned')+'</div>'
     +'<div class="gap-text"><strong>'+xH(r.name)+'</strong> — '+r.text+'</div></div>'
