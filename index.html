@@ -226,12 +226,14 @@ th.sortable.active .arrow{color:#1e3a8a}
           <div class="section" style="border-left:4px solid #0e7490">
             <h2>🧭 Regional VP Verification</h2>
             <div class="desc">Spot-Check follow-ups on the Risk VP's prior findings — this measures how well findings get resolved, a different signal from a compliance score.</div>
-            <div id="spotCheckResolutionRate"></div>
+            <div id="spotCheckResolutionRate" style="margin-bottom:14px"></div>
+            <div id="spotCheckRegionChart"></div>
           </div>
           <div class="section" style="border-left:4px solid #94a3b8;opacity:.85">
             <h2>📝 Self-Assessment <span style="font-size:10px;font-weight:700;background:#f1f5f9;color:#64748b;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle">SELF-REPORTED, NOT INDEPENDENTLY VERIFIED</span></h2>
             <div class="desc">Manager self-reported scores. Shown on its own — never blended with Risk VP's independently verified score, since the two aren't measuring compliance the same way.</div>
-            <div id="selfAssessTrendChart"></div>
+            <div id="selfAssessTrendChart" style="margin-bottom:14px"></div>
+            <div id="selfAssessRegionChart"></div>
           </div>
           <div class="section">
             <h2>🔍 Where Sources Disagree</h2>
@@ -244,6 +246,10 @@ th.sortable.active .arrow{color:#1e3a8a}
           <div class="section">
             <h2>🎯 Risk VP Audit</h2>
             <div class="desc">Audits completed by the VP of Risk &amp; Safety — in-person vs. virtual, and which locations have been covered.</div>
+            <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
+              <div id="coverageDonut"></div>
+              <div style="flex:1;min-width:220px;padding-top:6px" id="coverageBars"></div>
+            </div>
             <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="coverageTable"></table></div>
           </div>
@@ -433,9 +439,10 @@ function closeDrawer(){
   document.getElementById('drawerBackdrop').classList.remove('open');
 }
 
-function showRegionDrawer(region){
+function showRegionDrawer(region, sourceTool){
+  sourceTool = sourceTool || 'Risk VP Audit';
   const {current} = currentAndPreviousQuarter();
-  const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && s.sourceTool==='Risk VP Audit').sort((a,b)=>b.score-a.score);
+  const subs = dashData.submissions.filter(s=>s.region===region && s.quarter===current && s.sourceTool===sourceTool).sort((a,b)=>b.score-a.score);
   const rows = subs.map(s=>
     '<div class="drawer-row" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'
     +'<div><div class="name">['+xH(s.unitId)+'] '+xH(s.name)+'</div><div class="meta">'+xH(s.sourceTool)+(s.auditType?' · '+xH(s.auditType):'')+'</div></div>'
@@ -695,8 +702,11 @@ function renderDashboard(){
   renderKPIs(subs);
   renderTrendChart(subs.filter(s=>s.sourceTool==='Risk VP Audit'), 'riskVpTrendChart', 'audit');
   renderSpotCheckResolutionRate(subs);
-  renderRegionChart(subs.filter(s=>s.sourceTool==='Risk VP Audit'), 'riskVpRegionChart');
+  renderRegionChart(subs.filter(s=>s.sourceTool==='Risk VP Audit'), 'riskVpRegionChart', 'Risk VP Audit');
+  renderRegionChart(subs.filter(s=>s.auditFormat==='spot-check'), 'spotCheckRegionChart', 'Regional VP Assessment', true);
   renderTrendChart(subs.filter(s=>s.sourceTool==='Self-Assessment'), 'selfAssessTrendChart', 'self-assessment');
+  renderRegionChart(subs.filter(s=>s.sourceTool==='Self-Assessment'), 'selfAssessRegionChart', 'Self-Assessment');
+  renderCoverageDonutAndBars(subs);
   renderDiscrepancyCallout();
   renderRegionScorecards();
   renderRecognition();
@@ -771,7 +781,7 @@ function renderSpotCheckResolutionRate(subs){
   renderLineChart('spotCheckResolutionRate', points, {color:'#0e7490', emptyMessage:'No Spot-Checks in the current filter yet.'});
 }
 
-function renderRegionChart(subs, elId){
+function renderRegionChart(subs, elId, sourceTool, useCompletionThreshold){
   const byRegion = {};
   subs.forEach(s=>{ (byRegion[s.region]=byRegion[s.region]||[]).push(s.score); });
   const rows = Object.keys(byRegion).map(r=>({
@@ -780,8 +790,12 @@ function renderRegionChart(subs, elId){
   const el = document.getElementById(elId);
   if(!el) return;
   if(!rows.length){ el.innerHTML = '<div style="color:#94a3b8;font-size:12px">No audits match the current filter.</div>'; return; }
+  // Spot-Check's "% resolved" is a completion-style metric, not a compliance score — it uses
+  // the 50/80 completion threshold rather than the tighter 85/90 compliance one, same
+  // distinction made throughout the rest of the dashboard.
+  const cls = v => useCompletionThreshold ? (v>=80?'s-good':v>=50?'s-warn':'s-bad') : barClass(v);
   el.innerHTML = rows.map(r=>
-    '<div class="bar-row" style="cursor:pointer" onclick="showRegionDrawer(\''+xH(r.region)+'\')"><div class="bar-label">'+xH(r.region)+'</div><div class="bar-track"><div class="bar-fill '+barClass(r.avg)+'" style="width:'+r.avg+'%"><span>'+r.avg+'% ('+r.count+')</span></div></div></div>'
+    '<div class="bar-row" style="cursor:pointer" onclick="showRegionDrawer(\''+xH(r.region)+'\',\''+(sourceTool||'Risk VP Audit')+'\')"><div class="bar-label">'+xH(r.region)+'</div><div class="bar-track"><div class="bar-fill '+cls(r.avg)+'" style="width:'+r.avg+'%"><span>'+r.avg+'% ('+r.count+')</span></div></div></div>'
   ).join('');
 }
 
@@ -1066,7 +1080,8 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   if(gridEl){
     const boxes = [
       '<div class="coverage-box"><div class="n">'+matches.length+'</div><div class="l">'+totalLabel+'</div></div>',
-      (sourceTool!=='Self-Assessment' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
+      (sourceTool==='Risk VP Audit' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
+      (sourceTool==='Regional VP Assessment' ? '<div class="coverage-box"><div class="n">'+(matches.length-spotChecks)+'</div><div class="l">Full Audits</div></div>' : ''),
       (showSpotCheckCols ? '<div class="coverage-box"><div class="n">'+spotChecks+'</div><div class="l">Spot-Checks</div></div>' : ''),
       '<div class="coverage-box"><div class="n">'+notCovered.length+'</div><div class="l">Not Yet Covered</div></div>'
     ];
@@ -1099,6 +1114,17 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const colCount = (sourceTool!=='Self-Assessment'?7:6)+(showSpotCheckCols?1:0);
   document.getElementById(tableId).innerHTML =
     '<thead><tr>'+headerCols+'</tr></thead><tbody>'+(rows||'<tr><td colspan="'+colCount+'" style="text-align:center;color:#94a3b8">No audits recorded yet</td></tr>')+'</tbody>';
+}
+function renderCoverageDonutAndBars(subs){
+  const q = document.getElementById('quarterFilter').value;
+  const relevantQ = q==='__all__' ? sortedQuarters().pop() : q;
+  const matches = dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit' && s.quarter===relevantQ);
+  const rFilter = document.getElementById('regionFilter').value;
+  const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
+  const coveredIds = new Set(matches.map(s=>s.unitId));
+  const pct = locs.length ? Math.round(coveredIds.size/locs.length*100) : 0;
+  renderDonut('coverageDonut', pct, '#1e3a8a');
+  renderRegionCompletionBars('coverageBars', matches);
 }
 function renderCoverage(subs){
   renderAssessmentTypeTable(subs,'Risk VP Audit','coverageGrid','coverageTable','coverage','Total Risk VP Audits');
