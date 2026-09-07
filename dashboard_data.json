@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-07T17:36:16.363Z",
-  "generatedAtDisplay": "9/7/2026, 10:36:16 AM",
+  "generatedAt": "2026-09-07T18:59:10.223Z",
+  "generatedAtDisplay": "9/7/2026, 11:59:10 AM",
   "locations": [
     {
       "id": "4169",
@@ -5918,6 +5918,131 @@
           "reason": "Service not provided by TSC at this location"
         }
       ]
+    },
+    {
+      "unitId": "4169",
+      "name": "1 Hotel Hanalei Bay",
+      "region": "West",
+      "state": "HI",
+      "quarter": "Q3 2026",
+      "completedBy": "Corné Wolmarans",
+      "score": 60,
+      "yes": 6,
+      "no": 4,
+      "na": 0,
+      "sourceTool": "Regional VP Assessment",
+      "auditType": "Spot-Check",
+      "auditDate": "",
+      "auditFormat": "spot-check",
+      "followingUpOn": "Q3 2026",
+      "baselinePct": null,
+      "narrative": "",
+      "sectionBreakdown": [],
+      "actions": [
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "EP-05",
+          "question": "Exit doors unlocked from inside",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "EP-07",
+          "question": "Emergency procedures communicated to employees",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "9/3/2026"
+        }
+      ],
+      "resolvedActions": [
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "criticality": "🔴 CRITICAL — Service Industry",
+          "section": "General Safety",
+          "resolutionNote": "",
+          "dueDate": null,
+          "resolvedDate": "2026-09-07",
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "General Safety",
+          "resolutionNote": "",
+          "dueDate": null,
+          "resolvedDate": "2026-09-07",
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "GS-11",
+          "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
+          "criticality": "🔴 CRITICAL — BBP Compliance",
+          "section": "General Safety",
+          "resolutionNote": "",
+          "dueDate": null,
+          "resolvedDate": "2026-09-07",
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "HK-01",
+          "question": "Carts properly loaded, not overloaded",
+          "criticality": "🟠 HIGH",
+          "section": "Housekeeping",
+          "resolutionNote": "",
+          "dueDate": null,
+          "resolvedDate": "2026-09-07",
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "HK-02",
+          "question": "Carts not blocking hallways/exits/fire equip",
+          "criticality": "🔴 CRITICAL — Life Safety",
+          "section": "Housekeeping",
+          "resolutionNote": "",
+          "dueDate": null,
+          "resolvedDate": "2026-09-07",
+          "flaggedDate": "9/3/2026"
+        },
+        {
+          "ref": "HK-21",
+          "question": "Non-slip footwear worn by all HK employees",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "Housekeeping",
+          "resolutionNote": "",
+          "dueDate": null,
+          "resolvedDate": "2026-09-07",
+          "flaggedDate": "9/3/2026"
+        }
+      ],
+      "naItems": []
     }
   ]
 }
