@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-11T22:12:21.454Z",
-  "generatedAtDisplay": "9/11/2026, 3:12:21 PM",
+  "generatedAt": "2026-09-17T17:07:41.097Z",
+  "generatedAtDisplay": "9/17/2026, 10:07:41 AM",
   "locations": [
     {
       "id": "4169",
@@ -6026,6 +6026,286 @@
           "question": "Emergency communication in elevators functional",
           "section": "Public Areas",
           "reason": "Area not present at this property"
+        }
+      ]
+    },
+    {
+      "unitId": "1100",
+      "name": "Osage Casino Downtown Tulsa",
+      "region": "West",
+      "state": "OK",
+      "quarter": "Q3 2026",
+      "completedBy": "Corné Wolmarans",
+      "score": 90,
+      "yes": 72,
+      "no": 8,
+      "na": 21,
+      "sourceTool": "Risk VP Audit",
+      "auditType": "On-Site",
+      "auditDate": "9/9/2026",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "Audit completed for Osage Casino Downtown Tulsa on 9/9/2026.\nCompliance Score: 90% — Passed — Excellent\n3 critical items identified requiring immediate attention (see Action Items in the export).\nEH accompanied during the audit. Room safety identified stable doors, light cords and Showerdoors. Meeting with Hotel Manager James also shared the same concerns mostly casino responsibility. No set standards from Hotel. Request that these items to be reported on HotSos during inspections. Some action to be completed and already in process. Passed the Safety Audit.",
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 16,
+          "no": 2,
+          "na": 0,
+          "scorePct": 89
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 10,
+          "no": 3,
+          "na": 1,
+          "scorePct": 77
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 7,
+          "no": 0,
+          "na": 6,
+          "scorePct": 100
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 15,
+          "no": 0,
+          "na": 1,
+          "scorePct": 100
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 15,
+          "no": 3,
+          "na": 3,
+          "scorePct": 83
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 9,
+          "no": 0,
+          "na": 10,
+          "scorePct": 100
+        }
+      ],
+      "actions": [
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "General Safety",
+          "status": "2026-09-23",
+          "resolutionNote": "Some to be implemented",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "🟠 HIGH — Organization",
+          "section": "General Safety",
+          "status": "2026-09-30",
+          "resolutionNote": "To be implemented ",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "status": "2026-09-23",
+          "resolutionNote": "To be implemented ",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "CS-08",
+          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
+          "criticality": "🟠 HIGH — Accessibility",
+          "section": "Chemical Safety",
+          "status": "2026-09-30",
+          "resolutionNote": "To be implemented ",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "🟠 HIGH — Spill Prevention",
+          "section": "Chemical Safety",
+          "status": "2026-09-30",
+          "resolutionNote": "Need to be implemented",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "HK-01",
+          "question": "Carts properly loaded, not overloaded",
+          "criticality": "🟠 HIGH",
+          "section": "Housekeeping",
+          "status": "2026-09-30",
+          "resolutionNote": "New cart storing system implemented looks good and well organized",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "HK-14",
+          "question": "Linen chute areas clean and unobstructed",
+          "criticality": "🟠 HIGH",
+          "section": "Housekeeping",
+          "status": "2026-09-30",
+          "resolutionNote": "Discussed safety at chute. Joshua offered some insight to secure. ",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        },
+        {
+          "ref": "HK-21",
+          "question": "Non-slip footwear worn by all HK employees",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "Housekeeping",
+          "status": "2026-09-23",
+          "resolutionNote": "Need to comply",
+          "dueDate": null,
+          "flaggedDate": "9/9/2026"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "section": "Chemical Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "EP-04",
+          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-05",
+          "question": "Exit doors unlocked from inside",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-10",
+          "question": "Fire extinguishers properly mounted, unobstructed, with current monthly inspection tags",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "TD-07",
+          "question": "OSHA poster displayed in employee area",
+          "section": "Training & Docs",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "HK-08",
+          "question": "No standing on furniture/bathtubs/unstable surfaces",
+          "section": "Housekeeping",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "HK-13",
+          "question": "Proper lifting techniques for linen bags",
+          "section": "Housekeeping",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "HK-19",
+          "question": "Dilution systems maintained/calibrated",
+          "section": "Housekeeping",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "PA-02",
+          "question": "Entrance mats in good condition, secured (Report defective of trip hazard)",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-04",
+          "question": "Furniture stable and in good repair (Report defective )",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-06",
+          "question": "Emergency exit signs illuminated and visible",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-07",
+          "question": "Stairwell handrails secure and in good condition",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-12",
+          "question": "Pool area wet floor signage, non-slip surfaces",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-13",
+          "question": "Fitness area clean and hazard-free",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-14",
+          "question": "Pool chemical storage secure/labeled",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "PA-15",
+          "question": "Sidewalks/walkways clear",
+          "section": "Public Areas",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "PA-16",
+          "question": "Loading dock organized, clean, safe",
+          "section": "Public Areas",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "PA-18",
+          "question": "Emergency communication in elevators functional",
+          "section": "Public Areas",
+          "reason": "Resort responsibility, not brand standard"
         }
       ]
     }
