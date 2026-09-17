@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-17T18:38:18.547Z",
-  "generatedAtDisplay": "9/17/2026, 11:38:18 AM",
+  "generatedAt": "2026-09-17T18:53:00.579Z",
+  "generatedAtDisplay": "9/17/2026, 11:53:00 AM",
   "locations": [
     {
       "id": "4169",
@@ -5672,10 +5672,10 @@
       "state": "LA",
       "quarter": "Q3 2026",
       "completedBy": "Corné Wolmarans",
-      "score": 71,
-      "yes": 54,
+      "score": 0,
+      "yes": 55,
       "no": 22,
-      "na": 6,
+      "na": 5,
       "sourceTool": "Risk VP Audit",
       "auditType": "",
       "auditDate": "7/28/2026",
@@ -5687,9 +5687,9 @@
         {
           "section": "General Safety",
           "total": 18,
-          "yes": 10,
+          "yes": 11,
           "no": 6,
-          "na": 2,
+          "na": 1,
           "scorePct": 63
         },
         {
@@ -5952,12 +5952,6 @@
         {
           "ref": "GS-11",
           "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
-          "section": "General Safety",
-          "reason": "Resort responsibility, not brand standard"
-        },
-        {
-          "ref": "GS-17",
-          "question": "Level floor hazards identified and marked",
           "section": "General Safety",
           "reason": "Resort responsibility, not brand standard"
         },
