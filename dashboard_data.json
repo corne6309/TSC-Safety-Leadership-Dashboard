@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-29T14:32:19.835Z",
-  "generatedAtDisplay": "9/29/2026, 7:32:19 AM",
+  "generatedAt": "2026-09-29T15:47:09.953Z",
+  "generatedAtDisplay": "9/29/2026, 8:47:09 AM",
   "locations": [
     {
       "id": "4169",
@@ -8174,6 +8174,32 @@
           "reason": "Area not present at this property"
         }
       ]
+    },
+    {
+      "unitId": "1005",
+      "name": "Ballys (El Dorado) Shreveport",
+      "region": "Central",
+      "state": "LA",
+      "quarter": "Q3 2026",
+      "completedBy": "Roger Barco",
+      "score": 100,
+      "yes": 147,
+      "no": 0,
+      "na": 0,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-09-22",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [],
+      "actions": [],
+      "resolvedActions": [],
+      "naItems": []
     }
   ]
 }
