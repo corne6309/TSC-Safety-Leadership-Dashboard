@@ -786,14 +786,28 @@ function renderKPIs(subs){
   const submittedIds = new Set(subs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
   const completionPct = relevantLocIds.size ? Math.round(submittedIds.size/relevantLocIds.size*100) : 0;
   const totalNo = subs.reduce((s,x)=>s+(x.no||0),0);
-  const vpAudits = subs.filter(s=>s.sourceTool==='Risk VP Audit'||s.sourceTool==='Regional VP Assessment');
-  const virtualCount = vpAudits.filter(s=>s.auditType==='Virtual').length;
+  // Risk VP coverage — how many of the 35 locations have a Risk VP Audit on file at all,
+  // independent of the average score above, which only speaks to the quality of the audits
+  // that have happened, not how much ground has been covered.
+  const riskVpCoveredIds = new Set(riskVpSubs.map(s=>s.unitId));
+  const riskVpCoveragePct = relevantLocIds.size ? Math.round(riskVpCoveredIds.size/relevantLocIds.size*100*10)/10 : 0;
+  // Virtual/in-person breakdown, now specific to Risk VP alone — this used to blend Risk VP
+  // and Regional VP together on the old standalone "VP Audits Completed" card, but now that
+  // Regional VP has its own coverage card, blending the two here would misrepresent whose
+  // audits are being counted.
+  const riskVpVirtualCount = riskVpSubs.filter(s=>s.auditType==='Virtual').length;
+  const riskVpOnsiteCount = riskVpSubs.length - riskVpVirtualCount;
+  // Regional VP coverage — deliberately coverage-only, not blended with a score: Regional VP
+  // submissions mix full audits (a compliance score) and Spot-Checks (a % of prior findings
+  // resolved), two different kinds of number that shouldn't be averaged together.
+  const regionalVpCoveredIds = new Set(subs.filter(s=>s.sourceTool==='Regional VP Assessment').map(s=>s.unitId));
+  const regionalVpCoveragePct = relevantLocIds.size ? Math.round(regionalVpCoveredIds.size/relevantLocIds.size*100) : 0;
 
   const kpis = [
-    {v:riskVpSubs.length?avgScore+'%':'—', l:'Risk VP Avg Compliance', cls:riskVpSubs.length?scoreClass(avgScore):'', sub:riskVpSubs.length?riskVpSubs.length+' audit'+(riskVpSubs.length===1?'':'s'):'No Risk VP audits yet'},
+    {v:riskVpSubs.length?avgScore+'%':'—', l:'Risk VP Average Compliance', cls:riskVpSubs.length?scoreClass(avgScore):'', sub:riskVpSubs.length?riskVpCoveredIds.size+' of '+relevantLocIds.size+' locations audited ('+riskVpCoveragePct+'%) · '+riskVpOnsiteCount+' in-person, '+riskVpVirtualCount+' virtual':'No Risk VP audits yet'},
+    {v:regionalVpCoveragePct+'%', l:'Regional VP Coverage', cls:regionalVpCoveragePct>=80?'good':regionalVpCoveragePct>=50?'warn':'bad', sub:regionalVpCoveredIds.size+' of '+relevantLocIds.size+' locations'},
     {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations'},
-    {v:totalNo, l:'Open Findings', cls:totalNo===0?'good':totalNo<10?'warn':'bad', sub:'across all submitted audits'},
-    {v:vpAudits.length, l:'VP Audits Completed', cls:'', sub:virtualCount+' virtual, '+(vpAudits.length-virtualCount)+' in-person'}
+    {v:totalNo, l:'Open Findings', cls:totalNo===0?'good':totalNo<10?'warn':'bad', sub:'across all submitted audits'}
   ];
   document.getElementById('kpiRow').innerHTML = kpis.map(k=>
     '<div class="kpi-card '+k.cls+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div><div class="sub">'+k.sub+'</div></div>'
