@@ -117,6 +117,17 @@ tr:hover td{background:#f8fafc}
 .chronic-text{flex:1;font-size:12.5px;color:#334155}
 .chronic-quarters{font-size:10.5px;color:#94a3b8}
 
+.lb-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid #f1f5f9;cursor:pointer}
+.lb-row:last-child{border-bottom:none}
+.lb-row:hover{background:#f8fafc}
+.lb-rank{width:26px;height:26px;border-radius:50%;background:#f1f5f9;color:#475569;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lb-rank.top{background:#dcfce7;color:#15803d}
+.lb-rank.bottom{background:#fee2e2;color:#b91c1c}
+.lb-name{flex:1;font-size:12.5px;font-weight:700;color:#0f172a}
+.lb-meta{font-size:10.5px;color:#94a3b8;font-weight:400}
+.lb-crit{font-size:10.5px;font-weight:700;color:#b91c1c;background:#fee2e2;border-radius:8px;padding:2px 7px;white-space:nowrap}
+.lb-score{font-size:15px;font-weight:800;min-width:48px;text-align:right}
+.lb-divider{margin:14px 0;border-top:2px dashed #e2e8f0;padding-top:4px;font-size:11px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em}
 .no-selection{text-align:center;padding:30px;color:#94a3b8;font-size:13px}
 .drilldown-result{padding:9px 12px;font-size:12.5px;cursor:pointer;border-bottom:1px solid #f1f5f9}
 .drilldown-result:last-child{border-bottom:none}
@@ -204,6 +215,7 @@ th.sortable.active .arrow{color:#1e3a8a}
     <div class="dash-layout">
       <div id="sidebar">
         <button class="nav-btn active" data-view="overview" onclick="switchView('overview')">📈 Overview</button>
+        <button class="nav-btn" data-view="leaderboard" onclick="switchView('leaderboard')">🏅 Leaderboard</button>
         <button class="nav-btn" data-view="coverage" onclick="switchView('coverage')">🎯 Risk VP Audit</button>
         <button class="nav-btn" data-view="regionalvp" onclick="switchView('regionalvp')">🧭 Regional VP Assessment</button>
         <button class="nav-btn" data-view="selfassess" onclick="switchView('selfassess')">📝 Self Assessment</button>
@@ -242,6 +254,24 @@ th.sortable.active .arrow{color:#1e3a8a}
             <h2>🔍 Where Sources Disagree</h2>
             <div class="desc">Locations where a Self-Assessment and an independent VP audit tell noticeably different stories — this gap is itself the signal worth reviewing, not something to average away.</div>
             <div id="discrepancyCallout"></div>
+          </div>
+        </div>
+
+        <div class="view-panel" id="view-leaderboard">
+          <div class="section">
+            <h2>🏅 Top 10 / Bottom 10 Locations <span style="font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a;padding:2px 8px;border-radius:10px;margin-left:6px;vertical-align:middle">RISK VP SCORE</span></h2>
+            <div class="desc">Each location's most recent Risk VP Audit score — independently verified, not self-reported. The trend arrow compares against that same location's previous Risk VP Audit, and the critical count is open (unresolved) critical findings from that audit specifically.</div>
+            <div id="locationLeaderboard"></div>
+          </div>
+          <div class="section">
+            <h2>🧭 Region Ranking</h2>
+            <div class="desc">Average Risk VP score across all audits in the current filter, by region — a different accountability question than individual locations.</div>
+            <div id="regionLeaderboard"></div>
+          </div>
+          <div class="section">
+            <h2>⚠️ Chronic Underperformer Watchlist</h2>
+            <div class="desc">Locations with at least 2 Risk VP Audits on file where every single one has scored below 75% — a persistent pattern, not a one-time bad result. This naturally fills in as more quarters of data come in.</div>
+            <div id="chronicWatchlist"></div>
           </div>
         </div>
 
@@ -760,6 +790,9 @@ function renderDashboard(){
   renderRegionScorecards();
   renderRecognition();
   renderChronicIssues();
+  renderLocationLeaderboard();
+  renderRegionLeaderboard();
+  renderChronicWatchlist();
   renderCompletionTable('Risk VP Audit', 'completionRiskVp', 'completionTableRiskVp');
   renderCompletionTable('Regional VP Assessment', 'completionRegionalVp', 'completionTableRegionalVp');
   renderCompletionTable('Self-Assessment', 'completionSelfAssess', 'completionTableSelfAssess');
@@ -967,6 +1000,111 @@ function renderRecognition(){
     html += '</div>';
   }
   document.getElementById('recognitionGrid').innerHTML = html || '<div class="no-selection">Not enough data yet to identify top performers.</div>';
+}
+
+// Finds, for a given location's Risk VP submission, that same location's Risk VP Audit from
+// the quarter immediately before — searched across the FULL dataset (not the current filter),
+// since a meaningful trend needs a stable point of comparison regardless of what's selected
+// in the quarter/region filters above.
+function findPreviousRiskVpForLocation(unitId, quarter){
+  const all = dashData.submissions.filter(s=>s.unitId===unitId && s.sourceTool==='Risk VP Audit' && quarterSortKey(s.quarter)<quarterSortKey(quarter));
+  if(!all.length) return null;
+  return all.sort((a,b)=>quarterSortKey(b.quarter)-quarterSortKey(a.quarter))[0];
+}
+function trendArrowHtml(delta){
+  if(delta===null) return '<span class="lb-meta">no prior audit</span>';
+  if(delta>0) return '<span class="trend up" style="font-size:10.5px">▲ +'+delta+'</span>';
+  if(delta<0) return '<span class="trend down" style="font-size:10.5px">▼ '+delta+'</span>';
+  return '<span class="trend flat" style="font-size:10.5px">— flat</span>';
+}
+function openCriticalCount(sub){
+  return (sub.actions||[]).filter(a=>a.criticality && a.criticality.includes('CRITICAL')).length;
+}
+function renderLocationLeaderboard(){
+  const subs = filteredSubmissions().filter(s=>s.sourceTool==='Risk VP Audit');
+  // One row per location — its most recent qualifying Risk VP Audit, not every audit on file,
+  // so a location visited twice doesn't crowd out ones visited once.
+  const byLoc = {};
+  subs.forEach(s=>{
+    if(!byLoc[s.unitId] || quarterSortKey(s.quarter)>quarterSortKey(byLoc[s.unitId].quarter)) byLoc[s.unitId]=s;
+  });
+  const rows = Object.values(byLoc).map(s=>{
+    const prev = findPreviousRiskVpForLocation(s.unitId, s.quarter);
+    return {unitId:s.unitId, name:s.name, region:s.region, quarter:s.quarter, score:s.score,
+      delta: prev ? s.score-prev.score : null, critCount: openCriticalCount(s)};
+  }).sort((a,b)=>b.score-a.score);
+
+  const el = document.getElementById('locationLeaderboard');
+  if(!rows.length){ el.innerHTML = '<div class="no-selection">No Risk VP Audits match the current filter yet.</div>'; return; }
+
+  function rowHtml(r, rank, cls){
+    const scoreColor = r.score>=90?'#15803d':r.score>=85?'#92400e':'#b91c1c';
+    return '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(r.unitId)+'\')">'
+      +'<div class="lb-rank '+cls+'">'+rank+'</div>'
+      +'<div class="lb-name">['+xH(r.unitId)+'] '+xH(r.name)+' <span class="lb-meta">'+xH(r.region)+' · '+xH(r.quarter)+'</span></div>'
+      +(r.critCount>0?'<div class="lb-crit">'+r.critCount+' critical open</div>':'')
+      +trendArrowHtml(r.delta)
+      +'<div class="lb-score" style="color:'+scoreColor+'">'+r.score+'%</div>'
+      +'</div>';
+  }
+  const top10 = rows.slice(0,10);
+  const bottom10 = rows.slice(-10).reverse();
+  let html = '<div class="lb-divider">🥇 Top 10</div>' + top10.map((r,i)=>rowHtml(r,i+1,'top')).join('');
+  html += '<div class="lb-divider">⚠️ Bottom 10</div>' + bottom10.map((r,i)=>rowHtml(r,rows.length-i,'bottom')).join('');
+  if(rows.length<20) html += '<div class="lb-meta" style="padding:8px 0 0;text-align:center">Only '+rows.length+' location'+(rows.length===1?'':'s')+' audited so far — Top 10 and Bottom 10 overlap until more locations are covered.</div>';
+  el.innerHTML = html;
+}
+
+function renderRegionLeaderboard(){
+  const {current, previous} = currentAndPreviousQuarter();
+  const curSubs = dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit' && s.quarter===current);
+  const prevSubs = previous ? dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit' && s.quarter===previous) : [];
+  const byRegion = {};
+  curSubs.forEach(s=>{ (byRegion[s.region]=byRegion[s.region]||[]).push(s.score); });
+  const rows = Object.entries(byRegion).map(([region,scores])=>{
+    const avg = Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+    const prevScores = prevSubs.filter(s=>s.region===region).map(s=>s.score);
+    const prevAvg = prevScores.length ? Math.round(prevScores.reduce((a,b)=>a+b,0)/prevScores.length) : null;
+    return {region, avg, count:scores.length, delta: prevAvg!==null ? avg-prevAvg : null};
+  }).sort((a,b)=>b.avg-a.avg);
+
+  const el = document.getElementById('regionLeaderboard');
+  if(!rows.length){ el.innerHTML = '<div class="no-selection">No Risk VP Audits on file for '+xH(current||'the current quarter')+' yet.</div>'; return; }
+  el.innerHTML = rows.map((r,i)=>
+    '<div class="lb-row" style="cursor:pointer" onclick="showRegionDrawer(\''+xH(r.region)+'\',\'Risk VP Audit\')">'
+    +'<div class="lb-rank '+(i===0?'top':i===rows.length-1?'bottom':'')+'">'+(i+1)+'</div>'
+    +'<div class="lb-name">'+xH(r.region)+' <span class="lb-meta">'+r.count+' audit'+(r.count===1?'':'s')+' · '+xH(current)+'</span></div>'
+    +trendArrowHtml(r.delta)
+    +'<div class="lb-score" style="color:'+(r.avg>=90?'#15803d':r.avg>=85?'#92400e':'#b91c1c')+'">'+r.avg+'%</div>'
+    +'</div>'
+  ).join('');
+}
+
+function renderChronicWatchlist(){
+  // Deliberately full-dataset, not filter-scoped — "chronic" is a multi-quarter pattern, and
+  // narrowing to one quarter would defeat the point of asking whether a problem persists.
+  const byLoc = {};
+  dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit').forEach(s=>{
+    (byLoc[s.unitId]=byLoc[s.unitId]||[]).push(s);
+  });
+  const watchlist = Object.entries(byLoc)
+    .map(([unitId,subs])=>({unitId, subs: subs.sort((a,b)=>quarterSortKey(a.quarter)-quarterSortKey(b.quarter))}))
+    .filter(x=>x.subs.length>=2 && x.subs.every(s=>s.score<75))
+    .map(x=>({unitId:x.unitId, name:x.subs[0].name, region:x.subs[0].region, subs:x.subs,
+      latestScore:x.subs[x.subs.length-1].score}))
+    .sort((a,b)=>a.latestScore-b.latestScore);
+
+  const el = document.getElementById('chronicWatchlist');
+  if(!watchlist.length){
+    el.innerHTML = '<div class="no-selection">No location currently qualifies — needs at least 2 Risk VP Audits with every one scoring below 75%. This naturally fills in as more quarters of repeat audits come in.</div>';
+    return;
+  }
+  el.innerHTML = watchlist.map(w=>
+    '<div class="chronic-row" style="cursor:pointer" onclick="showLocationDetailDrawer(\''+xH(w.unitId)+'\')">'
+    +'<div class="chronic-badge" style="background:#fee2e2;color:#b91c1c">'+w.subs.length+' audits, all &lt;75%</div>'
+    +'<div class="chronic-text"><strong>['+xH(w.unitId)+'] '+xH(w.name)+'</strong> — '+xH(w.region)+'</div>'
+    +'<div class="chronic-quarters">'+w.subs.map(s=>s.quarter+': '+s.score+'%').join('  ·  ')+'</div></div>'
+  ).join('');
 }
 
 function renderChronicIssues(){
