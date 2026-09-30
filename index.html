@@ -589,7 +589,7 @@ async function loadDashboardData(){
   // if locations.json isn't reachable, we keep the bundled fallback list rather than
   // blocking the whole dashboard on it, since the dashboard data itself is the critical path.
   try{
-    const locRes = await fetch('locations.json', {cache:'no-store'});
+    const locRes = await fetch('locations.json?t=' + Date.now(), {cache:'no-store'});
     if(locRes.ok){
       const locData = await locRes.json();
       if(Array.isArray(locData) && locData.length) LOCATIONS = locData;
@@ -598,7 +598,11 @@ async function loadDashboardData(){
     // Keep FALLBACK_LOCATIONS — expected until locations.json is uploaded here too.
   }
   try{
-    const res = await fetch('dashboard_data.json', {cache:'no-store'});
+    // {cache:'no-store'} only stops the browser's own cache from being used — it does
+    // nothing to bypass GitHub Pages' own CDN edge cache, which can keep serving a stale
+    // copy of this exact URL for several minutes after a fresh push. Appending a
+    // cache-busting query param forces the CDN to treat this as a new resource each time.
+    const res = await fetch('dashboard_data.json?t=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('not found');
     dashData = await res.json();
     document.getElementById('emptyState').style.display='none';
