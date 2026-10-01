@@ -128,6 +128,19 @@ tr:hover td{background:#f8fafc}
 .lb-crit{font-size:10.5px;font-weight:700;color:#b91c1c;background:#fee2e2;border-radius:8px;padding:2px 7px;white-space:nowrap}
 .lb-score{font-size:15px;font-weight:800;min-width:48px;text-align:right}
 .lb-divider{margin:14px 0;border-top:2px dashed #e2e8f0;padding-top:4px;font-size:11px;font-weight:800;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em}
+.cluster-row{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.cluster-row:last-child{border-bottom:none}
+.cluster-pair{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#334155;margin-bottom:3px}
+.cluster-count{background:#ede9fe;color:#6d28d9;font-weight:800;font-size:12px;border-radius:8px;padding:3px 10px;flex-shrink:0}
+.cluster-join{color:#94a3b8;font-size:11px;font-weight:700}
+.cluster-meta{font-size:10.5px;color:#94a3b8;padding-left:2px}
+.sev-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.sev-row:last-child{border-bottom:none}
+.sev-rank{width:24px;font-size:12px;font-weight:800;color:#94a3b8;flex-shrink:0}
+.sev-text{flex:1;font-size:12.5px;color:#334155}
+.sev-moved{font-size:10.5px;font-weight:700;color:#6d28d9;background:#ede9fe;border-radius:8px;padding:2px 7px;white-space:nowrap}
+.qw-group-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin:16px 0 8px;padding-bottom:5px;border-bottom:2px solid #f1f5f9}
+.qw-group-title:first-child{margin-top:0}
 .no-selection{text-align:center;padding:30px;color:#94a3b8;font-size:13px}
 .drilldown-result{padding:9px 12px;font-size:12.5px;cursor:pointer;border-bottom:1px solid #f1f5f9}
 .drilldown-result:last-child{border-bottom:none}
@@ -223,6 +236,7 @@ th.sortable.active .arrow{color:#1e3a8a}
         <button class="nav-btn" data-view="completion" onclick="switchView('completion')">✅ Submission Completion</button>
         <button class="nav-btn" data-view="drilldown" onclick="switchView('drilldown')">🔎 Location Drill-Down</button>
         <button class="nav-btn" data-view="issues" onclick="switchView('issues')">⚠️ Top Issues</button>
+        <button class="nav-btn" data-view="patterns" onclick="switchView('patterns')">🧩 Findings Patterns</button>
         <button class="nav-btn" data-view="chronic" onclick="switchView('chronic')">🔁 Chronic Issues</button>
         <button class="nav-btn" data-view="scorecards" onclick="switchView('scorecards')">🏆 Recognition</button>
         <button class="nav-btn" data-view="comparison" onclick="switchView('comparison')">🔍 Assessment Comparison</button>
@@ -383,6 +397,24 @@ th.sortable.active .arrow{color:#1e3a8a}
           </div>
         </div>
 
+        <div class="view-panel" id="view-patterns">
+          <div class="section">
+            <h2>🧩 Systemic Clusters — Findings That Fail Together</h2>
+            <div class="desc">Pairs of Risk VP findings that keep showing up in the same audit — this points at one underlying program gap (e.g. Emergency Prep documentation) rather than several unrelated ones, and is worth fixing as a single initiative rather than item by item.</div>
+            <div id="findingsClusters"></div>
+          </div>
+          <div class="section">
+            <h2>⚖️ Severity-Weighted Ranking</h2>
+            <div class="desc">Top Issues ranks by raw frequency, treating a Medium finding the same as a Critical one. This weights Critical ×3 and High ×2 — findings that jump up here despite a lower raw count are the ones frequency alone was underselling.</div>
+            <div id="severityWeightedRanking"></div>
+          </div>
+          <div class="section">
+            <h2>🎯 Quick-Win Finder</h2>
+            <div class="desc">Crosses how many locations share a finding against how serious it is. We don't yet have real resolution-time data to find genuinely "cheap" fixes (no findings currently have both a flagged and resolved date on file), so this uses severity as the closest available stand-in — a widespread Medium/High finding is the best candidate for one fix that closes many locations at once; a widespread Critical one is the most urgent.</div>
+            <div id="quickWinFinder"></div>
+          </div>
+        </div>
+
         <div class="view-panel" id="view-chronic">
           <div class="section">
             <h2>🔁 Repeat &amp; Chronic Issues</h2>
@@ -461,7 +493,7 @@ th.sortable.active .arrow{color:#1e3a8a}
 </style>
 
 <script>
-const FALLBACK_LOCATIONS = [{"id": "4169", "name": "1 Hotel Hanalei Bay", "region": "West", "state": "HI", "rvp": "Alan Ching", "manager": "Joel Ortiz", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1005", "name": "Ballys (El Dorado) Shreveport", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Roger Barco", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1072", "name": "Foxwoods Casino", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Farhad Khaledi", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4177", "name": "Garden of the Gods", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1055", "name": "Golden Nugget", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Maritzza Odom", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4173", "name": "Great Wolf Lodge", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Kalet Garcia Torres", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "999-1", "name": "Hilton LAX", "region": "West", "state": "CA", "rvp": "Alan Ching", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "999-3", "name": "Holiday Inn Sulphur", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Harrison Hutchinson", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4011", "name": "Hyatt Regency Greenwich", "region": "Mid-Atlantic", "state": "CT", "rvp": "Eva Nika", "manager": "Richard Pierre", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7022", "name": "Hyatt Regency Pinon Pointe VO", "region": "West", "state": "AZ", "rvp": "Alan Ching", "manager": "Esmeralda Medina Silva", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1012", "name": "LAuberge Casino Resort", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Maritza Odom", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4154", "name": "LegacyHotelandIMGABradenton", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Alina Pichs Martinez", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9021", "name": "Linq Promenade Las Vegas9021", "region": "West", "state": "NV", "rvp": "Alan Ching", "manager": "Andy Galan", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "997", "name": "Little Creek Casino", "region": "West", "state": "WA", "rvp": "Alan Ching", "manager": "Latoya Jackson", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1092", "name": "Live Casino & Hotel", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Caren Butterworth EVS", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1092-2", "name": "Live Casino & Hotel", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Robin Zamudio HSK", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1000", "name": "Mohegan Casino", "region": "Mid-Atlantic", "state": "PA", "rvp": "Eva Nika", "manager": "Michelle Santos", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1093", "name": "Muckleshoot Casino", "region": "West", "state": "WA", "rvp": "Alan Ching", "manager": "Latoya Jackson", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "999-2", "name": "Omni Homestead", "region": "Mid-Atlantic", "state": "VA", "rvp": "Eva Nika", "manager": "Marvin Martin", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1100", "name": "Osage Casino Downtown Tulsa", "region": "West", "state": "OK", "rvp": "Alan Ching", "manager": "Joshua Goodhue", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4014", "name": "Peabody Memphis", "region": "Central", "state": "TN", "rvp": "Harrison Hutchinson", "manager": "Harrison Hutchinson", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9028", "name": "Riverside Hospital", "region": "West", "state": "CA", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4023", "name": "Roosevelt New Orleans", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7050", "name": "SaddleBrook Resort", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Carley Wike", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1070", "name": "Sams Town Shreveport", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Zawaunyka Washington", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4171", "name": "Sea Island Resort", "region": "West", "state": "HI", "rvp": "Anibal Fernandez", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4172", "name": "Sea Island Resort GA", "region": "East", "state": "GA", "rvp": "Anibal Fernandez", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9026", "name": "Southern Hills Hospital", "region": "West", "state": "NV", "rvp": "Alan Ching", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4175", "name": "The Jacquard Hotel", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4174", "name": "The Oxford Hotel", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "7038", "name": "Tucker Century Millenia", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Tayquan Taylor", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7037", "name": "Tucker Palmer Dadeland", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Tayquan Taylor", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1091", "name": "Turfway Park Racing & Casino", "region": "Central", "state": "KY", "rvp": "Harrison Hutchinson", "manager": "Sara Abbas", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4180", "name": "Westin Fort Lauderdale", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Ariel Christopher", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1089", "name": "Wind Creek Casino", "region": "Mid-Atlantic", "state": "PA", "rvp": "Eva Nika", "manager": "Michelle Santos", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}];
+const FALLBACK_LOCATIONS = [{"id": "1005", "name": "Ballys (El Dorado) Shreveport", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Roger Barco", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1055", "name": "Golden Nugget", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Maritzza Odom", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1070", "name": "Sams Town Shreveport", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Zawaunyka Washington", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1072", "name": "Foxwoods Casino", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Farhad Khaledi", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1089", "name": "Wind Creek Casino", "region": "East", "state": "PA", "rvp": "Anibal Fernandez", "manager": "Michelle Santos", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1092", "name": "Live Casino & Hotel", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Caren Butterworth EVS", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1092-2", "name": "Live Casino & Hotel", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "Robin Zamudio HSK", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "1093", "name": "Muckleshoot Casino", "region": "West", "state": "WA", "rvp": "Alan Ching", "manager": "Latoya Jackson", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "1100", "name": "Osage Casino Downtown Tulsa", "region": "West", "state": "OK", "rvp": "Alan Ching", "manager": "Joshua Goodhue", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4011", "name": "Hyatt Regency Greenwich", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Richard Pierre", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4014", "name": "Peabody Memphis", "region": "Central", "state": "TN", "rvp": "Harrison Hutchinson", "manager": "Harrison Hutchinson", "sections": {"Housekeeping": true, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4023", "name": "Roosevelt New Orleans", "region": "Central", "state": "LA", "rvp": "Harrison Hutchinson", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4148", "name": "JW Marriott Austin", "region": "Central", "state": "TX", "rvp": "Harrison Hutchinson", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}, "activeSince": "Q4 2026"}, {"id": "4154", "name": "LegacyHotelandIMGABradenton", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Alina Pichs Martinez", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4169", "name": "1 Hotel Hanalei Bay", "region": "West", "state": "HI", "rvp": "Alan Ching", "manager": "Joel Ortiz", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4171", "name": "Sea Island Resort", "region": "West", "state": "HI", "rvp": "Alan Ching", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": true, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4172", "name": "Sea Island Resort GA", "region": "East", "state": "GA", "rvp": "Anibal Fernandez", "manager": "", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4173", "name": "Great Wolf Lodge", "region": "East", "state": "CT", "rvp": "Anibal Fernandez", "manager": "Kalet Garcia Torres", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4174", "name": "The Oxford Hotel", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4175", "name": "The Jacquard Hotel", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "4177", "name": "Garden of the Gods", "region": "West", "state": "CO", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "4180", "name": "Westin Fort Lauderdale", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Ariel Christopher", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7022", "name": "Hyatt Regency Pinon Pointe VO", "region": "West", "state": "AZ", "rvp": "Alan Ching", "manager": "Esmeralda Medina Silva", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "7038", "name": "Tucker Century Millenia", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Tayquan Taylor", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "7050", "name": "SaddleBrook Resort", "region": "Florida", "state": "FL", "rvp": "Tayquan Taylor", "manager": "Carley Wike", "sections": {"Housekeeping": true, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "9021", "name": "Linq Promenade Las Vegas9021", "region": "West", "state": "NV", "rvp": "Alan Ching", "manager": "Andy Galan", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": true, "Kitchen/Stewarding": false, "Vehicles": false, "Golf Carts": false}}, {"id": "9026", "name": "Southern Hills Hospital", "region": "West", "state": "NV", "rvp": "Alan Ching", "manager": "Martha Maruri", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}, {"id": "9028", "name": "Riverside Hospital", "region": "West", "state": "CA", "rvp": "Alan Ching", "manager": "Alan Ching", "sections": {"Housekeeping": false, "EVS": false, "Public Areas": false, "Kitchen/Stewarding": true, "Vehicles": false, "Golf Carts": false}}];
 let LOCATIONS = FALLBACK_LOCATIONS.map(l=>({...l}));
 const REGIONS = [...new Set(LOCATIONS.map(l=>l.region))].sort();
 const CORE_SECTIONS = ['General Safety','Chemical Safety','Emergency Prep','Training & Docs'];
@@ -704,7 +736,7 @@ function renderRegionCompletionBars(elId, matches){
   const submittedByRegion = {};
   matches.forEach(s=>{ (submittedByRegion[s.region]=submittedByRegion[s.region]||new Set()).add(s.unitId); });
   const rows = REGIONS.map(region=>{
-    const total = LOCATIONS.filter(l=>l.region===region).length;
+    const total = applicableLocations(region).length;
     const submitted = submittedByRegion[region] ? submittedByRegion[region].size : 0;
     return {region, submitted, total, pct: total>0?Math.round(submitted/total*100):0};
   }).filter(r=>r.total>0);
@@ -767,6 +799,26 @@ function quarterSortKey(q){
 function sortedQuarters(){
   return [...new Set(dashData.submissions.map(s=>s.quarter).filter(Boolean))].sort((a,b)=>quarterSortKey(a)-quarterSortKey(b));
 }
+// A location with no activeSince field has always been active. One with activeSince set
+// (e.g. a new location added mid-year) only counts toward coverage/completion denominators
+// from that quarter onward — so it doesn't look like a missed audit for quarters before it
+// was even a client.
+function isLocationActiveInQuarter(loc, quarter){
+  if(!loc.activeSince || !quarter) return true;
+  return quarterSortKey(quarter) >= quarterSortKey(loc.activeSince);
+}
+// The reference quarter for "how many locations are applicable right now" — the selected
+// quarter filter if one is set, otherwise the latest quarter actually present in the data.
+function effectiveQuarterForCoverage(){
+  const sel = document.getElementById('quarterFilter').value;
+  if(sel && sel!=='__all__') return sel;
+  const all = sortedQuarters();
+  return all.length ? all[all.length-1] : null;
+}
+function applicableLocations(regionFilterValue){
+  const q = effectiveQuarterForCoverage();
+  return LOCATIONS.filter(l=>(!regionFilterValue||regionFilterValue==='__all__'||l.region===regionFilterValue) && isLocationActiveInQuarter(l,q));
+}
 function currentAndPreviousQuarter(){
   const all = sortedQuarters();
   const filterVal = document.getElementById('quarterFilter').value;
@@ -793,6 +845,9 @@ function renderDashboard(){
   renderLocationLeaderboard();
   renderRegionLeaderboard();
   renderChronicWatchlist();
+  renderFindingsClusters();
+  renderSeverityWeightedRanking();
+  renderQuickWinFinder();
   renderCompletionTable('Risk VP Audit', 'completionRiskVp', 'completionTableRiskVp');
   renderCompletionTable('Regional VP Assessment', 'completionRegionalVp', 'completionTableRegionalVp');
   renderCompletionTable('Self-Assessment', 'completionSelfAssess', 'completionTableSelfAssess');
@@ -814,8 +869,7 @@ function renderKPIs(subs){
   // the strength of an unverified self-assessment.
   const riskVpSubs = subs.filter(s=>s.sourceTool==='Risk VP Audit');
   const avgScore = riskVpSubs.length ? Math.round(riskVpSubs.reduce((s,x)=>s+x.score,0)/riskVpSubs.length) : 0;
-  const selQuarter = document.getElementById('quarterFilter').value;
-  const relevantLocIds = new Set(LOCATIONS.map(l=>l.id));
+  const relevantLocIds = new Set(applicableLocations().map(l=>l.id));
   const submittedIds = new Set(subs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
   const completionPct = relevantLocIds.size ? Math.round(submittedIds.size/relevantLocIds.size*100) : 0;
   const totalNo = subs.reduce((s,x)=>s+(x.no||0),0);
@@ -936,7 +990,7 @@ function renderRegionScorecards(){
     const trendCls = delta===null?'flat':delta>0?'up':delta<0?'down':'flat';
     const trendTxt = delta===null?'No prior data':delta>0?('▲ +'+delta+' pts'):delta<0?('▼ '+delta+' pts'):'No change';
 
-    const locs = new Set(LOCATIONS.filter(l=>l.region===region).map(l=>l.id));
+    const locs = new Set(LOCATIONS.filter(l=>l.region===region && isLocationActiveInQuarter(l,current)).map(l=>l.id));
     const submittedCount = new Set(allCurSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId)).size;
     const completion = locs.size ? Math.round(submittedCount/locs.size*100) : 0;
     const spotCheckCount = new Set(allCurSubs.filter(s=>s.auditFormat==='spot-check').map(s=>s.unitId)).size;
@@ -1107,6 +1161,102 @@ function renderChronicWatchlist(){
   ).join('');
 }
 
+function severityWeight(criticality){
+  if(criticality && criticality.includes('CRITICAL')) return 3;
+  if(criticality && criticality.includes('HIGH')) return 2;
+  return 1; // Medium or unlabeled
+}
+function severityTier(criticality){
+  if(criticality && criticality.includes('CRITICAL')) return 'Critical';
+  if(criticality && criticality.includes('HIGH')) return 'High';
+  return 'Medium';
+}
+function renderFindingsClusters(){
+  // Scoped to Risk VP Audit specifically, matching Top Issues' own scoping — independently
+  // verified findings, not self-reported or follow-up ones.
+  const subs = dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit');
+  const pairCounts = {};
+  subs.forEach(s=>{
+    const actionsByRef = {};
+    (s.actions||[]).forEach(a=>{ actionsByRef[a.ref]=a; });
+    const refs = Object.keys(actionsByRef);
+    for(let i=0;i<refs.length;i++){
+      for(let j=i+1;j<refs.length;j++){
+        const [r1,r2] = [refs[i],refs[j]].sort();
+        const key = r1+'|'+r2;
+        if(!pairCounts[key]) pairCounts[key] = {ref1:r1, ref2:r2, q1:actionsByRef[r1].question, q2:actionsByRef[r2].question, count:0, locations:new Set()};
+        pairCounts[key].count++;
+        pairCounts[key].locations.add(s.unitId);
+      }
+    }
+  });
+  // Co-occurring at least twice — a single shared audit isn't yet a pattern, just a coincidence.
+  const pairs = Object.values(pairCounts).filter(p=>p.count>=2).sort((a,b)=>b.count-a.count).slice(0,15);
+  const el = document.getElementById('findingsClusters');
+  if(!pairs.length){ el.innerHTML = '<div class="no-selection">Not enough data yet — need the same pair of findings to repeat across multiple audits before a pattern is meaningful.</div>'; return; }
+  el.innerHTML = pairs.map(p=>
+    '<div class="cluster-row">'
+    +'<div class="cluster-pair"><span class="cluster-count">'+p.count+'x together</span> ['+xH(p.ref1)+'] '+xH(p.q1)+' <span class="cluster-join">+</span> ['+xH(p.ref2)+'] '+xH(p.q2)+'</div>'
+    +'<div class="cluster-meta">Seen together at '+p.locations.size+' location'+(p.locations.size===1?'':'s')+'</div>'
+    +'</div>'
+  ).join('');
+}
+function renderSeverityWeightedRanking(){
+  const subs = dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit');
+  const counts = {};
+  subs.forEach(s=>(s.actions||[]).forEach(a=>{
+    const key=a.ref+'|'+a.question;
+    if(!counts[key]) counts[key]={ref:a.ref, question:a.question, count:0, weighted:0};
+    counts[key].count++;
+    counts[key].weighted += severityWeight(a.criticality);
+  }));
+  const all = Object.values(counts);
+  const el = document.getElementById('severityWeightedRanking');
+  if(!all.length){ el.innerHTML = '<div class="no-selection">No findings recorded yet for the current data.</div>'; return; }
+  const byFreqRank = {};
+  [...all].sort((a,b)=>b.count-a.count).forEach((t,i)=>{ byFreqRank[t.ref+'|'+t.question]=i+1; });
+  const byWeight = [...all].sort((a,b)=>b.weighted-a.weighted).slice(0,10);
+  el.innerHTML = byWeight.map((t,i)=>{
+    const key=t.ref+'|'+t.question;
+    const oldRank = byFreqRank[key];
+    const newRank = i+1;
+    // Only call out a real jump — a rank shift of 1-2 spots is noise, not a signal worth
+    // flagging as "frequency was underselling this."
+    const movedUp = oldRank-newRank>=3;
+    return '<div class="sev-row"><div class="sev-rank">#'+newRank+'</div>'
+      +'<div class="sev-text">['+xH(t.ref)+'] '+xH(t.question)+' <span class="lb-meta">weighted '+t.weighted+' · raw count '+t.count+'</span></div>'
+      +(movedUp?'<div class="sev-moved">↑ was #'+oldRank+' by frequency</div>':'')
+      +'</div>';
+  }).join('');
+}
+function renderQuickWinFinder(){
+  const subs = dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit');
+  const byFinding = {};
+  subs.forEach(s=>(s.actions||[]).forEach(a=>{
+    const key=a.ref+'|'+a.question;
+    if(!byFinding[key]) byFinding[key]={ref:a.ref, question:a.question, tier:severityTier(a.criticality), locations:new Set()};
+    byFinding[key].locations.add(s.unitId);
+  }));
+  const all = Object.values(byFinding).map(f=>({...f, locCount:f.locations.size}));
+  const el = document.getElementById('quickWinFinder');
+  if(!all.length){ el.innerHTML = '<div class="no-selection">No findings recorded yet for the current data.</div>'; return; }
+  const PERVASIVE_THRESHOLD = 5;
+  const quickWin = all.filter(f=>f.locCount>=PERVASIVE_THRESHOLD && f.tier!=='Critical').sort((a,b)=>b.locCount-a.locCount);
+  const urgent = all.filter(f=>f.locCount>=PERVASIVE_THRESHOLD && f.tier==='Critical').sort((a,b)=>b.locCount-a.locCount);
+  const isolatedSerious = all.filter(f=>f.locCount<PERVASIVE_THRESHOLD && f.tier==='Critical').sort((a,b)=>b.locCount-a.locCount);
+
+  function group(title, items, bg, text){
+    if(!items.length) return '';
+    return '<div class="qw-group-title">'+title+'</div>' + items.map(f=>
+      '<div class="issue-row"><div class="issue-count" style="background:'+bg+';color:'+text+'">'+f.locCount+'</div>'
+      +'<div class="issue-text">['+xH(f.ref)+'] '+xH(f.question)+' <span class="lb-meta">'+xH(f.tier)+'</span></div></div>'
+    ).join('');
+  }
+  const html = group('🎯 Quick Win — widespread, not Critical', quickWin, '#dcfce7', '#15803d')
+    + group('🚨 Urgent &amp; widespread — widespread AND Critical', urgent, '#fee2e2', '#b91c1c')
+    + group('🔬 Isolated but serious — Critical, few locations', isolatedSerious, '#fef3c7', '#92400e');
+  el.innerHTML = html || '<div class="no-selection">Nothing currently meets either threshold — no widespread patterns or isolated-critical findings yet.</div>';
+}
 function renderChronicIssues(){
   const lFilter = document.getElementById('locationFilter').value;
   const rFilter = document.getElementById('regionFilter').value;
@@ -1139,7 +1289,7 @@ function renderCompletionTable(sourceTool, sortKey, elId){
   const matchingSubs = dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ);
   const submittedIds = new Set(matchingSubs.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
-  const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
+  const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter) && isLocationActiveInQuarter(l,relevantQ));
   const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', status:submittedIds.has(l.id)?'Submitted':'Missing'}));
   const sorted = applySorting(rowData, sortKey);
   const rows = sorted.map(l=>
@@ -1274,7 +1424,7 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const spotChecks = matches.filter(s=>s.auditFormat==='spot-check').length;
   const visitedIds = new Set(matches.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
-  const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
+  const locs = applicableLocations(rFilter);
   const notCovered = locs.filter(l=>!visitedIds.has(l.id));
   const showSpotCheckCols = sourceTool==='Regional VP Assessment';
 
@@ -1322,7 +1472,7 @@ function renderCoverageDonutAndBars(subs){
   const relevantQ = q==='__all__' ? sortedQuarters().pop() : q;
   const matches = dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit' && s.quarter===relevantQ);
   const rFilter = document.getElementById('regionFilter').value;
-  const locs = LOCATIONS.filter(l=>rFilter==='__all__'||l.region===rFilter);
+  const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter) && isLocationActiveInQuarter(l,relevantQ));
   const coveredIds = new Set(matches.map(s=>s.unitId));
   const pct = locs.length ? Math.round(coveredIds.size/locs.length*100) : 0;
   renderDonut('coverageDonut', pct, '#1e3a8a');
@@ -1535,7 +1685,7 @@ function printMeetingPacket(){
     const prevAvg = prevSubs.length ? Math.round(prevSubs.reduce((a,x)=>a+x.score,0)/prevSubs.length) : null;
     const delta = (curAvg!==null && prevAvg!==null) ? curAvg-prevAvg : null;
 
-    const locs = LOCATIONS.filter(l=>l.region===region);
+    const locs = LOCATIONS.filter(l=>l.region===region && isLocationActiveInQuarter(l,current));
     const submittedIds = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
     const completion = locs.length ? Math.round(submittedIds.size/locs.length*100) : 0;
 
