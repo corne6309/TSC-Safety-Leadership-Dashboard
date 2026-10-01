@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-30T22:53:39.047Z",
-  "generatedAtDisplay": "9/30/2026, 3:53:39 PM",
+  "generatedAt": "2026-10-01T18:35:18.509Z",
+  "generatedAtDisplay": "10/1/2026, 11:35:18 AM",
   "locations": [
     {
       "id": "4169",
@@ -8787,6 +8787,207 @@
       ],
       "resolvedActions": [],
       "naItems": []
+    },
+    {
+      "unitId": "1100",
+      "name": "Osage Casino Downtown Tulsa",
+      "region": "West",
+      "state": "OK",
+      "quarter": "Q3 2026",
+      "completedBy": "Joshua Goodhue",
+      "score": 88,
+      "yes": 65,
+      "no": 9,
+      "na": 7,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-09-20",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 13,
+          "no": 4,
+          "na": 1,
+          "scorePct": 76
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 8,
+          "no": 4,
+          "na": 2,
+          "scorePct": 67
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 9,
+          "no": 0,
+          "na": 3,
+          "scorePct": 100
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 16,
+          "no": 0,
+          "na": 0,
+          "scorePct": 100
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 19,
+          "no": 1,
+          "na": 1,
+          "scorePct": 95
+        }
+      ],
+      "actions": [
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "Several associates are not wearing nonslip shoes",
+          "dueDate": "2026-10-04",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "We do not have a PPE hazard assessment documented; I'm not sure what this is.",
+          "dueDate": "2026-10-11",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "🟠 HIGH — Organization",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "The shelf labeling is in progress",
+          "dueDate": "2026-10-11",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "GS-18",
+          "question": "Safety posters displayed and current",
+          "criticality": "🟠 HIGH — Compliance",
+          "section": "General Safety",
+          "status": "Open",
+          "resolutionNote": "We have emergency procedures posters, but no other safety posters.",
+          "dueDate": "2026-10-11",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "We have 2 binder locations available for SDS sheets, but we do not have a binder wherever a chemical dispenser is located",
+          "dueDate": "2026-10-04",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "CS-08",
+          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
+          "criticality": "🟠 HIGH — Accessibility",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "We will be installing chemical PPE at every point of use. ",
+          "dueDate": "2026-10-11",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "🔴 CRITICAL — Full PPE",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "We will be purchasing chemical ppe equipment for every chemical area\n",
+          "dueDate": "2026-10-04",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "🟠 HIGH — Spill Prevention",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "We will be installing pigmats ",
+          "dueDate": "2026-10-11",
+          "flaggedDate": "2026-09-20"
+        },
+        {
+          "ref": "HK-21",
+          "question": "Non-slip footwear worn by all HK employees",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "Housekeeping",
+          "status": "Open",
+          "resolutionNote": "Several associates were observed not wearing non-slip footwear. This question appears twice in this audit.",
+          "dueDate": "2026-10-04",
+          "flaggedDate": "2026-09-20"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "GS-17",
+          "question": "Level floor hazards identified and marked",
+          "section": "General Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-14",
+          "question": "Eye wash weekly inspection checklist",
+          "section": "Chemical Safety",
+          "reason": "Eye wash stations are single use and do not require functionality checks"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "HK-13",
+          "question": "Proper lifting techniques for linen bags",
+          "section": "Housekeeping",
+          "reason": "Service not provided by TSC at this location"
+        }
+      ]
     }
   ]
 }
