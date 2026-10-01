@@ -1,17 +1,24 @@
 {
-  "generatedAt": "2026-10-01T18:35:18.509Z",
-  "generatedAtDisplay": "10/1/2026, 11:35:18 AM",
+  "generatedAt": "2026-10-01T20:46:48.727Z",
+  "generatedAtDisplay": "10/1/2026, 1:46:48 PM",
   "locations": [
-    {
-      "id": "4169",
-      "name": "1 Hotel Hanalei Bay",
-      "region": "West",
-      "state": "HI",
-      "rvp": "Alan Ching"
-    },
     {
       "id": "1005",
       "name": "Ballys (El Dorado) Shreveport",
+      "region": "Central",
+      "state": "LA",
+      "rvp": "Harrison Hutchinson"
+    },
+    {
+      "id": "1055",
+      "name": "Golden Nugget",
+      "region": "Central",
+      "state": "LA",
+      "rvp": "Harrison Hutchinson"
+    },
+    {
+      "id": "1070",
+      "name": "Sams Town Shreveport",
       "region": "Central",
       "state": "LA",
       "rvp": "Harrison Hutchinson"
@@ -24,81 +31,11 @@
       "rvp": "Anibal Fernandez"
     },
     {
-      "id": "4177",
-      "name": "Garden of the Gods",
-      "region": "West",
-      "state": "CO",
-      "rvp": "Alan Ching"
-    },
-    {
-      "id": "1055",
-      "name": "Golden Nugget",
-      "region": "Central",
-      "state": "LA",
-      "rvp": "Harrison Hutchinson"
-    },
-    {
-      "id": "4173",
-      "name": "Great Wolf Lodge",
+      "id": "1089",
+      "name": "Wind Creek Casino",
       "region": "East",
-      "state": "CT",
+      "state": "PA",
       "rvp": "Anibal Fernandez"
-    },
-    {
-      "id": "999-1",
-      "name": "Hilton LAX",
-      "region": "West",
-      "state": "CA",
-      "rvp": "Alan Ching"
-    },
-    {
-      "id": "999-3",
-      "name": "Holiday Inn Sulphur",
-      "region": "Central",
-      "state": "LA",
-      "rvp": "Harrison Hutchinson"
-    },
-    {
-      "id": "4011",
-      "name": "Hyatt Regency Greenwich",
-      "region": "Mid-Atlantic",
-      "state": "CT",
-      "rvp": "Eva Nika"
-    },
-    {
-      "id": "7022",
-      "name": "Hyatt Regency Pinon Pointe VO",
-      "region": "West",
-      "state": "AZ",
-      "rvp": "Alan Ching"
-    },
-    {
-      "id": "1012",
-      "name": "LAuberge Casino Resort",
-      "region": "Central",
-      "state": "LA",
-      "rvp": "Harrison Hutchinson"
-    },
-    {
-      "id": "4154",
-      "name": "LegacyHotelandIMGABradenton",
-      "region": "Florida",
-      "state": "FL",
-      "rvp": "Tayquan Taylor"
-    },
-    {
-      "id": "9021",
-      "name": "Linq Promenade Las Vegas9021",
-      "region": "West",
-      "state": "NV",
-      "rvp": "Alan Ching"
-    },
-    {
-      "id": "997",
-      "name": "Little Creek Casino",
-      "region": "West",
-      "state": "WA",
-      "rvp": "Alan Ching"
     },
     {
       "id": "1092",
@@ -115,25 +52,11 @@
       "rvp": "Harrison Hutchinson"
     },
     {
-      "id": "1000",
-      "name": "Mohegan Casino",
-      "region": "Mid-Atlantic",
-      "state": "PA",
-      "rvp": "Eva Nika"
-    },
-    {
       "id": "1093",
       "name": "Muckleshoot Casino",
       "region": "West",
       "state": "WA",
       "rvp": "Alan Ching"
-    },
-    {
-      "id": "999-2",
-      "name": "Omni Homestead",
-      "region": "Mid-Atlantic",
-      "state": "VA",
-      "rvp": "Eva Nika"
     },
     {
       "id": "1100",
@@ -143,18 +66,18 @@
       "rvp": "Alan Ching"
     },
     {
+      "id": "4011",
+      "name": "Hyatt Regency Greenwich",
+      "region": "East",
+      "state": "CT",
+      "rvp": "Anibal Fernandez"
+    },
+    {
       "id": "4014",
       "name": "Peabody Memphis",
       "region": "Central",
       "state": "TN",
       "rvp": "Harrison Hutchinson"
-    },
-    {
-      "id": "9028",
-      "name": "Riverside Hospital",
-      "region": "West",
-      "state": "CA",
-      "rvp": "Alan Ching"
     },
     {
       "id": "4023",
@@ -164,25 +87,32 @@
       "rvp": "Harrison Hutchinson"
     },
     {
-      "id": "7050",
-      "name": "SaddleBrook Resort",
+      "id": "4148",
+      "name": "JW Marriott Austin",
+      "region": "Central",
+      "state": "TX",
+      "rvp": "Harrison Hutchinson"
+    },
+    {
+      "id": "4154",
+      "name": "LegacyHotelandIMGABradenton",
       "region": "Florida",
       "state": "FL",
       "rvp": "Tayquan Taylor"
     },
     {
-      "id": "1070",
-      "name": "Sams Town Shreveport",
-      "region": "Central",
-      "state": "LA",
-      "rvp": "Harrison Hutchinson"
+      "id": "4169",
+      "name": "1 Hotel Hanalei Bay",
+      "region": "West",
+      "state": "HI",
+      "rvp": "Alan Ching"
     },
     {
       "id": "4171",
       "name": "Sea Island Resort",
       "region": "West",
       "state": "HI",
-      "rvp": "Anibal Fernandez"
+      "rvp": "Alan Ching"
     },
     {
       "id": "4172",
@@ -192,10 +122,17 @@
       "rvp": "Anibal Fernandez"
     },
     {
-      "id": "9026",
-      "name": "Southern Hills Hospital",
+      "id": "4173",
+      "name": "Great Wolf Lodge",
+      "region": "East",
+      "state": "CT",
+      "rvp": "Anibal Fernandez"
+    },
+    {
+      "id": "4174",
+      "name": "The Oxford Hotel",
       "region": "West",
-      "state": "NV",
+      "state": "CO",
       "rvp": "Alan Ching"
     },
     {
@@ -206,10 +143,24 @@
       "rvp": "Alan Ching"
     },
     {
-      "id": "4174",
-      "name": "The Oxford Hotel",
+      "id": "4177",
+      "name": "Garden of the Gods",
       "region": "West",
       "state": "CO",
+      "rvp": "Alan Ching"
+    },
+    {
+      "id": "4180",
+      "name": "Westin Fort Lauderdale",
+      "region": "Florida",
+      "state": "FL",
+      "rvp": "Tayquan Taylor"
+    },
+    {
+      "id": "7022",
+      "name": "Hyatt Regency Pinon Pointe VO",
+      "region": "West",
+      "state": "AZ",
       "rvp": "Alan Ching"
     },
     {
@@ -220,32 +171,32 @@
       "rvp": "Tayquan Taylor"
     },
     {
-      "id": "7037",
-      "name": "Tucker Palmer Dadeland",
+      "id": "7050",
+      "name": "SaddleBrook Resort",
       "region": "Florida",
       "state": "FL",
       "rvp": "Tayquan Taylor"
     },
     {
-      "id": "1091",
-      "name": "Turfway Park Racing & Casino",
-      "region": "Central",
-      "state": "KY",
-      "rvp": "Harrison Hutchinson"
+      "id": "9021",
+      "name": "Linq Promenade Las Vegas9021",
+      "region": "West",
+      "state": "NV",
+      "rvp": "Alan Ching"
     },
     {
-      "id": "4180",
-      "name": "Westin Fort Lauderdale",
-      "region": "Florida",
-      "state": "FL",
-      "rvp": "Tayquan Taylor"
+      "id": "9026",
+      "name": "Southern Hills Hospital",
+      "region": "West",
+      "state": "NV",
+      "rvp": "Alan Ching"
     },
     {
-      "id": "1089",
-      "name": "Wind Creek Casino",
-      "region": "Mid-Atlantic",
-      "state": "PA",
-      "rvp": "Eva Nika"
+      "id": "9028",
+      "name": "Riverside Hospital",
+      "region": "West",
+      "state": "CA",
+      "rvp": "Alan Ching"
     }
   ],
   "submissions": [
@@ -8986,6 +8937,98 @@
           "question": "Proper lifting techniques for linen bags",
           "section": "Housekeeping",
           "reason": "Service not provided by TSC at this location"
+        }
+      ]
+    },
+    {
+      "unitId": "1092",
+      "name": "Live Casino & Hotel",
+      "region": "Central",
+      "state": "LA",
+      "quarter": "Q3 2026",
+      "completedBy": "Robin Zamudio",
+      "score": 100,
+      "yes": 78,
+      "no": 0,
+      "na": 4,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-09-24",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 18,
+          "no": 0,
+          "na": 0,
+          "scorePct": 100
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 14,
+          "no": 0,
+          "na": 0,
+          "scorePct": 100
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 12,
+          "no": 0,
+          "na": 1,
+          "scorePct": 100
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 13,
+          "no": 0,
+          "na": 3,
+          "scorePct": 100
+        },
+        {
+          "section": "Housekeeping",
+          "total": 21,
+          "yes": 21,
+          "no": 0,
+          "na": 0,
+          "scorePct": 100
+        }
+      ],
+      "actions": [],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "section": "Emergency Prep",
+          "reason": "Not sure what this is"
+        },
+        {
+          "ref": "TD-10",
+          "question": "OSHA 300 log maintained (>10 employees)",
+          "section": "Training & Docs",
+          "reason": "Not sure what this is"
+        },
+        {
+          "ref": "TD-14",
+          "question": "Training records retained per OSHA",
+          "section": "Training & Docs",
+          "reason": ""
+        },
+        {
+          "ref": "TD-15",
+          "question": "Discuss Claims GB: Review claims with team",
+          "section": "Training & Docs",
+          "reason": "Do not know what this is"
         }
       ]
     }
