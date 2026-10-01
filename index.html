@@ -52,6 +52,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 .section{background:#fff;border-radius:14px;padding:20px 22px;margin-bottom:18px;box-shadow:0 1px 6px rgba(0,0,0,.07)}
 .section h2{font-size:16px;font-weight:800;color:#0f172a;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.section h2.collapsible{cursor:pointer;user-select:none}
+.section h2.collapsible .chev{font-size:11px;color:#94a3b8;transition:transform .15s;margin-right:2px}
+.section.collapsed h2.collapsible .chev{transform:rotate(-90deg)}
+.section.collapsed .section-body{display:none}
 .section .desc{font-size:12.5px;color:#64748b;margin-bottom:16px}
 
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -290,33 +294,39 @@ th.sortable.active .arrow{color:#1e3a8a}
         </div>
 
         <div class="view-panel" id="view-coverage">
-          <div class="section">
-            <h2>🎯 Risk VP Audit</h2>
+          <div class="section" id="sectionCoverage">
+            <h2 class="collapsible" onclick="toggleSection('sectionCoverage')"><span class="chev">▼</span>🎯 Risk VP Audit</h2>
             <div class="desc">Audits completed by the VP of Risk &amp; Safety — in-person vs. virtual, and which locations have been covered.</div>
+            <div class="section-body">
             <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
               <div id="coverageDonut"></div>
               <div style="flex:1;min-width:220px;padding-top:6px" id="coverageBars"></div>
             </div>
             <div class="coverage-grid" id="coverageGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="coverageTable"></table></div>
+            </div>
           </div>
         </div>
 
         <div class="view-panel" id="view-regionalvp">
-          <div class="section">
-            <h2>🧭 Regional VP Assessment</h2>
+          <div class="section" id="sectionRegionalVp">
+            <h2 class="collapsible" onclick="toggleSection('sectionRegionalVp')"><span class="chev">▼</span>🧭 Regional VP Assessment</h2>
             <div class="desc">Full audits and quick Spot-Checks completed by the five Regional VPs. For Spot-Checks, "Score" means % of the Risk VP's prior findings resolved — a different metric from a full audit's compliance score, shown alongside Resolved/Open counts.</div>
+            <div class="section-body">
             <div class="coverage-grid" id="regionalVpGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="regionalVpTable"></table></div>
+            </div>
           </div>
         </div>
 
         <div class="view-panel" id="view-selfassess">
-          <div class="section">
-            <h2>📝 Self Assessment</h2>
+          <div class="section" id="sectionSelfAssess">
+            <h2 class="collapsible" onclick="toggleSection('sectionSelfAssess')"><span class="chev">▼</span>📝 Self Assessment</h2>
             <div class="desc">Self-Assessments completed by location managers — which locations have submitted, and their scores.</div>
+            <div class="section-body">
             <div class="coverage-grid" id="selfAssessGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="selfAssessTable"></table></div>
+            </div>
           </div>
         </div>
 
@@ -342,31 +352,37 @@ th.sortable.active .arrow{color:#1e3a8a}
             </div>
           </div>
           <div class="section completion-subtab" id="completionSubtab-RiskVp">
-            <h2>🎯 Risk VP Audit Completion</h2>
+            <h2 class="collapsible" onclick="toggleSection('completionSubtab-RiskVp')"><span class="chev">▼</span>🎯 Risk VP Audit Completion</h2>
             <div class="desc">Which locations have a Risk VP audit on file for the selected quarter.</div>
+            <div class="section-body">
             <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
               <div id="completionDonutRiskVp"></div>
               <div style="flex:1;min-width:220px;padding-top:6px" id="completionBarsRiskVp"></div>
             </div>
             <div class="tbl-wrap"><table id="completionTableRiskVp"></table></div>
+            </div>
           </div>
           <div class="section completion-subtab" id="completionSubtab-RegionalVp" style="display:none">
-            <h2>🧭 Regional VP Assessment Completion</h2>
+            <h2 class="collapsible" onclick="toggleSection('completionSubtab-RegionalVp')"><span class="chev">▼</span>🧭 Regional VP Assessment Completion</h2>
             <div class="desc">Which locations have a Regional VP submission (full audit or Spot-Check) on file for the selected quarter.</div>
+            <div class="section-body">
             <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
               <div id="completionDonutRegionalVp"></div>
               <div style="flex:1;min-width:220px;padding-top:6px" id="completionBarsRegionalVp"></div>
             </div>
             <div class="tbl-wrap"><table id="completionTableRegionalVp"></table></div>
+            </div>
           </div>
           <div class="section completion-subtab" id="completionSubtab-SelfAssess" style="display:none">
-            <h2>📝 Self-Assessment Completion</h2>
+            <h2 class="collapsible" onclick="toggleSection('completionSubtab-SelfAssess')"><span class="chev">▼</span>📝 Self-Assessment Completion</h2>
             <div class="desc">Which locations have submitted a Self-Assessment for the selected quarter.</div>
+            <div class="section-body">
             <div style="display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
               <div id="completionDonutSelfAssess"></div>
               <div style="flex:1;min-width:220px;padding-top:6px" id="completionBarsSelfAssess"></div>
             </div>
             <div class="tbl-wrap"><table id="completionTableSelfAssess"></table></div>
+            </div>
           </div>
         </div>
 
@@ -504,6 +520,10 @@ function xH(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&
 
 // ── DRAWER ──
 // ── SIDEBAR NAVIGATION ──
+function toggleSection(sectionId){
+  const el = document.getElementById(sectionId);
+  if(el) el.classList.toggle('collapsed');
+}
 function switchView(viewName){
   document.querySelectorAll('.view-panel').forEach(el=>el.classList.remove('active'));
   const panel = document.getElementById('view-'+viewName);
@@ -1290,11 +1310,11 @@ function renderCompletionTable(sourceTool, sortKey, elId){
   const submittedIds = new Set(matchingSubs.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter) && isLocationActiveInQuarter(l,relevantQ));
-  const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', status:submittedIds.has(l.id)?'Submitted':'Missing'}));
+  const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', status:submittedIds.has(l.id)?'Completed':'Not Completed'}));
   const sorted = applySorting(rowData, sortKey);
   const rows = sorted.map(l=>
     '<tr><td>'+xH(l.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(l.unitId)+'\')">'+xH(l.name)+'</span></td><td>'+xH(l.region)+'</td><td>'+xH(l.rvp)+'</td>'
-    +'<td>'+(l.status==='Submitted'?'<span class="pill pill-submitted">✓ Submitted</span>':'<span class="pill pill-missing">Missing</span>')+'</td></tr>'
+    +'<td>'+(l.status==='Completed'?'<span class="pill pill-submitted">✓ Completed</span>':'<span class="pill pill-missing">Not Completed</span>')+'</td></tr>'
   ).join('');
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
   document.getElementById(elId).innerHTML =
@@ -1436,7 +1456,7 @@ function toggleCoverageDetail(panelId, mode){
           '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+'</div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
         ).join('') : '<div class="no-selection">Nothing completed yet for the current filter.</div>');
   } else {
-    panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">⏳ Not Yet Covered ('+items.length+')</div>'
+    panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">⏳ Not Completed ('+items.length+')</div>'
       + (items.length ? items.map(i=>
           '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+' <span class="lb-meta">'+xH(i.region)+(i.rvp?' · '+xH(i.rvp):'')+'</span></div></div>'
         ).join('') : '<div class="no-selection">Everything is covered for the current filter — nothing outstanding.</div>');
@@ -1461,11 +1481,11 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const gridEl = document.getElementById(gridId);
   if(gridEl){
     const boxes = [
-      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'completed\')"><div class="n">'+matches.length+'</div><div class="l">'+totalLabel+'</div></div>',
+      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'completed\')"><div class="n">'+matches.length+'</div><div class="l">Completed</div></div>',
       (sourceTool==='Risk VP Audit' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
       (sourceTool==='Regional VP Assessment' ? '<div class="coverage-box"><div class="n">'+(matches.length-spotChecks)+'</div><div class="l">Full Audits</div></div>' : ''),
       (showSpotCheckCols ? '<div class="coverage-box"><div class="n">'+spotChecks+'</div><div class="l">Spot-Checks</div></div>' : ''),
-      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'outstanding\')"><div class="n">'+notCovered.length+'</div><div class="l">Not Yet Covered</div></div>'
+      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'outstanding\')"><div class="n">'+notCovered.length+'</div><div class="l">Not Completed</div></div>'
     ];
     gridEl.innerHTML = boxes.join('')
       +'<div id="'+panelId+'" style="display:none;grid-column:1/-1;background:#f8fafc;border-radius:10px;padding:14px 16px;margin-top:4px"></div>';
