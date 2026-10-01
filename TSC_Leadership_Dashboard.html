@@ -1417,6 +1417,32 @@ document.addEventListener('click', e=>{
   if(wrap && box && !wrap.contains(e.target) && !box.contains(e.target)) box.style.display='none';
 });
 
+// Shared by all three coverage tabs (Risk VP Audit, Regional VP Assessment, Self-Assessment) —
+// clicking the same box twice closes the panel again, matching a simple on/off toggle; clicking
+// the other box switches straight to that list instead of requiring a close-then-open.
+function toggleCoverageDetail(panelId, mode){
+  const panel = document.getElementById(panelId);
+  if(!panel) return;
+  if(panel.style.display!=='none' && panel.dataset.mode===mode){
+    panel.style.display='none';
+    return;
+  }
+  const gridEl = panel.parentElement;
+  const items = JSON.parse(gridEl.dataset[mode]||'[]');
+  panel.dataset.mode = mode;
+  if(mode==='completed'){
+    panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">✓ Completed ('+items.length+')</div>'
+      + (items.length ? items.map(i=>
+          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+'</div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
+        ).join('') : '<div class="no-selection">Nothing completed yet for the current filter.</div>');
+  } else {
+    panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">⏳ Not Yet Covered ('+items.length+')</div>'
+      + (items.length ? items.map(i=>
+          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+' <span class="lb-meta">'+xH(i.region)+(i.rvp?' · '+xH(i.rvp):'')+'</span></div></div>'
+        ).join('') : '<div class="no-selection">Everything is covered for the current filter — nothing outstanding.</div>');
+  }
+  panel.style.display='block';
+}
 function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, totalLabel){
   const matches = subs.filter(s=>s.sourceTool===sourceTool);
   const virtual = matches.filter(s=>s.auditType==='Virtual').length;
@@ -1428,16 +1454,24 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const notCovered = locs.filter(l=>!visitedIds.has(l.id));
   const showSpotCheckCols = sourceTool==='Regional VP Assessment';
 
+  // The grid's id is also used to derive a unique panel id for the completed/outstanding
+  // toggle below it, so three tabs sharing this one function each get their own independent
+  // toggle state rather than accidentally sharing one.
+  const panelId = gridId+'TogglePanel';
   const gridEl = document.getElementById(gridId);
   if(gridEl){
     const boxes = [
-      '<div class="coverage-box"><div class="n">'+matches.length+'</div><div class="l">'+totalLabel+'</div></div>',
+      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'completed\')"><div class="n">'+matches.length+'</div><div class="l">'+totalLabel+'</div></div>',
       (sourceTool==='Risk VP Audit' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
       (sourceTool==='Regional VP Assessment' ? '<div class="coverage-box"><div class="n">'+(matches.length-spotChecks)+'</div><div class="l">Full Audits</div></div>' : ''),
       (showSpotCheckCols ? '<div class="coverage-box"><div class="n">'+spotChecks+'</div><div class="l">Spot-Checks</div></div>' : ''),
-      '<div class="coverage-box"><div class="n">'+notCovered.length+'</div><div class="l">Not Yet Covered</div></div>'
+      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'outstanding\')"><div class="n">'+notCovered.length+'</div><div class="l">Not Yet Covered</div></div>'
     ];
-    gridEl.innerHTML = boxes.join('');
+    gridEl.innerHTML = boxes.join('')
+      +'<div id="'+panelId+'" style="display:none;grid-column:1/-1;background:#f8fafc;border-radius:10px;padding:14px 16px;margin-top:4px"></div>';
+    // Stash both lists where the toggle handler can reach them without recomputing.
+    gridEl.dataset.completed = JSON.stringify(matches.map(s=>({id:s.unitId,name:s.name,score:s.score})));
+    gridEl.dataset.outstanding = JSON.stringify(notCovered.map(l=>({id:l.id,name:l.name,region:l.region,rvp:l.rvp||''})));
   }
 
   function typePill(s){
