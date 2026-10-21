@@ -311,7 +311,7 @@ th.sortable.active .arrow{color:#1e3a8a}
         <div class="view-panel" id="view-regionalvp">
           <div class="section" id="sectionRegionalVp">
             <h2 class="collapsible" onclick="toggleSection('sectionRegionalVp')"><span class="chev">▼</span>🧭 Regional VP Assessment</h2>
-            <div class="desc">Full audits and quick Spot-Checks completed by the five Regional VPs. For Spot-Checks, "Score" means % of the Risk VP's prior findings resolved — a different metric from a full audit's compliance score, shown alongside Resolved/Open counts.</div>
+            <div class="desc">Spot-Checks completed by the Regional VPs — verifying the Risk VP's findings, or a short first look where the Risk VP hasn't audited yet. For a verification Spot-Check, "Score" is the % of the Risk VP's findings resolved; for a first look it's a score on a short question list. Both are different metrics from a full audit's compliance score and are kept separate from the Risk VP's independent numbers.</div>
             <div class="section-body">
             <div class="coverage-grid" id="regionalVpGrid" style="margin-bottom:16px"></div>
             <div class="tbl-wrap"><table id="regionalVpTable"></table></div>
@@ -890,7 +890,12 @@ function renderKPIs(subs){
   const riskVpSubs = subs.filter(s=>s.sourceTool==='Risk VP Audit');
   const avgScore = riskVpSubs.length ? Math.round(riskVpSubs.reduce((s,x)=>s+x.score,0)/riskVpSubs.length) : 0;
   const relevantLocIds = new Set(applicableLocations().map(l=>l.id));
-  const submittedIds = new Set(subs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
+  // Late completions are tracked separately so a quarter's finalized completion number stays
+  // frozen at what was reported on time. A location that finished late shows as "completed
+  // late" rather than silently moving the headline.
+  const selfAssessSubs = subs.filter(s=>s.sourceTool==='Self-Assessment');
+  const submittedIds = new Set(selfAssessSubs.filter(s=>!s.late).map(s=>s.unitId));
+  const lateSelfIds = new Set(selfAssessSubs.filter(s=>s.late && !submittedIds.has(s.unitId)).map(s=>s.unitId));
   const completionPct = relevantLocIds.size ? Math.round(submittedIds.size/relevantLocIds.size*100) : 0;
   const totalNo = subs.reduce((s,x)=>s+(x.no||0),0);
   // Risk VP coverage — how many of the 35 locations have a Risk VP Audit on file at all,
@@ -913,7 +918,7 @@ function renderKPIs(subs){
   const kpis = [
     {v:riskVpSubs.length?avgScore+'%':'—', l:'Risk VP Average Compliance', cls:riskVpSubs.length?scoreClass(avgScore):'', sub:riskVpSubs.length?riskVpCoveredIds.size+' of '+relevantLocIds.size+' locations audited ('+riskVpCoveragePct+'%) · '+riskVpOnsiteCount+' in-person, '+riskVpVirtualCount+' virtual':'No Risk VP audits yet'},
     {v:regionalVpCoveragePct+'%', l:'Regional VP Coverage', cls:regionalVpCoveragePct>=80?'good':regionalVpCoveragePct>=50?'warn':'bad', sub:regionalVpCoveredIds.size+' of '+relevantLocIds.size+' locations'},
-    {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations'},
+    {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations'+(lateSelfIds.size?' · +'+lateSelfIds.size+' completed late':'')},
     {v:totalNo, l:'Open Findings', cls:totalNo===0?'good':totalNo<10?'warn':'bad', sub:'across all submitted audits'}
   ];
   document.getElementById('kpiRow').innerHTML = kpis.map(k=>
@@ -1011,9 +1016,9 @@ function renderRegionScorecards(){
     const trendTxt = delta===null?'No prior data':delta>0?('▲ +'+delta+' pts'):delta<0?('▼ '+delta+' pts'):'No change';
 
     const locs = new Set(LOCATIONS.filter(l=>l.region===region && isLocationActiveInQuarter(l,current)).map(l=>l.id));
-    const submittedCount = new Set(allCurSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId)).size;
+    const submittedCount = new Set(allCurSubs.filter(s=>s.sourceTool==='Self-Assessment' && !s.late).map(s=>s.unitId)).size;
     const completion = locs.size ? Math.round(submittedCount/locs.size*100) : 0;
-    const spotCheckCount = new Set(allCurSubs.filter(s=>s.auditFormat==='spot-check').map(s=>s.unitId)).size;
+    const spotCheckCount = new Set(allCurSubs.filter(s=>s.auditFormat==='spot-check'||s.auditFormat==='first-look').map(s=>s.unitId)).size;
     const spotCheckCompletion = locs.size ? Math.round(spotCheckCount/locs.size*100) : 0;
 
     const issueCounts = {};
@@ -1306,19 +1311,32 @@ function renderChronicIssues(){
 function renderCompletionTable(sourceTool, sortKey, elId){
   const q = document.getElementById('quarterFilter').value;
   const relevantQ = q==='__all__' ? sortedQuarters().pop() : q;
-  const matchingSubs = dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ);
+  const matchingAll = dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ);
+  // On-time only drives the percentage, donut and regional bars (the frozen number);
+  // late completions get their own status instead of reading as "Not Completed".
+  const matchingSubs = matchingAll.filter(s=>!s.late);
   const submittedIds = new Set(matchingSubs.map(s=>s.unitId));
+  const lateIds = new Set(matchingAll.filter(s=>s.late && !submittedIds.has(s.unitId)).map(s=>s.unitId));
+  const lateWhen = new Map(matchingAll.filter(s=>s.late).map(s=>[s.unitId,lateDate(s)]));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter) && isLocationActiveInQuarter(l,relevantQ));
-  const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', status:submittedIds.has(l.id)?'Completed':'Not Completed'}));
+  // Each site's expectation: verify the Risk VP's findings where there are some, otherwise a first look.
+  const showExpected = sourceTool==='Regional VP Assessment';
+  const rvAudit = {};
+  if(showExpected) dashData.submissions.filter(s=>s.sourceTool==='Risk VP Audit' && quarterSortKey(s.quarter)<=quarterSortKey(relevantQ)).forEach(s=>{
+    if(!rvAudit[s.unitId] || quarterSortKey(s.quarter)>quarterSortKey(rvAudit[s.unitId].quarter)) rvAudit[s.unitId]=s;
+  });
+  const expectedFor = id => !rvAudit[id] ? 'First look' : ((rvAudit[id].actions||[]).length ? 'Verify '+(rvAudit[id].actions||[]).length+' finding'+((rvAudit[id].actions||[]).length===1?'':'s') : 'Nothing to verify');
+  const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', expected:showExpected?expectedFor(l.id):'', status:submittedIds.has(l.id)?'Completed':(lateIds.has(l.id)?'Completed Late':'Not Completed')}));
   const sorted = applySorting(rowData, sortKey);
   const rows = sorted.map(l=>
     '<tr><td>'+xH(l.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(l.unitId)+'\')">'+xH(l.name)+'</span></td><td>'+xH(l.region)+'</td><td>'+xH(l.rvp)+'</td>'
-    +'<td>'+(l.status==='Completed'?'<span class="pill pill-submitted">✓ Completed</span>':'<span class="pill pill-missing">Not Completed</span>')+'</td></tr>'
+    +(showExpected?'<td style="font-size:12px;color:#475569">'+xH(l.expected)+'</td>':'')
+    +'<td>'+(l.status==='Completed'?'<span class="pill pill-submitted">✓ Completed</span>':l.status==='Completed Late'?'<span class="pill" style="background:#fef3c7;color:#92400e" title="Finished after the quarter closed — not counted in the finalized completion number">⏰ Completed Late'+(lateWhen.get(l.unitId)?' · '+xH(lateWhen.get(l.unitId)):'')+'</span>':'<span class="pill pill-missing">Not Completed</span>')+'</td></tr>'
   ).join('');
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
   document.getElementById(elId).innerHTML =
-    '<thead><tr>'+th('unitId','ID')+th('name','Location')+th('region','Region')+th('rvp','Regional VP')+th('status','Status ('+xH(relevantQ||'—')+')')+'</tr></thead><tbody>'+rows+'</tbody>';
+    '<thead><tr>'+th('unitId','ID')+th('name','Location')+th('region','Region')+th('rvp','Regional VP')+(showExpected?th('expected','Expected'):'')+th('status','Status ('+xH(relevantQ||'—')+')')+'</tr></thead><tbody>'+rows+'</tbody>';
 
   // Donut + per-region breakdown — same color as this source's section elsewhere in
   // Overview, so the visual language stays consistent across the whole dashboard.
@@ -1455,6 +1473,12 @@ function toggleCoverageDetail(panelId, mode){
       + (items.length ? items.map(i=>
           '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+'</div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
         ).join('') : '<div class="no-selection">Nothing completed yet for the current filter.</div>');
+  } else if(mode==='late'){
+    panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#92400e;text-transform:uppercase;margin-bottom:4px">⏰ Completed Late ('+items.length+')</div>'
+      + '<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">Finished after the quarter closed — not included in the finalized completion number above.</div>'
+      + items.map(i=>
+          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+' <span class="lb-meta">⏰ late'+(i.when?' · finalized '+xH(i.when):'')+'</span></div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
+        ).join('');
   } else {
     panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">⏳ Not Completed ('+items.length+')</div>'
       + (items.length ? items.map(i=>
@@ -1463,11 +1487,26 @@ function toggleCoverageDetail(panelId, mode){
   }
   panel.style.display='block';
 }
+// The finalize date shown beside a late item. Only the real finalize date is used — an older
+// file without one would otherwise show its audit date (possibly before the cutoff), which
+// would look contradictory next to the word "late".
+function lateDate(s){
+  const raw=s&&s.finalizedOn; if(!raw) return '';
+  const d=new Date(String(raw).slice(0,10)+'T00:00:00');
+  return isNaN(d.getTime())?'':d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
 function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, totalLabel){
   const matches = subs.filter(s=>s.sourceTool===sourceTool);
+  const lateMatches = matches.filter(s=>s.late);
+  const onTimeMatches = matches.filter(s=>!s.late);
   const virtual = matches.filter(s=>s.auditType==='Virtual').length;
   const onsite = matches.filter(s=>s.auditType==='On-Site'||s.auditType==='Continuity Check').length;
   const spotChecks = matches.filter(s=>s.auditFormat==='spot-check').length;
+  // First looks (a Regional VP's short in-person check where the Risk VP hasn't audited yet) are
+  // their own thing: they count toward coverage, carry their own score, and are kept out of the
+  // verification % and every Risk VP number.
+  const firstLooks = matches.filter(s=>s.auditFormat==='first-look');
+  const firstLookAvg = firstLooks.length ? Math.round(firstLooks.reduce((a,x)=>a+(x.score||0),0)/firstLooks.length) : null;
   const visitedIds = new Set(matches.map(s=>s.unitId));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = applicableLocations(rFilter);
@@ -1481,21 +1520,28 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const gridEl = document.getElementById(gridId);
   if(gridEl){
     const boxes = [
-      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'completed\')"><div class="n">'+matches.length+'</div><div class="l">Completed</div></div>',
+      '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'completed\')"><div class="n">'+onTimeMatches.length+'</div><div class="l">Completed</div></div>',
       (sourceTool==='Risk VP Audit' ? '<div class="coverage-box"><div class="n">'+onsite+'</div><div class="l">In-Person</div></div><div class="coverage-box"><div class="n">'+virtual+'</div><div class="l">Virtual</div></div>' : ''),
-      (sourceTool==='Regional VP Assessment' ? '<div class="coverage-box"><div class="n">'+(matches.length-spotChecks)+'</div><div class="l">Full Audits</div></div>' : ''),
+      (sourceTool==='Regional VP Assessment' ? '<div class="coverage-box"><div class="n">'+(matches.length-spotChecks-firstLooks.length)+'</div><div class="l">Full Audits</div></div>' : ''),
       (showSpotCheckCols ? '<div class="coverage-box"><div class="n">'+spotChecks+'</div><div class="l">Spot-Checks</div></div>' : ''),
+      (showSpotCheckCols && firstLooks.length ? '<div class="coverage-box"><div class="n">'+firstLooks.length+'</div><div class="l">First Looks</div></div><div class="coverage-box" title="Average score on the short first-look list — kept separate from the Risk VP numbers and the verification %"><div class="n">'+firstLookAvg+'%</div><div class="l">First-Look Avg</div></div>' : ''),
+      (lateMatches.length ? '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'late\')"><div class="n">'+lateMatches.length+'</div><div class="l">Completed Late</div></div>' : ''),
       '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'outstanding\')"><div class="n">'+notCovered.length+'</div><div class="l">Not Completed</div></div>'
     ];
     gridEl.innerHTML = boxes.join('')
       +'<div id="'+panelId+'" style="display:none;grid-column:1/-1;background:#f8fafc;border-radius:10px;padding:14px 16px;margin-top:4px"></div>';
     // Stash both lists where the toggle handler can reach them without recomputing.
-    gridEl.dataset.completed = JSON.stringify(matches.map(s=>({id:s.unitId,name:s.name,score:s.score})));
+    gridEl.dataset.completed = JSON.stringify(onTimeMatches.map(s=>({id:s.unitId,name:s.name,score:s.score})));
+    gridEl.dataset.late = JSON.stringify(lateMatches.map(s=>({id:s.unitId,name:s.name,score:s.score,when:lateDate(s)})));
     gridEl.dataset.outstanding = JSON.stringify(notCovered.map(l=>({id:l.id,name:l.name,region:l.region,rvp:l.rvp||''})));
   }
 
   function typePill(s){
     if(s.auditType==='Virtual') return '<span class="pill pill-virtual">🎥 Virtual</span>';
+    if(s.auditFormat==='first-look'){
+      const unv=/unverified/i.test(s.basis||'');
+      return '<span class="pill" style="background:#ccfbf1;color:#0f766e" title="'+(unv?'Started without confirmed Risk VP status — unverified. ':'')+'Short in-person first look at a site the Risk VP had not audited. Scored on its own list — not comparable to a full audit.">🔍 Spot-Check · First Look'+(unv?' ⚠':'')+'</span>';
+    }
     if(s.auditFormat==='spot-check') return '<span class="pill" style="background:#f3e8ff;color:#7e22ce">🔍 Spot-Check</span>';
     if(s.auditType==='Continuity Check') return '<span class="pill" style="background:#e0e7ff;color:#3730a3">🔗 Continuity Check</span>';
     return '<span class="pill pill-onsite">On-Site</span>';
@@ -1506,11 +1552,11 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const rows = sorted.map(s=>{
     const isSpot=s.auditFormat==='spot-check';
     const resolvedOpenCell=isSpot?(s.yes+' resolved / '+s.no+' open'):'—';
-    return '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span></td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
+    return '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span>'+(s.late?' <span class="pill" style="background:#fef3c7;color:#92400e" title="Finished after the quarter closed — not counted in the finalized completion number">⏰ Late'+(lateDate(s)?' · '+xH(lateDate(s)):'')+'</span>':'')+'</td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
     +'<td>'+xH(s.completedBy)+'</td>'
     +(sourceTool!=='Self-Assessment'?'<td>'+typePill(s)+'</td>':'')
     +(showSpotCheckCols?'<td style="font-size:11.5px">'+resolvedOpenCell+'</td>':'')
-    +'<td style="color:'+scoreColor(s)+';font-weight:700">'+(s.score==null?'—':s.score+'%')+'</td></tr>';
+    +'<td style="color:'+scoreColor(s)+';font-weight:700"'+(s.auditFormat==='first-look'?' title="Score on the short first-look list — not comparable to a full audit"':'')+'>'+(s.score==null?'—':s.score+'%')+'</td></tr>';
   }).join('');
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
   const headerCols = th('unitId','ID')+th('name','Location')+th('region','Region')+th('quarter','Quarter')+th('completedBy','Completed By')
@@ -1624,8 +1670,10 @@ function renderCountLineChart(elId, points, color){
 
 
 function computeAssessmentGaps(locs){
-  function mostRecent(unitId, tool){
-    const matches = dashData.submissions.filter(s=>s.unitId===unitId && s.sourceTool===tool);
+  function mostRecent(unitId, tool, fullOnly){
+    // A Spot-Check's score is "% of findings resolved" and a first look is a score on a short list —
+    // neither is a compliance score, so neither belongs in a gap against a Self-Assessment or Risk VP.
+    const matches = dashData.submissions.filter(s=>s.unitId===unitId && s.sourceTool===tool && (!fullOnly || (s.auditFormat!=='spot-check' && s.auditFormat!=='first-look')));
     if(!matches.length) return null;
     return matches.sort((a,b)=>quarterSortKey(b.quarter)-quarterSortKey(a.quarter))[0];
   }
@@ -1634,7 +1682,7 @@ function computeAssessmentGaps(locs){
   locs.forEach(l=>{
     const self = mostRecent(l.id,'Self-Assessment');
     const risk = mostRecent(l.id,'Risk VP Audit');
-    const regional = mostRecent(l.id,'Regional VP Assessment');
+    const regional = mostRecent(l.id,'Regional VP Assessment', true);
     const present = [self,risk,regional].filter(Boolean);
     if(present.length<2) return; // need at least 2 assessment types to compare
 
@@ -1740,7 +1788,7 @@ function printMeetingPacket(){
     const delta = (curAvg!==null && prevAvg!==null) ? curAvg-prevAvg : null;
 
     const locs = LOCATIONS.filter(l=>l.region===region && isLocationActiveInQuarter(l,current));
-    const submittedIds = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
+    const submittedIds = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment' && !s.late).map(s=>s.unitId));
     const completion = locs.length ? Math.round(submittedIds.size/locs.length*100) : 0;
 
     const issueCounts = {};
