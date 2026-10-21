@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-21T22:14:09.716Z",
-  "generatedAtDisplay": "10/21/2026, 3:14:09 PM",
+  "generatedAt": "2026-10-21T22:19:32.035Z",
+  "generatedAtDisplay": "10/21/2026, 3:19:32 PM",
   "locations": [
     {
       "id": "1005",
@@ -10525,7 +10525,7 @@
     {
       "unitId": "4174",
       "name": "The Oxford Hotel",
-      "region": "[Enter Region] West",
+      "region": "West",
       "state": "CO",
       "quarter": "Q3 2026",
       "completedBy": "Alan Ching",
