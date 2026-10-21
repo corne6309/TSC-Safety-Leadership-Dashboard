@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-02T18:27:52.287Z",
-  "generatedAtDisplay": "10/2/2026, 11:27:52 AM",
+  "generatedAt": "2026-10-21T20:06:18.793Z",
+  "generatedAtDisplay": "10/21/2026, 1:06:18 PM",
   "locations": [
     {
       "id": "1005",
@@ -10008,6 +10008,789 @@
           "reason": ""
         }
       ]
+    },
+    {
+      "unitId": "4023",
+      "name": "Roosevelt New Orleans",
+      "region": "Central",
+      "state": "LA",
+      "quarter": "Q3 2026",
+      "completedBy": "Harrison Hutchinson",
+      "score": 0,
+      "yes": 0,
+      "no": 0,
+      "na": 105,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-10-20",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 0,
+          "no": 0,
+          "na": 18,
+          "scorePct": null
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 0,
+          "no": 0,
+          "na": 14,
+          "scorePct": null
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 0,
+          "no": 0,
+          "na": 13,
+          "scorePct": null
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 0,
+          "no": 0,
+          "na": 16,
+          "scorePct": null
+        },
+        {
+          "section": "Public Areas",
+          "total": 19,
+          "yes": 0,
+          "no": 0,
+          "na": 19,
+          "scorePct": null
+        },
+        {
+          "section": "Kitchen/Stewarding",
+          "total": 25,
+          "yes": 0,
+          "no": 0,
+          "na": 25,
+          "scorePct": null
+        }
+      ],
+      "actions": [],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "GS-01",
+          "question": "Walking surfaces clean, dry, free from slip/trip hazards",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-02",
+          "question": "Wet floor signs available and used",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-03",
+          "question": "Aisles/corridors clear of obstructions",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-04",
+          "question": "PPE available, accessible, AND being worn by employees for assigned tasks",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-05",
+          "question": "No frayed/damaged electrical cords; damaged cords have replacement ordered and logged in Redbook",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-06",
+          "question": "Electrical panels 36\" clearance",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-07",
+          "question": "Extension cords not permanent wiring",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-10",
+          "question": "Storage organized, heavy items low",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-11",
+          "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-13",
+          "question": "Proper signage displayed (safety signs, no smoking)",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-14",
+          "question": "Cart doorway security positioning",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-15",
+          "question": "Back safety/lifting techniques observed (ergonomics)",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-17",
+          "question": "Level floor hazards identified and marked",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-18",
+          "question": "Safety posters displayed and current",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-02",
+          "question": "Chemical containers have original labels",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-03",
+          "question": "Secondary containers labeled with GHS",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-04",
+          "question": "Chemicals stored in ventilated areas",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-05",
+          "question": "Eye wash within 10 sec of chemical areas",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-07",
+          "question": "Nitrile gloves (not vinyl) for cleaning",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-08",
+          "question": "Chemical PPE at point of use Goggles/Apron/Mask/Gloves",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-10",
+          "question": "Chemical-resistant gloves available",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-11",
+          "question": "Chemical safety training",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "CS-14",
+          "question": "Eye wash weekly inspection checklist",
+          "section": "Chemical Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-02",
+          "question": "EAP includes evac routes/assembly points",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-03",
+          "question": "Emergency contacts posted",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-04",
+          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-05",
+          "question": "Exit doors unlocked from inside",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-06",
+          "question": "First aid kits stocked, accessible at all work areas, with accident report packages included",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-07",
+          "question": "Emergency procedures communicated to employees",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-10",
+          "question": "Fire extinguishers properly mounted, unobstructed, with current monthly inspection tags",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "EP-13",
+          "question": "Employees/Supervisors know how to report emergencies",
+          "section": "Emergency Prep",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-01",
+          "question": "Pre Shift Safety orientation",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-02",
+          "question": "Orientation: hazcom, PPE, emergency procedures",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-03",
+          "question": "Orientation records signed and filed",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-04",
+          "question": "HazCom training annually",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-05",
+          "question": "BBP training annually",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-06",
+          "question": "Training records with dates/signatures",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-07",
+          "question": "OSHA poster displayed in employee area",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-09",
+          "question": "Employees know how to report injuries",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-10",
+          "question": "OSHA 300 log maintained (>10 employees)",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-11",
+          "question": "Pre-shift safety briefings documented with consistent, rotating topics",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-12",
+          "question": "Handbook acknowledgment on file",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-13",
+          "question": "Annual safety refresher conducted",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-14",
+          "question": "Training records retained per OSHA",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-15",
+          "question": "Discuss Claims GB: Review claims with team",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "TD-16",
+          "question": "Safety documentation organized, all required forms available and current",
+          "section": "Training & Docs",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-01",
+          "question": "Lobby floors clean, dry, slip/trip free",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-02",
+          "question": "Entrance mats in good condition, secured (Report defective of trip hazard)",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-03",
+          "question": "Wet floor signs during/after lobby cleaning",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-04",
+          "question": "Furniture stable and in good repair (Report defective )",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-05",
+          "question": "Corridors well-lit and free from obstructions",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-06",
+          "question": "Emergency exit signs illuminated and visible",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-07",
+          "question": "Stairwell handrails secure and in good condition",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-08",
+          "question": "No storage blocking corridors/stairwells",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-09",
+          "question": "Restroom floors clean, dry, non-slip",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-10",
+          "question": "Restroom cleaning chemicals labeled",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-11",
+          "question": "Wet floor signs during restroom cleaning",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-12",
+          "question": "Pool area wet floor signage, non-slip surfaces",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-13",
+          "question": "Fitness area clean and hazard-free",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-14",
+          "question": "Pool chemical storage secure/labeled",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-15",
+          "question": "Sidewalks/walkways clear",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-16",
+          "question": "Loading dock organized, clean, safe",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-17",
+          "question": "Elevator areas clean, transitions level",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-18",
+          "question": "Emergency communication in elevators functional",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "PA-19",
+          "question": "Cleaning equipment stored safely (not blocking access)",
+          "section": "Public Areas",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-01",
+          "question": "Kitchen floors clean, dry, grease-free",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-02",
+          "question": "Non-slip floor mats in good condition",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-03",
+          "question": "Wet floor signs during/after floor cleaning",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-04",
+          "question": "Floor drains clean, unclogged, maintained",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-05",
+          "question": "Non-slip closed-toe footwear worn",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-06",
+          "question": "Dishwashing area organized, hazard-free",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-07",
+          "question": "Chemical dispensers properly functioning",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-08",
+          "question": "PPE worn for hot water/chemicals (gloves, aprons)",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-09",
+          "question": "Broken glass/china handling procedures followed",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-10",
+          "question": "Proper drainage, no standing water in dishwash",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-11",
+          "question": "Exhaust hood filters clean",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-12",
+          "question": "Ventilation systems functioning properly",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-13",
+          "question": "Fire suppression in hood inspected (current tag)",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-14",
+          "question": "Grease trap area clean, (Report clogged)",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-15",
+          "question": "Waste/garbage areas clean, pest-free",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-16",
+          "question": "Recycling/waste separation followed",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-17",
+          "question": "Dumpster/compactor area safe, accessible",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-18",
+          "question": "Kitchen chemicals labeled",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-19",
+          "question": "SDS accessible for all kitchen chemicals",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-20",
+          "question": "Chemicals stored separately from food",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-21",
+          "question": "Employees trained on kitchen chemical use",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-22",
+          "question": "Hot surface warning signs posted",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-23",
+          "question": "Cut-resistant gloves for knives/sharps",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-24",
+          "question": "First aid kit accessible in kitchen",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "KS-25",
+          "question": "Burns treatment supplies available",
+          "section": "Kitchen/Stewarding",
+          "reason": "Service not provided by TSC at this location"
+        }
+      ]
+    },
+    {
+      "unitId": "4174",
+      "name": "The Oxford Hotel",
+      "region": "[Enter Region] West",
+      "state": "CO",
+      "quarter": "Q4 2026",
+      "completedBy": "Alan Ching",
+      "score": 94,
+      "yes": 72,
+      "no": 5,
+      "na": 0,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-10-21",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [],
+      "actions": [
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "EP-04",
+          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "One exit sign in the men's locker room not working",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "PA-08",
+          "question": "No storage blocking corridors/stairwells",
+          "criticality": "",
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "PA-14",
+          "question": "Pool chemical storage secure/labeled",
+          "criticality": "",
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": []
     }
   ]
 }
