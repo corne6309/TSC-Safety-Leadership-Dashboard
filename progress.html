@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-Assessment Progress</title>
+<style>
+  :root{--black:#2f3333;--yellow:#e9c32c;--g90:#555453;--glight:#d5d6d6;--bg:#ffffff;--soft:#f3f2f1}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--black);font-family:Aptos,"Segoe UI",Calibri,Arial,sans-serif}
+  .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding:4px}
+  .card{border:1px solid #acadad;border-top:4px solid var(--black);padding:14px 16px 12px;background:#fff}
+  .kick{font-size:12px;font-weight:700;color:var(--g90);letter-spacing:.04em}
+  .big{font-size:30px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+  .big small{font-size:15px;font-weight:600;color:var(--g90)}
+  .bar{position:relative;height:12px;background:var(--glight);margin:10px 0 8px;display:flex;overflow:hidden}
+  .bar i{display:block;height:100%}
+  .on{background:var(--black)} .late{background:var(--yellow)}
+  .legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--black)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:10px;height:10px;display:inline-block}
+  .due{border-top:1px solid var(--glight);margin-top:10px;padding-top:8px;font-size:13px;color:var(--g90)}
+  details{margin-top:8px;font-size:13px}
+  summary{cursor:pointer;font-weight:700;min-height:28px;display:flex;align-items:center}
+  table{width:100%;border-collapse:collapse;margin-top:4px}
+  td,th{text-align:left;padding:4px 6px;border-bottom:1px solid #edebe9;font-size:13px}
+  th{color:var(--g90);font-weight:700}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  .foot{font-size:12px;color:var(--g90);padding:8px 4px 0}
+  .err{padding:12px;border-left:3px solid var(--yellow);background:var(--soft);font-size:13px}
+</style>
+</head>
+<body>
+<div id="app" class="wrap" aria-live="polite"><div class="err">Loading self-assessment progress…</div></div>
+<div class="foot" id="foot"></div>
+<script>
+(function(){
+  // Quarters shown on the Risk & Safety homepage
+  var QUARTERS = [
+    {key:'Q3 2026', label:'Q3 2026 Self-Assessments', due:'Late accepted until Tuesday, 10/27/2026 · 11:59 PM MST', frozen:true},
+    {key:'Q4 2026', label:'Q4 2026 Self-Assessments', due:'Due Thursday, 12/31/2026 · 11:59 PM MST', frozen:false}
+  ];
+  // A submission counts as a location self-assessment when its sourceTool mentions "self"
+  function isSelf(s){ return /self/i.test(String(s.sourceTool||'')); }
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  fetch('./dashboard_data.json?ts=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(function(){
+      document.getElementById('app').innerHTML = '<div class="err">Progress data is not available right now. Open the Leadership Dashboard for the latest numbers.</div>';
+    });
+
+  function render(d){
+    var locs = d.locations || [], subs = (d.submissions || []).filter(isSelf);
+    var html = QUARTERS.map(function(q){
+      var done = {}, late = {};
+      subs.forEach(function(s){
+        if (String(s.quarter).trim() !== q.key) return;
+        var id = String(s.unitId);
+        if (s.late) { if (!done[id]) late[id] = true; } else { done[id] = true; delete late[id]; }
+      });
+      var total = locs.length, nOn = Object.keys(done).length, nLate = Object.keys(late).length;
+      var nOpen = Math.max(total - nOn - nLate, 0);
+      var pOn = total ? nOn/total*100 : 0, pLate = total ? nLate/total*100 : 0;
+      // by region
+      var reg = {};
+      locs.forEach(function(l){
+        var r = l.region || 'Other'; reg[r] = reg[r] || {t:0,o:0,l:0};
+        reg[r].t++; var id = String(l.id);
+        if (done[id]) reg[r].o++; else if (late[id]) reg[r].l++;
+      });
+      var rows = Object.keys(reg).sort().map(function(r){
+        var x = reg[r]; return '<tr><td>'+esc(r)+'</td><td class="n">'+x.o+'</td><td class="n">'+x.l+'</td><td class="n">'+(x.t-x.o-x.l)+'</td><td class="n">'+x.t+'</td></tr>';
+      }).join('');
+      var lateWord = q.frozen ? 'late (counted separately)' : 'late';
+      return '<section class="card" aria-label="'+esc(q.label)+'">'
+        + '<div class="kick">'+esc(q.label.toUpperCase())+'</div>'
+        + '<div class="big">'+nOn+' <small>of '+total+' submitted'+(q.frozen?' on time':'')+'</small></div>'
+        + '<div class="bar" role="img" aria-label="'+nOn+' on time, '+nLate+' late, '+nOpen+' open"><i class="on" style="width:'+pOn+'%"></i><i class="late" style="width:'+pLate+'%"></i></div>'
+        + '<div class="legend"><span><i class="sw on"></i>'+nOn+' on time</span><span><i class="sw late"></i>'+nLate+' '+lateWord+'</span><span><i class="sw" style="background:#d5d6d6"></i>'+nOpen+' open</span></div>'
+        + '<details><summary>By region ▾</summary><table><thead><tr><th>Region</th><th class="n">On time</th><th class="n">Late</th><th class="n">Open</th><th class="n">Total</th></tr></thead><tbody>'+rows+'</tbody></table></details>'
+        + '<div class="due">'+esc(q.due)+'</div>'
+        + '</section>';
+    }).join('');
+    document.getElementById('app').innerHTML = html;
+    document.getElementById('foot').textContent = 'Data as of ' + (d.generatedAtDisplay || d.generatedAt || 'unknown') + ' · Updates when Risk & Safety publishes from the Tracking Dashboard · CONFIDENTIAL AND PROPRIETARY';
+  }
+})();
+</script>
+</body>
+</html>
