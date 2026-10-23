@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-21T22:19:32.035Z",
-  "generatedAtDisplay": "10/21/2026, 3:19:32 PM",
+  "generatedAt": "2026-10-23T17:42:38.624Z",
+  "generatedAtDisplay": "10/23/2026, 10:42:38 AM",
   "locations": [
     {
       "id": "1005",
@@ -10601,6 +10601,243 @@
       ],
       "resolvedActions": [],
       "naItems": []
+    },
+    {
+      "unitId": "9026",
+      "name": "Southern Hills Hospital",
+      "region": "West",
+      "state": "NV",
+      "quarter": "Q3 2026",
+      "completedBy": "Richard Zetino",
+      "score": 90,
+      "yes": 77,
+      "no": 9,
+      "na": 0,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-10-22",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "finalizedOn": "2026-10-22",
+      "late": false,
+      "basis": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [],
+      "actions": [
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "Don't have flammable chemicals",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "I don’t know what this is",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "TD-14",
+          "question": "Training records retained per OSHA",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "TD-15",
+          "question": "Discuss Claims GB: Review claims with team",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        },
+        {
+          "ref": "KS-07",
+          "question": "Chemical dispensers properly functioning",
+          "criticality": "",
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-22"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": []
+    },
+    {
+      "unitId": "9028",
+      "name": "Riverside Hospital",
+      "region": "West",
+      "state": "CA",
+      "quarter": "Q3 2026",
+      "completedBy": "Aaron McCullough",
+      "score": 91,
+      "yes": 77,
+      "no": 8,
+      "na": 1,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-10-21",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "finalizedOn": "2026-10-21",
+      "late": false,
+      "basis": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [],
+      "actions": [
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "Don't know what that is",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "We don't have dispensing chemicals",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "We don't have dispensing chemicals",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "Don't know what that is",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "TD-06",
+          "question": "Training records with dates/signatures",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "I didn't know I had to save it",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "I don't have a redbook",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "TD-15",
+          "question": "Discuss Claims GB: Review claims with team",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "Don't know what that is",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "KS-07",
+          "question": "Chemical dispensers properly functioning",
+          "criticality": "",
+          "section": "Kitchen/Stewarding",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "section": "Chemical Safety",
+          "reason": "No flammable chemicals"
+        }
+      ]
     }
   ]
 }
