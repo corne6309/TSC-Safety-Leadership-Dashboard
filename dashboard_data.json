@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-23T17:47:00.055Z",
-  "generatedAtDisplay": "10/23/2026, 10:47:00 AM",
+  "generatedAt": "2026-10-23T17:52:48.310Z",
+  "generatedAtDisplay": "10/23/2026, 10:52:48 AM",
   "locations": [
     {
       "id": "1005",
@@ -10443,86 +10443,6 @@
       ]
     },
     {
-      "unitId": "4174",
-      "name": "The Oxford Hotel",
-      "region": "West",
-      "state": "CO",
-      "quarter": "Q3 2026",
-      "completedBy": "Alan Ching",
-      "score": 94,
-      "yes": 72,
-      "no": 5,
-      "na": 0,
-      "sourceTool": "Self-Assessment",
-      "auditType": "",
-      "auditDate": "2026-10-21",
-      "auditFormat": "full",
-      "followingUpOn": "",
-      "baselinePct": null,
-      "narrative": "",
-      "finalizedOn": "",
-      "late": false,
-      "basis": "",
-      "description": "",
-      "reportDate": "",
-      "hasPhoto": false,
-      "sectionBreakdown": [],
-      "actions": [
-        {
-          "ref": "CS-13",
-          "question": "Pigmats at chemical storage/dispensing",
-          "criticality": "",
-          "section": "Chemical Safety",
-          "status": "Open",
-          "resolutionNote": "",
-          "dueDate": null,
-          "flaggedDate": "2026-10-21"
-        },
-        {
-          "ref": "EP-04",
-          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
-          "criticality": "",
-          "section": "Emergency Prep",
-          "status": "Open",
-          "resolutionNote": "One exit sign in the men's locker room not working",
-          "dueDate": null,
-          "flaggedDate": "2026-10-21"
-        },
-        {
-          "ref": "TD-08",
-          "question": "Incident reporting procedures documented (Redbook)",
-          "criticality": "",
-          "section": "Training & Docs",
-          "status": "Open",
-          "resolutionNote": "",
-          "dueDate": null,
-          "flaggedDate": "2026-10-21"
-        },
-        {
-          "ref": "PA-08",
-          "question": "No storage blocking corridors/stairwells",
-          "criticality": "",
-          "section": "Public Areas",
-          "status": "Open",
-          "resolutionNote": "",
-          "dueDate": null,
-          "flaggedDate": "2026-10-21"
-        },
-        {
-          "ref": "PA-14",
-          "question": "Pool chemical storage secure/labeled",
-          "criticality": "",
-          "section": "Public Areas",
-          "status": "Open",
-          "resolutionNote": "",
-          "dueDate": null,
-          "flaggedDate": "2026-10-21"
-        }
-      ],
-      "resolvedActions": [],
-      "naItems": []
-    },
-    {
       "unitId": "9026",
       "name": "Southern Hills Hospital",
       "region": "West",
@@ -10756,6 +10676,105 @@
           "question": "Flammable chemicals in approved cabinet (if applicable)",
           "section": "Chemical Safety",
           "reason": "No flammable chemicals"
+        }
+      ]
+    },
+    {
+      "unitId": "4174",
+      "name": "The Oxford Hotel",
+      "region": "West",
+      "state": "CO",
+      "quarter": "Q3 2026",
+      "completedBy": "Alan Ching",
+      "score": 94,
+      "yes": 72,
+      "no": 5,
+      "na": 3,
+      "sourceTool": "Self-Assessment",
+      "auditType": "",
+      "auditDate": "2026-10-21",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "",
+      "finalizedOn": "2026-10-21",
+      "late": false,
+      "basis": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [],
+      "actions": [
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "",
+          "section": "Chemical Safety",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "EP-04",
+          "question": "Exit routes marked with illuminated EXIT signs, unobstructed and well-lit",
+          "criticality": "",
+          "section": "Emergency Prep",
+          "status": "Open",
+          "resolutionNote": "One exit sign in the men's locker room not working",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "",
+          "section": "Training & Docs",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "PA-08",
+          "question": "No storage blocking corridors/stairwells",
+          "criticality": "",
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        },
+        {
+          "ref": "PA-14",
+          "question": "Pool chemical storage secure/labeled",
+          "criticality": "",
+          "section": "Public Areas",
+          "status": "Open",
+          "resolutionNote": "",
+          "dueDate": null,
+          "flaggedDate": "2026-10-21"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "PA-12",
+          "question": "Pool area wet floor signage, non-slip surfaces",
+          "section": "Public Areas",
+          "reason": ""
+        },
+        {
+          "ref": "PA-15",
+          "question": "Sidewalks/walkways clear",
+          "section": "Public Areas",
+          "reason": "Under construction "
+        },
+        {
+          "ref": "PA-16",
+          "question": "Loading dock organized, clean, safe",
+          "section": "Public Areas",
+          "reason": ""
         }
       ]
     }
