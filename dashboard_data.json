@@ -95,7 +95,7 @@
     },
     {
       "id": "4154",
-      "name": "LegacyHotelandIMGABradenton",
+      "name": "Legacy Hotel and IMGA Bradenton",
       "region": "Florida",
       "state": "FL",
       "rvp": "Tayquan Taylor"
@@ -103,13 +103,6 @@
     {
       "id": "4169",
       "name": "1 Hotel Hanalei Bay",
-      "region": "West",
-      "state": "HI",
-      "rvp": "Alan Ching"
-    },
-    {
-      "id": "4171",
-      "name": "Sea Island Resort",
       "region": "West",
       "state": "HI",
       "rvp": "Alan Ching"
@@ -136,25 +129,11 @@
       "rvp": "Alan Ching"
     },
     {
-      "id": "4175",
-      "name": "The Jacquard Hotel",
-      "region": "West",
-      "state": "CO",
-      "rvp": "Alan Ching"
-    },
-    {
       "id": "4177",
       "name": "Garden of the Gods",
       "region": "West",
       "state": "CO",
       "rvp": "Alan Ching"
-    },
-    {
-      "id": "4180",
-      "name": "Westin Fort Lauderdale",
-      "region": "Florida",
-      "state": "FL",
-      "rvp": "Tayquan Taylor"
     },
     {
       "id": "7022",
@@ -171,15 +150,8 @@
       "rvp": "Tayquan Taylor"
     },
     {
-      "id": "7050",
-      "name": "SaddleBrook Resort",
-      "region": "Florida",
-      "state": "FL",
-      "rvp": "Tayquan Taylor"
-    },
-    {
       "id": "9021",
-      "name": "Linq Promenade Las Vegas9021",
+      "name": "Linq Promenade Las Vegas",
       "region": "West",
       "state": "NV",
       "rvp": "Alan Ching"
@@ -3716,7 +3688,7 @@
     },
     {
       "unitId": "9021",
-      "name": "Linq Promenade Las Vegas9021",
+      "name": "Linq Promenade Las Vegas",
       "region": "West",
       "state": "NV",
       "quarter": "Q3 2026",
@@ -4021,7 +3993,7 @@
     {
       "unitId": "1089",
       "name": "Wind Creek Casino",
-      "region": "Mid-Atlantic",
+      "region": "East",
       "state": "PA",
       "quarter": "Q3 2026",
       "completedBy": "Michelle Santos",
@@ -5829,7 +5801,7 @@
     {
       "unitId": "1089",
       "name": "Wind Creek Casino",
-      "region": "Mid-Atlantic",
+      "region": "East",
       "state": "PA",
       "quarter": "Q3 2026",
       "completedBy": "Corné Wolmarans",
@@ -6867,7 +6839,7 @@
     {
       "unitId": "4011",
       "name": "Hyatt Regency Greenwich",
-      "region": "Mid-Atlantic",
+      "region": "East",
       "state": "CT",
       "quarter": "Q3 2026",
       "completedBy": "Corné Wolmarans",
@@ -7724,7 +7696,7 @@
       "na": 39,
       "sourceTool": "Self-Assessment",
       "auditType": "",
-      "auditDate": "46289",
+      "auditDate": "2026-09-24",
       "auditFormat": "full",
       "followingUpOn": "",
       "baselinePct": null,
@@ -7745,7 +7717,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "GS-16",
@@ -7755,7 +7727,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "CS-13",
@@ -7765,7 +7737,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "EP-06",
@@ -7775,7 +7747,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "EP-11",
@@ -7785,7 +7757,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "TD-03",
@@ -7795,7 +7767,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "TD-06",
@@ -7805,7 +7777,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "VH-10",
@@ -7815,7 +7787,7 @@
           "status": "Open",
           "resolutionNote": "PM have been on hold per Alan ching",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "VH-17",
@@ -7825,7 +7797,7 @@
           "status": "Open",
           "resolutionNote": "this was not part of the process",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "VH-26",
@@ -7835,7 +7807,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "VH-29",
@@ -7845,7 +7817,7 @@
           "status": "Open",
           "resolutionNote": "i am not awre of a driver point syatem",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "HK-02",
@@ -7855,7 +7827,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "HK-19",
@@ -7865,7 +7837,7 @@
           "status": "Open",
           "resolutionNote": "Working with Ecolab to get one fixed, and others calibrated",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "KS-05",
@@ -7875,7 +7847,7 @@
           "status": "Open",
           "resolutionNote": "1 person waiting on next check to get their shoes",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "KS-07",
@@ -7885,7 +7857,7 @@
           "status": "Open",
           "resolutionNote": "Working with Ecolab to get this done ",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "KS-09",
@@ -7895,7 +7867,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "KS-21",
@@ -7905,7 +7877,7 @@
           "status": "Open",
           "resolutionNote": "We can do better at proper training for new staff",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "KS-22",
@@ -7915,7 +7887,7 @@
           "status": "Open",
           "resolutionNote": "",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "EV-02",
@@ -7925,7 +7897,7 @@
           "status": "Open",
           "resolutionNote": "Not al new employees are",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "EV-19",
@@ -7935,7 +7907,7 @@
           "status": "Open",
           "resolutionNote": "Never seen this",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         },
         {
           "ref": "EV-21",
@@ -7945,7 +7917,7 @@
           "status": "Open",
           "resolutionNote": "Never seen this",
           "dueDate": null,
-          "flaggedDate": "46289"
+          "flaggedDate": "2026-09-24"
         }
       ],
       "resolvedActions": [],
@@ -8189,7 +8161,7 @@
     {
       "unitId": "4011",
       "name": "Hyatt Regency Greenwich",
-      "region": "Mid-Atlantic",
+      "region": "East",
       "state": "CT",
       "quarter": "Q3 2026",
       "completedBy": "Jonathan St Louis / Project Manager",
@@ -10780,7 +10752,7 @@
     },
     {
       "unitId": "4154",
-      "name": "LegacyHotelandIMGABradenton",
+      "name": "Legacy Hotel and IMGA Bradenton",
       "region": "Florida",
       "state": "FL",
       "quarter": "Q3 2026",
