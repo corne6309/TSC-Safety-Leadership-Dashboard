@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-09T19:43:30.018Z",
-  "generatedAtDisplay": "11/9/2026, 12:43:30 PM",
+  "generatedAt": "2026-11-09T19:48:27.840Z",
+  "generatedAtDisplay": "11/9/2026, 12:48:27 PM",
   "locations": [
     {
       "id": "1005",
@@ -11003,7 +11003,7 @@
       "region": "East",
       "state": "CT",
       "quarter": "Q3 2026",
-      "completedBy": "",
+      "completedBy": "Fred Khaledi",
       "score": 94,
       "yes": 81,
       "no": 5,
