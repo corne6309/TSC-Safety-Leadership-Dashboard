@@ -8,7 +8,7 @@
   :root{--black:#2f3333;--yellow:#e9c32c;--g90:#555453;--glight:#d5d6d6;--bg:#ffffff;--soft:#f3f2f1}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--black);font-family:Aptos,"Segoe UI",Calibri,Arial,sans-serif}
-  .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;padding:4px}
+  .wrap{display:grid;grid-template-columns:1fr;gap:10px;padding:4px}
   .card{border:1px solid #acadad;border-top:4px solid var(--black);padding:14px 16px 12px;background:#fff}
   .kick{font-size:12px;font-weight:700;color:var(--g90);letter-spacing:.04em}
   .big{font-size:30px;font-weight:700;line-height:1.1;margin:4px 0 2px}
@@ -27,6 +27,9 @@
   th{color:var(--g90);font-weight:700}
   td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
   .foot{font-size:12px;color:var(--g90);padding:8px 4px 0}
+  .prev{border:1px solid #acadad;border-left:4px solid var(--yellow);padding:8px 12px;font-size:13px;background:var(--soft)}
+  tr.tot td{font-weight:700;border-top:2px solid var(--black)}
+  .how{font-size:12px;color:var(--g90);margin-top:6px}
   .err{padding:12px;border-left:3px solid var(--yellow);background:var(--soft);font-size:13px}
 </style>
 </head>
@@ -36,10 +39,23 @@
 <script>
 (function(){
   // Quarters shown on the Risk & Safety homepage
-  var QUARTERS = [
+  var ALL_QUARTERS = [
     {key:'Q3 2026', label:'Q3 2026 Self-Assessments', due:'Late accepted until Tuesday, 10/27/2026 · 11:59 PM MST', frozen:true},
     {key:'Q4 2026', label:'Q4 2026 Self-Assessments', due:'Due Thursday, 12/31/2026 · 11:59 PM MST', frozen:false}
   ];
+  // Which quarters to show: progress.html?q=Q4%202026 (several: q=Q4%202026,Q1%202027). Default: Q4 2026.
+  var want = (new URLSearchParams(location.search).get('q') || 'Q4 2026').split(',').map(function(x){return x.trim();});
+  function pick(keys){ return keys.filter(function(k){return k;}).map(function(k){ return ALL_QUARTERS.filter(function(q){return q.key===k;})[0] || {key:k, label:k+' Self-Assessments', due:'', frozen:true}; }); }
+  var QUARTERS = pick(want);
+  // Closed quarters shown as a one-line result under the main card: progress.html?q=Q4%202026&prev=Q3%202026
+  var PREV = pick((new URLSearchParams(location.search).get('prev') || '').split(',').map(function(x){return x.trim();}));
+  // Sites that joined the program later: they only count from their first quarter.
+  // Add a line per new site: 'unitId': 'Q# YYYY'
+  var FIRST_QUARTER = {
+    '4148': 'Q4 2026',  // JW Marriott Austin
+    '4184': 'Q4 2026'   // Westgate Resort & Spa (Westgate Lakes)
+  };
+  function qnum(k){ var m=/Q(\d)\s+(\d{4})/.exec(k||''); return m ? (+m[2])*4 + (+m[1]) : 0; }
   // A submission counts as a location self-assessment when its sourceTool mentions "self"
   function isSelf(s){ return /self/i.test(String(s.sourceTool||'')); }
   function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
@@ -52,36 +68,40 @@
     });
 
   function render(d){
-    var locs = d.locations || [], subs = (d.submissions || []).filter(isSelf);
-    var html = QUARTERS.map(function(q){
+    var allLocs = d.locations || [], subs = (d.submissions || []).filter(isSelf);
+    function stats(q){
+      var locs = allLocs.filter(function(l){ var f = FIRST_QUARTER[String(l.id)]; return !f || qnum(f) <= qnum(q.key); });
       var done = {}, late = {};
       subs.forEach(function(s){
         if (String(s.quarter).trim() !== q.key) return;
         var id = String(s.unitId);
         if (s.late) { if (!done[id]) late[id] = true; } else { done[id] = true; delete late[id]; }
       });
-      var total = locs.length, nOn = Object.keys(done).length, nLate = Object.keys(late).length;
-      var nOpen = Math.max(total - nOn - nLate, 0);
-      var pOn = total ? nOn/total*100 : 0, pLate = total ? nLate/total*100 : 0;
-      // by region
-      var reg = {};
-      locs.forEach(function(l){
-        var r = l.region || 'Other'; reg[r] = reg[r] || {t:0,o:0,l:0};
-        reg[r].t++; var id = String(l.id);
-        if (done[id]) reg[r].o++; else if (late[id]) reg[r].l++;
+      var t = locs.length, o = 0, l = 0, reg = {};
+      locs.forEach(function(x){
+        var r = x.region || 'Other', id = String(x.id); reg[r] = reg[r] || {t:0,o:0,l:0}; reg[r].t++;
+        if (done[id]) { reg[r].o++; o++; } else if (late[id]) { reg[r].l++; l++; }
       });
-      var rows = Object.keys(reg).sort().map(function(r){
-        var x = reg[r]; return '<tr><td>'+esc(r)+'</td><td class="n">'+x.o+'</td><td class="n">'+x.l+'</td><td class="n">'+(x.t-x.o-x.l)+'</td><td class="n">'+x.t+'</td></tr>';
-      }).join('');
-      var lateWord = q.frozen ? 'late (counted separately)' : 'late';
+      return {t:t, o:o, l:l, open:Math.max(t-o-l,0), reg:reg};
+    }
+    var html = QUARTERS.map(function(q){
+      var x = stats(q), sub = x.o + x.l, pct = x.t ? Math.round(sub/x.t*100) : 0;
+      var pOn = x.t ? x.o/x.t*100 : 0, pLate = x.t ? x.l/x.t*100 : 0;
+      var rows = Object.keys(x.reg).sort().map(function(r){
+        var g = x.reg[r]; return '<tr><td>'+esc(r)+'</td><td class="n">'+g.o+'</td><td class="n">'+g.l+'</td><td class="n">'+(g.t-g.o-g.l)+'</td><td class="n">'+g.t+'</td></tr>';
+      }).join('') + '<tr class="tot"><td>Total</td><td class="n">'+x.o+'</td><td class="n">'+x.l+'</td><td class="n">'+x.open+'</td><td class="n">'+x.t+'</td></tr>';
       return '<section class="card" aria-label="'+esc(q.label)+'">'
         + '<div class="kick">'+esc(q.label.toUpperCase())+'</div>'
-        + '<div class="big">'+nOn+' <small>of '+total+' submitted'+(q.frozen?' on time':'')+'</small></div>'
-        + '<div class="bar" role="img" aria-label="'+nOn+' on time, '+nLate+' late, '+nOpen+' open"><i class="on" style="width:'+pOn+'%"></i><i class="late" style="width:'+pLate+'%"></i></div>'
-        + '<div class="legend"><span><i class="sw on"></i>'+nOn+' on time</span><span><i class="sw late"></i>'+nLate+' '+lateWord+'</span><span><i class="sw" style="background:#d5d6d6"></i>'+nOpen+' open</span></div>'
-        + '<details><summary>By region ▾</summary><table><thead><tr><th>Region</th><th class="n">On time</th><th class="n">Late</th><th class="n">Open</th><th class="n">Total</th></tr></thead><tbody>'+rows+'</tbody></table></details>'
-        + '<div class="due">'+esc(q.due)+'</div>'
+        + '<div class="big">'+sub+' <small>of '+x.t+' submitted · '+pct+'%</small></div>'
+        + '<div class="bar" role="img" aria-label="'+x.o+' on time, '+x.l+' late, '+x.open+' not submitted"><i class="on" style="width:'+pOn+'%"></i><i class="late" style="width:'+pLate+'%"></i></div>'
+        + '<div class="legend"><span><i class="sw on"></i>'+x.o+' on time</span><span><i class="sw late"></i>'+x.l+' late</span><span><i class="sw" style="background:#d5d6d6"></i>'+x.open+' not submitted</span></div>'
+        + '<details><summary>By region ▾</summary><table><thead><tr><th>Region</th><th class="n">On time</th><th class="n">Late</th><th class="n">Not submitted</th><th class="n">Total</th></tr></thead><tbody>'+rows+'</tbody></table>'
+        + '<div class="how">Read across: on time + late + not submitted = total locations in that region.</div></details>'
+        + (q.due ? '<div class="due">'+esc(q.due)+'</div>' : '')
         + '</section>';
+    }).join('') + PREV.map(function(q){
+      var x = stats(q), sub = x.o + x.l, pct = x.t ? Math.round(sub/x.t*100) : 0;
+      return '<div class="prev"><b>'+esc(q.key)+' final:</b> '+sub+' of '+x.t+' submitted ('+pct+'%) · '+x.o+' on time · '+x.l+' late · '+x.open+' not submitted</div>';
     }).join('');
     document.getElementById('app').innerHTML = html;
     document.getElementById('foot').textContent = 'Data as of ' + (d.generatedAtDisplay || d.generatedAt || 'unknown') + ' · Updates when Risk & Safety publishes from the Tracking Dashboard · CONFIDENTIAL AND PROPRIETARY';
