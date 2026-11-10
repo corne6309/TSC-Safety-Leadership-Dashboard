@@ -718,8 +718,19 @@ async function loadDashboardData(){
   }
 }
 
+// Every quarter from the first one with data through the current calendar quarter, so a new quarter (Q4) can be
+// picked before its first submission arrives and the whole dashboard shows it (0 completed, full denominators).
+function programQuarters(){
+  const have=[...new Set(dashData.submissions.map(s=>s.quarter).filter(Boolean))];
+  const now=new Date(); const cur='Q'+(Math.floor(now.getMonth()/3)+1)+' '+now.getFullYear();
+  const keys=have.map(quarterSortKey).filter(Boolean).concat([quarterSortKey(cur)]);
+  const lo=Math.min.apply(null,keys), hi=Math.max.apply(null,keys), out=[];
+  for(let y=Math.floor(lo/10);y<=Math.floor(hi/10);y++){ for(let q=1;q<=4;q++){ const k=y*10+q; if(k>=lo&&k<=hi) out.push('Q'+q+' '+y); } }
+  have.forEach(function(q){ if(out.indexOf(q)<0) out.push(q); });
+  return out.sort(function(a,b){return quarterSortKey(a)-quarterSortKey(b);});
+}
 function populateFilters(){
-  const quarters = [...new Set(dashData.submissions.map(s=>s.quarter).filter(Boolean))].sort();
+  const quarters = programQuarters();
   const qSel = document.getElementById('quarterFilter');
   qSel.innerHTML = '<option value="__all__">All Quarters</option>' + quarters.map(q=>'<option value="'+xH(q)+'">'+xH(q)+'</option>').join('');
   const rSel = document.getElementById('regionFilter');
@@ -786,7 +797,7 @@ function renderRegionCompletionBars(elId, matches){
     +'<div style="background:#f1f5f9;border-radius:4px;height:8px;overflow:hidden"><div style="background:'+(r.pct>=80?'#15803d':r.pct>=50?'#d97706':'#dc2626')+';width:'+r.pct+'%;height:100%"></div></div>'
     +'<span style="text-align:right;color:#64748b">'+r.submitted+'/'+r.total+'</span>'
     +'</div>'
-  ).join('');
+  ).join('') + '<div style="margin-top:8px;padding:6px 8px;border:1px dashed #94a3b8;font-size:11px;color:#475569">Stacked on-time and late bars: <strong>In the build lane · opens soon</strong>. Not built yet because the on-time and late counts per region must first be checked against the Tracker. Until then each bar counts a late location as completed.</div>';
 }
 function renderLineChart(elId, points, opts){
   const el = document.getElementById(elId);
@@ -860,8 +871,9 @@ function currentAndPreviousQuarter(){
   const all = sortedQuarters();
   const filterVal = document.getElementById('quarterFilter').value;
   const current = filterVal!=='__all__' ? filterVal : all[all.length-1];
-  const idx = all.indexOf(current);
-  const previous = idx>0 ? all[idx-1] : null;
+  // the latest quarter with data that comes before the one being looked at (also right for a quarter with no data yet)
+  const earlier = all.filter(function(q){return quarterSortKey(q)<quarterSortKey(current);});
+  const previous = earlier.length ? earlier[earlier.length-1] : null;
   return {current, previous};
 }
 
@@ -908,12 +920,14 @@ function renderKPIs(subs){
   const riskVpSubs = subs.filter(s=>s.sourceTool==='Risk VP Audit');
   const avgScore = riskVpSubs.length ? Math.round(riskVpSubs.reduce((s,x)=>s+x.score,0)/riskVpSubs.length) : 0;
   const relevantLocIds = new Set(applicableLocations().map(l=>l.id));
-  // Late completions are tracked separately so a quarter's finalized completion number stays
-  // frozen at what was reported on time. A location that finished late shows as "completed
-  // late" rather than silently moving the headline.
+  // Late = completed after the quarter ended. It is a flag on a completion, not a separate bucket: a location
+  // that finished late still counts as completed, and the number of late ones is shown beside the count.
   const selfAssessSubs = subs.filter(s=>s.sourceTool==='Self-Assessment');
-  const submittedIds = new Set(selfAssessSubs.filter(s=>!s.late).map(s=>s.unitId));
-  const lateSelfIds = new Set(selfAssessSubs.filter(s=>s.late && !submittedIds.has(s.unitId)).map(s=>s.unitId));
+  // Completed = every location that has submitted. Late (finished after the quarter ended) is a flag on
+  // top of that, shown beside the count, so the headline always matches the Tracker.
+  const onTimeSelfIds = new Set(selfAssessSubs.filter(s=>!s.late).map(s=>s.unitId));
+  const lateSelfIds = new Set(selfAssessSubs.filter(s=>s.late && !onTimeSelfIds.has(s.unitId)).map(s=>s.unitId));
+  const submittedIds = new Set([...onTimeSelfIds,...lateSelfIds]);
   const completionPct = relevantLocIds.size ? Math.round(submittedIds.size/relevantLocIds.size*100) : 0;
   const totalNo = subs.reduce((s,x)=>s+(x.no||0),0);
   // Risk VP coverage — how many of the 35 locations have a Risk VP Audit on file at all,
@@ -936,7 +950,7 @@ function renderKPIs(subs){
   const kpis = [
     {v:riskVpSubs.length?avgScore+'%':'—', l:'Risk VP Average Compliance', cls:riskVpSubs.length?scoreClass(avgScore):'', sub:riskVpSubs.length?riskVpCoveredIds.size+' of '+relevantLocIds.size+' locations audited ('+riskVpCoveragePct+'%) · '+riskVpOnsiteCount+' in-person, '+riskVpVirtualCount+' virtual':'No Risk VP audits yet'},
     {v:regionalVpCoveragePct+'%', l:'Regional VP Coverage', cls:regionalVpCoveragePct>=80?'good':regionalVpCoveragePct>=50?'warn':'bad', sub:regionalVpCoveredIds.size+' of '+relevantLocIds.size+' locations'},
-    {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations'+(lateSelfIds.size?' · +'+lateSelfIds.size+' completed late':'')},
+    {v:completionPct+'%', l:'Self-Assessment Completion', cls:completionPct>=80?'good':completionPct>=50?'warn':'bad', sub:submittedIds.size+' of '+relevantLocIds.size+' locations · '+(submittedIds.size-lateSelfIds.size)+' on time'+(lateSelfIds.size?' + '+lateSelfIds.size+' late':'')},
     {v:totalNo, l:'Open Findings', cls:totalNo===0?'good':totalNo<10?'warn':'bad', sub:'across all submitted audits'}
   ];
   document.getElementById('kpiRow').innerHTML = kpis.map(k=>
@@ -1034,7 +1048,7 @@ function renderRegionScorecards(){
     const trendTxt = delta===null?'No prior data':delta>0?('▲ +'+delta+' pts'):delta<0?('▼ '+delta+' pts'):'No change';
 
     const locs = new Set(LOCATIONS.filter(l=>l.region===region && isLocationActiveInQuarter(l,current)).map(l=>l.id));
-    const submittedCount = new Set(allCurSubs.filter(s=>s.sourceTool==='Self-Assessment' && !s.late).map(s=>s.unitId)).size;
+    const submittedCount = new Set(allCurSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId)).size;
     const completion = locs.size ? Math.round(submittedCount/locs.size*100) : 0;
     const spotCheckCount = new Set(allCurSubs.filter(s=>s.auditFormat==='spot-check'||s.auditFormat==='first-look').map(s=>s.unitId)).size;
     const spotCheckCompletion = locs.size ? Math.round(spotCheckCount/locs.size*100) : 0;
@@ -1340,12 +1354,14 @@ function renderCompletionTable(sourceTool, sortKey, elId){
   const q = document.getElementById('quarterFilter').value;
   const relevantQ = q==='__all__' ? sortedQuarters().pop() : q;
   const matchingAll = dashData.submissions.filter(s=>s.sourceTool===sourceTool && s.quarter===relevantQ);
-  // On-time only drives the percentage, donut and regional bars (the frozen number);
-  // late completions get their own status instead of reading as "Not Completed".
-  const matchingSubs = matchingAll.filter(s=>!s.late);
-  const submittedIds = new Set(matchingSubs.map(s=>s.unitId));
-  const lateIds = new Set(matchingAll.filter(s=>s.late && !submittedIds.has(s.unitId)).map(s=>s.unitId));
+  // Everyone who has submitted counts toward the percentage, donut and regional bars. Late ones keep their
+  // own status so they can still be told apart, but they are not "Not Completed".
+  const matchingSubs = matchingAll;
+  const onTimeIds = new Set(matchingAll.filter(s=>!s.late).map(s=>s.unitId));
+  const lateIds = new Set(matchingAll.filter(s=>s.late && !onTimeIds.has(s.unitId)).map(s=>s.unitId));
+  const submittedIds = new Set([...onTimeIds,...lateIds]);
   const lateWhen = new Map(matchingAll.filter(s=>s.late).map(s=>[s.unitId,lateDate(s)]));
+  const lateDays = new Map(matchingAll.filter(s=>s.late).map(s=>[s.unitId,daysLateText(s)]));
   const rFilter = document.getElementById('regionFilter').value;
   const locs = LOCATIONS.filter(l=>(rFilter==='__all__'||l.region===rFilter) && isLocationActiveInQuarter(l,relevantQ));
   // Each site's expectation: verify the Risk VP's findings where there are some, otherwise a first look.
@@ -1355,12 +1371,12 @@ function renderCompletionTable(sourceTool, sortKey, elId){
     if(!rvAudit[s.unitId] || quarterSortKey(s.quarter)>quarterSortKey(rvAudit[s.unitId].quarter)) rvAudit[s.unitId]=s;
   });
   const expectedFor = id => !rvAudit[id] ? 'First look' : ((rvAudit[id].actions||[]).length ? 'Verify '+(rvAudit[id].actions||[]).length+' finding'+((rvAudit[id].actions||[]).length===1?'':'s') : 'Nothing to verify');
-  const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', expected:showExpected?expectedFor(l.id):'', status:submittedIds.has(l.id)?'Completed':(lateIds.has(l.id)?'Completed Late':'Not Completed')}));
+  const rowData = locs.map(l=>({unitId:l.id, name:l.name, region:l.region, rvp:l.rvp||'', expected:showExpected?expectedFor(l.id):'', status:lateIds.has(l.id)?'Completed Late':(submittedIds.has(l.id)?'Completed':'Not Completed')}));
   const sorted = applySorting(rowData, sortKey);
   const rows = sorted.map(l=>
     '<tr><td>'+xH(l.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(l.unitId)+'\')">'+xH(l.name)+'</span></td><td>'+xH(l.region)+'</td><td>'+xH(l.rvp)+'</td>'
     +(showExpected?'<td style="font-size:12px;color:#475569">'+xH(l.expected)+'</td>':'')
-    +'<td>'+(l.status==='Completed'?'<span class="pill pill-submitted">✓ Completed</span>':l.status==='Completed Late'?'<span class="pill" style="background:#fef3c7;color:#92400e" title="Finished after the quarter closed — not counted in the finalized completion number">⏰ Completed Late'+(lateWhen.get(l.unitId)?' · '+xH(lateWhen.get(l.unitId)):'')+'</span>':'<span class="pill pill-missing">Not Completed</span>')+'</td></tr>'
+    +'<td>'+(l.status==='Completed'?'<span class="pill pill-submitted">✓ Completed</span>':l.status==='Completed Late'?'<span class="pill" style="background:#fef3c7;color:#92400e" title="Finished after the quarter ended. Counted as completed and flagged late. Days late = completion date minus the quarter end date.">⏰ Completed Late'+(lateDays.get(l.unitId)?' · '+xH(lateDays.get(l.unitId)):'')+(lateWhen.get(l.unitId)?' · '+xH(lateWhen.get(l.unitId)):'')+'</span>':'<span class="pill pill-missing">Not Completed</span>')+'</td></tr>'
   ).join('');
   const th=(col,label)=>'<th class="sortable'+(sortState[sortKey].col===col?' active':'')+'" onclick="sortTable(\''+sortKey+'\',\''+col+'\')">'+label+sortArrow(sortKey,col)+'</th>';
   document.getElementById(elId).innerHTML =
@@ -1499,13 +1515,13 @@ function toggleCoverageDetail(panelId, mode){
   if(mode==='completed'){
     panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">✓ Completed ('+items.length+')</div>'
       + (items.length ? items.map(i=>
-          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+'</div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
+          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+(i.late?' <span class="lb-meta">⏰ late'+(i.days?' · '+xH(i.days):'')+(i.when?' · '+xH(i.when):'')+'</span>':'')+'</div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
         ).join('') : '<div class="no-selection">Nothing completed yet for the current filter.</div>');
   } else if(mode==='late'){
     panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#92400e;text-transform:uppercase;margin-bottom:4px">⏰ Completed Late ('+items.length+')</div>'
-      + '<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">Finished after the quarter closed — not included in the finalized completion number above.</div>'
+      + '<div style="font-size:11px;color:#94a3b8;margin-bottom:8px">Finished after the quarter ended. These are counted in Completed above and flagged late.</div>'
       + items.map(i=>
-          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+' <span class="lb-meta">⏰ late'+(i.when?' · finalized '+xH(i.when):'')+'</span></div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
+          '<div class="lb-row" onclick="showLocationDetailDrawer(\''+xH(i.id)+'\')"><div class="lb-name">['+xH(i.id)+'] '+xH(i.name)+' <span class="lb-meta">⏰ late'+(i.days?' · '+xH(i.days):'')+(i.when?' · finalized '+xH(i.when):'')+'</span></div><div class="lb-score" style="color:'+(i.score>=90?'#15803d':i.score>=85?'#92400e':'#b91c1c')+'">'+i.score+'%</div></div>'
         ).join('');
   } else {
     panel.innerHTML = '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px">⏳ Not Completed ('+items.length+')</div>'
@@ -1518,15 +1534,26 @@ function toggleCoverageDetail(panelId, mode){
 // The finalize date shown beside a late item. Only the real finalize date is used — an older
 // file without one would otherwise show its audit date (possibly before the cutoff), which
 // would look contradictory next to the word "late".
+// Days late = completion date minus the day the quarter ended, in calendar days. Extensions do not change it.
+// The published file carries daysLate; older files are worked out here from the same dates.
+function quarterEndISO(q){ const m=/Q(\d)\s*(\d{4})/.exec(q||''); if(!m) return ''; const d=new Date(+m[2],(+m[1])*3,0); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function daysLateOf(s){
+  if(!s||!s.late) return null;
+  if(typeof s.daysLate==='number') return s.daysLate;
+  const day=String(s.finalizedOn||s.auditDate||'').slice(0,10), cut=quarterEndISO(s.quarter);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(day)||!cut||day<=cut) return null;
+  return Math.round((new Date(day+'T00:00:00')-new Date(cut+'T00:00:00'))/86400000);
+}
+function daysLateText(s){ const d=daysLateOf(s); return d==null?'':d+(d===1?' day':' days'); }
 function lateDate(s){
-  const raw=s&&s.finalizedOn; if(!raw) return '';
+  const raw=s&&(s.finalizedOn||s.auditDate); if(!raw) return '';   // older files carry only the form's audit date
   const d=new Date(String(raw).slice(0,10)+'T00:00:00');
   return isNaN(d.getTime())?'':d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 }
 function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, totalLabel){
   const matches = subs.filter(s=>s.sourceTool===sourceTool);
   const lateMatches = matches.filter(s=>s.late);
-  const onTimeMatches = matches.filter(s=>!s.late);
+  const onTimeMatches = matches;   // "Completed" = everything submitted; late ones are a flagged subset shown beside it
   const virtual = matches.filter(s=>s.auditType==='Virtual').length;
   // Older audits have no type recorded and were all on-site, so in-person is everything that isn't virtual (matches the headline card).
   const onsite = matches.filter(s=>s.auditType!=='Virtual').length;
@@ -1554,14 +1581,14 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
       (sourceTool==='Regional VP Assessment' ? '<div class="coverage-box"><div class="n">'+(matches.length-spotChecks-firstLooks.length)+'</div><div class="l">Full Audits</div></div>' : ''),
       (showSpotCheckCols ? '<div class="coverage-box"><div class="n">'+spotChecks+'</div><div class="l">Spot-Checks</div></div>' : ''),
       (showSpotCheckCols && firstLooks.length ? '<div class="coverage-box"><div class="n">'+firstLooks.length+'</div><div class="l">First Looks</div></div><div class="coverage-box" title="Average score on the short first-look list — kept separate from the Risk VP numbers and the verification %"><div class="n">'+firstLookAvg+'%</div><div class="l">First-Look Avg</div></div>' : ''),
-      (lateMatches.length ? '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'late\')"><div class="n">'+lateMatches.length+'</div><div class="l">Completed Late</div></div>' : ''),
+      (lateMatches.length ? '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'late\')"><div class="n">'+lateMatches.length+'</div><div class="l">Of Which Late</div></div>' : ''),
       '<div class="coverage-box" style="cursor:pointer" onclick="toggleCoverageDetail(\''+panelId+'\',\'outstanding\')"><div class="n">'+notCovered.length+'</div><div class="l">Not Completed</div></div>'
     ];
     gridEl.innerHTML = boxes.join('')
       +'<div id="'+panelId+'" style="display:none;grid-column:1/-1;background:#f8fafc;border-radius:10px;padding:14px 16px;margin-top:4px"></div>';
     // Stash both lists where the toggle handler can reach them without recomputing.
-    gridEl.dataset.completed = JSON.stringify(onTimeMatches.map(s=>({id:s.unitId,name:s.name,score:s.score})));
-    gridEl.dataset.late = JSON.stringify(lateMatches.map(s=>({id:s.unitId,name:s.name,score:s.score,when:lateDate(s)})));
+    gridEl.dataset.completed = JSON.stringify(onTimeMatches.map(s=>({id:s.unitId,name:s.name,score:s.score,late:!!s.late,when:s.late?lateDate(s):'',days:s.late?daysLateText(s):''})));
+    gridEl.dataset.late = JSON.stringify(lateMatches.map(s=>({id:s.unitId,name:s.name,score:s.score,when:lateDate(s),days:daysLateText(s)})));
     gridEl.dataset.outstanding = JSON.stringify(notCovered.map(l=>({id:l.id,name:l.name,region:l.region,rvp:l.rvp||''})));
   }
 
@@ -1581,7 +1608,7 @@ function renderAssessmentTypeTable(subs, sourceTool, gridId, tableId, sortKey, t
   const rows = sorted.map(s=>{
     const isSpot=s.auditFormat==='spot-check';
     const resolvedOpenCell=isSpot?(s.yes+' resolved / '+s.no+' open'):'—';
-    return '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span>'+(s.late?' <span class="pill" style="background:#fef3c7;color:#92400e" title="Finished after the quarter closed — not counted in the finalized completion number">⏰ Late'+(lateDate(s)?' · '+xH(lateDate(s)):'')+'</span>':'')+'</td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
+    return '<tr><td>'+xH(s.unitId)+'</td><td><span class="loc-link" onclick="showLocationDetailDrawer(\''+xH(s.unitId)+'\')">'+xH(s.name)+'</span>'+(s.late?' <span class="pill" style="background:#fef3c7;color:#92400e" title="Finished after the quarter ended. Counted as completed and flagged late. Days late = completion date minus the quarter end date.">⏰ Late'+(daysLateText(s)?' · '+xH(daysLateText(s)):'')+(lateDate(s)?' · '+xH(lateDate(s)):'')+'</span>':'')+'</td><td>'+xH(s.region)+'</td><td>'+xH(s.quarter)+'</td>'
     +'<td>'+xH(s.completedBy)+'</td>'
     +(sourceTool!=='Self-Assessment'?'<td>'+typePill(s)+'</td>':'')
     +(showSpotCheckCols?'<td style="font-size:11.5px">'+resolvedOpenCell+'</td>':'')
@@ -1817,7 +1844,7 @@ function printMeetingPacket(){
     const delta = (curAvg!==null && prevAvg!==null) ? curAvg-prevAvg : null;
 
     const locs = LOCATIONS.filter(l=>l.region===region && isLocationActiveInQuarter(l,current));
-    const submittedIds = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment' && !s.late).map(s=>s.unitId));
+    const submittedIds = new Set(curSubs.filter(s=>s.sourceTool==='Self-Assessment').map(s=>s.unitId));
     const completion = locs.length ? Math.round(submittedIds.size/locs.length*100) : 0;
 
     const issueCounts = {};
