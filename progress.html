@@ -60,7 +60,11 @@
   function isSelf(s){ return /self/i.test(String(s.sourceTool||'')); }
   function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 
-  fetch('./dashboard_data.json?ts=' + Date.now(), {cache:'no-store'})
+  // Roster = locations.json (the same list the Leadership Dashboard uses); falls back to the Tracker's list.
+  var ROSTER = null;
+  fetch('./locations.json?ts=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+    .then(function(l){ if (Array.isArray(l) && l.length) ROSTER = l; return fetch('./dashboard_data.json?ts=' + Date.now(), {cache:'no-store'}); })
     .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
     .then(render)
     .catch(function(){
@@ -68,9 +72,9 @@
     });
 
   function render(d){
-    var allLocs = d.locations || [], subs = (d.submissions || []).filter(isSelf);
+    var allLocs = ROSTER || d.locations || [], subs = (d.submissions || []).filter(isSelf);
     function stats(q){
-      var locs = allLocs.filter(function(l){ var f = FIRST_QUARTER[String(l.id)]; return !f || qnum(f) <= qnum(q.key); });
+      var locs = allLocs.filter(function(l){ var f = l.activeSince || FIRST_QUARTER[String(l.id)]; return !f || qnum(f) <= qnum(q.key); });
       var done = {}, late = {};
       subs.forEach(function(s){
         if (String(s.quarter).trim() !== q.key) return;
