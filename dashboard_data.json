@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-10T14:36:20.792Z",
-  "generatedAtDisplay": "11/10/2026, 7:36:20 AM",
+  "generatedAt": "2026-11-23T21:35:40.787Z",
+  "generatedAtDisplay": "11/23/2026, 2:35:40 PM",
   "locations": [
     {
       "id": "1005",
@@ -148,13 +148,6 @@
       "region": "West",
       "state": "AZ",
       "rvp": "Alan Ching"
-    },
-    {
-      "id": "7038",
-      "name": "Tucker Century Millenia",
-      "region": "Florida",
-      "state": "FL",
-      "rvp": "Tayquan Taylor"
     },
     {
       "id": "9021",
@@ -11287,6 +11280,512 @@
       "actions": [],
       "resolvedActions": [],
       "naItems": []
+    },
+    {
+      "unitId": "4169",
+      "name": "1 Hotel Hanalei Bay",
+      "region": "West",
+      "state": "HI",
+      "quarter": "Q4 2026",
+      "completedBy": "Corné Wolmarans",
+      "score": 67,
+      "yes": 68,
+      "no": 34,
+      "na": 14,
+      "sourceTool": "Risk VP Audit",
+      "auditType": "On-Site",
+      "auditDate": "11/17/2026",
+      "auditFormat": "full",
+      "followingUpOn": "",
+      "baselinePct": null,
+      "narrative": "The hotel country does not have an operations director. During my visit, Taekwondo and Latoya were taking care of the hotel. Taquan accompanied me during the day. on the audit during night time I was joined by Jose Ferreira. One of the restaurant managers during our walk I mentioned that they were happy with the service of the night team, as they also assisted to do a set up for the special event on the beach. \nAudit completed for 1 Hotel Hanalei Bay on 11/17/2026 - 11/20/2026 accompanied by Tayquan, Jose and Manny. \nCompliance Score: 66% — Did Not Pass — Immediate Attention Required\n18 critical items identified requiring immediate attention (see Action Items in the export). The housing walkthrough was done in a separate report and submitted. From a vehicle perspective, a many is taken care of the vehicles and a few things has been pointed out to be addressed. Overall, the vehicles, although it’s a lot of rain, was looking good or in good order. We need to focus on the PM inspections to upkeep the vehicles, the Nissan is starting to show wear and tear on the tyres that need to be replaced very soon. I also observed the vehicle that will be discarded either on an auction or selling off.  either on an auction or selling off. This need to be concluded. The important part of this vehicle we will have to take it off the insurance",
+      "finalizedOn": "",
+      "late": false,
+      "daysLate": null,
+      "lateBasis": "",
+      "basis": "",
+      "description": "",
+      "reportDate": "",
+      "hasPhoto": false,
+      "sectionBreakdown": [
+        {
+          "section": "General Safety",
+          "total": 18,
+          "yes": 10,
+          "no": 5,
+          "na": 3,
+          "scorePct": 67
+        },
+        {
+          "section": "Chemical Safety",
+          "total": 14,
+          "yes": 5,
+          "no": 8,
+          "na": 1,
+          "scorePct": 38
+        },
+        {
+          "section": "Emergency Prep",
+          "total": 13,
+          "yes": 7,
+          "no": 2,
+          "na": 4,
+          "scorePct": 78
+        },
+        {
+          "section": "Training & Docs",
+          "total": 16,
+          "yes": 7,
+          "no": 8,
+          "na": 1,
+          "scorePct": 47
+        },
+        {
+          "section": "Kitchen/Stewarding",
+          "total": 25,
+          "yes": 16,
+          "no": 8,
+          "na": 1,
+          "scorePct": 67
+        },
+        {
+          "section": "Vehicles",
+          "total": 30,
+          "yes": 23,
+          "no": 3,
+          "na": 4,
+          "scorePct": 88
+        }
+      ],
+      "actions": [
+        {
+          "ref": "GS-02",
+          "question": "Wet floor signs available and used",
+          "criticality": "🔴 CRITICAL — #1 Citation",
+          "section": "General Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "Not enough wet floor signs available proposed cone type",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "GS-05",
+          "question": "No frayed/damaged electrical cords; damaged cords have replacement ordered and logged in Redbook",
+          "criticality": "🔴 CRITICAL — Fire/Shock",
+          "section": "General Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "Redbook not observed ",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "GS-08",
+          "question": "BBP exposure control plan in place AND employees trained on BBP procedures",
+          "criticality": "🔴 CRITICAL — Service Industry",
+          "section": "General Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "GS-09",
+          "question": "Closed-toe non-slip footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "General Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "Not all employee correct safety shoes",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "GS-16",
+          "question": "Labels on shelves with contents",
+          "criticality": "🟠 HIGH — Organization",
+          "section": "General Safety",
+          "status": "2026-12-08",
+          "resolutionNote": "Labels on bottles missing, missing pigmats",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-01",
+          "question": "SDS available for ALL chemicals on-site AND binder accessible to all employees",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "I need to be updated to only have the current chemicals. in folder",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-02",
+          "question": "Chemical containers have original labels",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "To be implemented",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-07",
+          "question": "Nitrile gloves (not vinyl) for cleaning",
+          "criticality": "🟠 HIGH — Observation",
+          "section": "Chemical Safety",
+          "status": "2026-12-08",
+          "resolutionNote": "One employee that didn’t use gloves because of rash. Propose Nitrile cloves to be bought",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-09",
+          "question": "Written HazCom Program in place",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Chemical Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-11",
+          "question": "Chemical safety training",
+          "criticality": "🟠 HIGH — Training",
+          "section": "Chemical Safety",
+          "status": "2026-12-08",
+          "resolutionNote": "None observed ",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-12",
+          "question": "Full PPE at chemical dispensing stations",
+          "criticality": "🔴 CRITICAL — Full PPE",
+          "section": "Chemical Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "To be implemented",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-13",
+          "question": "Pigmats at chemical storage/dispensing",
+          "criticality": "🟠 HIGH — Spill Prevention",
+          "section": "Chemical Safety",
+          "status": "2026-12-08",
+          "resolutionNote": "To be implemented",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "CS-14",
+          "question": "Eye wash weekly inspection checklist",
+          "criticality": "🔴 CRITICAL — Maintenance",
+          "section": "Chemical Safety",
+          "status": "2026-12-01",
+          "resolutionNote": "Some missing eyewash station other areas covered",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "EP-01",
+          "question": "Written EAP in place (TSC own, independent of client) and current",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep",
+          "status": "2026-12-01",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "EP-09",
+          "question": "Fire prevention plan documented",
+          "criticality": "🔴 CRITICAL — Required",
+          "section": "Emergency Prep",
+          "status": "2026-12-01",
+          "resolutionNote": "To be followed hotel emergency plan",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-03",
+          "question": "Orientation records signed and filed",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "Training & Docs",
+          "status": "2026-12-08",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-05",
+          "question": "BBP training annually",
+          "criticality": "🔴 CRITICAL — Annual",
+          "section": "Training & Docs",
+          "status": "2026-12-01",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-06",
+          "question": "Training records with dates/signatures",
+          "criticality": "🟠 HIGH — Documentation",
+          "section": "Training & Docs",
+          "status": "2026-12-08",
+          "resolutionNote": "None observed, no manager to show on dayforce",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-08",
+          "question": "Incident reporting procedures documented (Redbook)",
+          "criticality": "🔴 CRITICAL — Recordkeeping",
+          "section": "Training & Docs",
+          "status": "2026-12-01",
+          "resolutionNote": "Redbook not implemented",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-12",
+          "question": "Handbook acknowledgment on file",
+          "criticality": "🟡 MEDIUM — Admin",
+          "section": "Training & Docs",
+          "status": "2026-12-15",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-13",
+          "question": "Annual safety refresher conducted",
+          "criticality": "🟠 HIGH — Annual",
+          "section": "Training & Docs",
+          "status": "2026-12-08",
+          "resolutionNote": "To be implemented, contract periods for employees not warrant this to short period",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-14",
+          "question": "Training records retained per OSHA",
+          "criticality": "🟠 HIGH — Retention",
+          "section": "Training & Docs",
+          "status": "2026-12-08",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "TD-16",
+          "question": "Safety documentation organized, all required forms available and current",
+          "criticality": "🟡 MEDIUM — Organization",
+          "section": "Training & Docs",
+          "status": "2026-12-15",
+          "resolutionNote": "No safety documents observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "VH-05",
+          "question": "Bad MVR drivers reassigned/removed",
+          "criticality": "🔴 CRITICAL",
+          "section": "Vehicles",
+          "status": "2026-12-01",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "VH-06",
+          "question": "Pre-trip inspections daily/each shift",
+          "criticality": "🔴 CRITICAL",
+          "section": "Vehicles",
+          "status": "2026-12-01",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "VH-10",
+          "question": "Maintenance per manufacturer intervals",
+          "criticality": "🟠 HIGH",
+          "section": "Vehicles",
+          "status": "2026-12-08",
+          "resolutionNote": "PM not unkept one van in garage for repairs",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-03",
+          "question": "Wet floor signs during/after floor cleaning",
+          "criticality": "🔴 CRITICAL — #1 Citation",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-01",
+          "resolutionNote": "Need more wet floor signs",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-05",
+          "question": "Non-slip closed-toe footwear worn",
+          "criticality": "🔴 CRITICAL — Observable",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-01",
+          "resolutionNote": "Some employees did not wear non-slip shoes",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-07",
+          "question": "Chemical dispensers properly functioning",
+          "criticality": "🟠 HIGH",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-08",
+          "resolutionNote": "One station need to be replaced",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-10",
+          "question": "Proper drainage, no standing water in dishwash",
+          "criticality": "🟠 HIGH",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-08",
+          "resolutionNote": "Clogged or leaking equipment",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-18",
+          "question": "Kitchen chemicals labeled",
+          "criticality": "🔴 CRITICAL — HazCom",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-01",
+          "resolutionNote": "Not all labels on chemical bottles",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-19",
+          "question": "SDS accessible for all kitchen chemicals",
+          "criticality": "🔴 CRITICAL — #2 Cited",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-01",
+          "resolutionNote": "Need updates correct chemicals",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-22",
+          "question": "Hot surface warning signs posted",
+          "criticality": "🟠 HIGH",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-08",
+          "resolutionNote": "Not observed or provided by resort/hotel",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        },
+        {
+          "ref": "KS-23",
+          "question": "Cut-resistant gloves for knives/sharps",
+          "criticality": "🟠 HIGH — PPE",
+          "section": "Kitchen/Stewarding",
+          "status": "2026-12-08",
+          "resolutionNote": "Not observed",
+          "dueDate": null,
+          "flaggedDate": "11/17/2026"
+        }
+      ],
+      "resolvedActions": [],
+      "naItems": [
+        {
+          "ref": "GS-11",
+          "question": "Biohazard supplies stocked (red bags, sharps, BBP kits)",
+          "section": "General Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "GS-12",
+          "question": "PPE hazard assessment documented",
+          "section": "General Safety",
+          "reason": "Service not provided by TSC at this location"
+        },
+        {
+          "ref": "GS-14",
+          "question": "Cart doorway security positioning",
+          "section": "General Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "CS-06",
+          "question": "Flammable chemicals in approved cabinet (if applicable)",
+          "section": "Chemical Safety",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "EP-08",
+          "question": "Client coordination docs on file",
+          "section": "Emergency Prep",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "EP-10",
+          "question": "Fire extinguishers properly mounted, unobstructed, with current monthly inspection tags",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-11",
+          "question": "Employees trained on extinguisher use",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "EP-12",
+          "question": "Evacuation drills conducted annually",
+          "section": "Emergency Prep",
+          "reason": "Resort responsibility, not brand standard"
+        },
+        {
+          "ref": "TD-04",
+          "question": "HazCom training annually",
+          "section": "Training & Docs",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "VH-17",
+          "question": "Post-incident drug test within 8 hrs",
+          "section": "Vehicles",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "VH-18",
+          "question": "Personal vehicle use approved by HR",
+          "section": "Vehicles",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "VH-20",
+          "question": "High-point drivers (5-8 pts) enrolled in improvement course within 60 days, certificates on file",
+          "section": "Vehicles",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "VH-29",
+          "question": "Driver point system communicated",
+          "section": "Vehicles",
+          "reason": "Area not present at this property"
+        },
+        {
+          "ref": "KS-17",
+          "question": "Dumpster/compactor area safe, accessible",
+          "section": "Kitchen/Stewarding",
+          "reason": "Area not present at this property"
+        }
+      ]
     }
   ]
 }
